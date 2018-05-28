@@ -53,6 +53,13 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- log end -->
+		<!-- 数据源 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.12</version>
+		</dependency>
+		<!-- 结束 -->
 		<!-- 映入JSON -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
