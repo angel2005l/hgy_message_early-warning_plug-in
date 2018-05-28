@@ -8,15 +8,15 @@ public class Task implements Serializable {
 	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private String taskCode;
-	private String taskName;
-	private String taskType;
-	private String taskRunType;
-	private int taskTime;
-	private String taskTimming;
-	private Timestamp taskLastExecuteTime;
-	private String status;
+	private int id;//编码
+	private String taskCode;//调度任务编码
+	private String taskName;//调度任务名称
+	private String taskType;//调度任务名称（data/work）
+	private String taskRunType;//调度任务执行类型（once/cont）
+	private int taskTime;//执行时间间隔
+	private String taskTimming;//执行时间点
+	private Timestamp taskLastExecuteTime;//最后一次执行时间
+	private String status;//状态
 
 	public Task() {
 	}

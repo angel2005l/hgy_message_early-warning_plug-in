@@ -2,10 +2,10 @@ package com.xinhai.entity;
 
 public class MouldDevice {
 
+	private int deviceId;// 设备Id
 	private String deviceCode;// 设备编码
 	private int moldId;// 模具编号
 	private String moldCode;// 模具编码
-	private int deviceId;// 设备Id
 
 	public MouldDevice() {
 	}

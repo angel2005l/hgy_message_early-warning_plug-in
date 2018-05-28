@@ -6,21 +6,30 @@ import com.xinhai.util.StrUtil;
 
 public class Warning {
 	private int id;// 主键id
-	private String eventId;// 事件编码
+	private String eventId;// 事件id
 	private String eventType;// 事件类型
+	private String eventCode;// 事件编码
 	private int levelType;// 级别类型
 	private String message;// 预警信息
 	private String title;// 预警标题
 	private String deviceId;// 设备id
-	private String reliever;// 处理人签名
-	private Timestamp relieveTime;// 处理时间
 	private String guid;// 事件标识码(唯一识别码）依据此值
 	private String objectId;// 对象标识码
 	private String status;// 状态（预警信息）
 	private Timestamp createTime;// 创建时间
+	private String reliever;// 处理人签名
+	private Timestamp relieveTime;// 处理时间
 	private String readStatus; // 上报等级
 
 	public Warning() {
+	}
+
+	public String getEventCode() {
+		return eventCode;
+	}
+
+	public void setEventCode(String eventCode) {
+		this.eventCode = eventCode;
 	}
 
 	public String getReadStatus() {
@@ -144,10 +153,10 @@ public class Warning {
 
 	@Override
 	public String toString() {
-		return "Warning [id=" + id + ", eventId=" + eventId + ", eventType=" + eventType + ", levelType=" + levelType
-				+ ", message=" + message + ", title=" + title + ", deviceId=" + deviceId + ", reliever=" + reliever
-				+ ", relieveTime=" + relieveTime + ", guid=" + guid + ", objectId=" + objectId + ", status=" + status
-				+ ", createTime=" + createTime + ", readStatus=" + readStatus + "]";
+		return "Warning [id=" + id + ", eventId=" + eventId + ", eventType=" + eventType + ", eventCode=" + eventCode
+				+ ", levelType=" + levelType + ", message=" + message + ", title=" + title + ", deviceId=" + deviceId
+				+ ", reliever=" + reliever + ", relieveTime=" + relieveTime + ", guid=" + guid + ", objectId="
+				+ objectId + ", status=" + status + ", createTime=" + createTime + ", readStatus=" + readStatus + "]";
 	}
 
 }
