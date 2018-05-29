@@ -3,6 +3,8 @@ package com.xinhai.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -88,4 +90,32 @@ public class SqlPoolUtil {
 		return p;
 	}
 
+	public static void closeConnection(DruidPooledConnection conn, PreparedStatement pstmt, ResultSet rs) {
+		try {
+			if (rs != null) {
+				rs.close();
+				rs = null;
+			}
+		} catch (SQLException ex1) {
+			ex1.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+					pstmt = null;
+				}
+			} catch (SQLException ex2) {
+				ex2.printStackTrace();
+			} finally {
+				try {
+					if (conn != null) {
+						conn.close();
+						conn = null;
+					}
+				} catch (SQLException ex3) {
+					ex3.printStackTrace();
+				}
+			}
+		}
+	}
 }
