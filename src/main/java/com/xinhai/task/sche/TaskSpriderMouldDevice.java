@@ -37,10 +37,14 @@ public class TaskSpriderMouldDevice {
 					md.setDeviceId(obj.getIntValue("deviceid"));
 					insList.add(md);
 				}
-				service.insMouldDevice(insList, moldId);
+				if (!service.insMouldDevice(insList, moldId)) {
+					log.info("调度任务【获取模具机台关联信息】执行成功,保存数据失败");
+				}
 			}
+		} catch (NumberFormatException e) {
+			log.error("调度任务【获取模具机台关联信息】解析数据报文失败,失败原因:" + e.getMessage());
 		} catch (Exception e) {
-			log.error(e.toString());
+			log.error("调度任务【获取模具机台关联信息】异常,异常原因:" + e.getMessage());
 		}
 	}
 
