@@ -14,6 +14,7 @@ import com.xinhai.service.ISpiderService;
 import com.xinhai.service.impl.SpiderServiceImpl;
 import com.xinhai.util.DateUtil;
 import com.xinhai.util.HttpClientUtil;
+import com.xinhai.util.StrUtil;
 
 public class TaskSpiderWarning {
 	private static final Logger log = LoggerFactory.getLogger(TaskSpiderWarning.class);
@@ -35,7 +36,8 @@ public class TaskSpiderWarning {
 			for (JSONObject jsonObj : rowsList) {
 				Warning obj = new Warning();// 实例化存储数据
 				obj.setEventId(jsonObj.getString("eventid"));
-				obj.setEventCode(jsonObj.getString("eventtype"));
+				obj.setEventCode(
+						StrUtil.isBlank(jsonObj.getString("eventtype")) ? "0" : jsonObj.getString("eventtype"));
 				obj.setLevelType(jsonObj.getIntValue("leveltype"));
 				obj.setMessage(jsonObj.getString("message"));
 				obj.setTitle(jsonObj.getString("title"));
