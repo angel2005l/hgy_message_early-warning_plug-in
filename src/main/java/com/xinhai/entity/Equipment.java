@@ -1,140 +1,144 @@
 package com.xinhai.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Equipment {
-	private String orderChildNo;// 子订单编号
-	private String productCode;// 设备编号
-	private String useStatedsp;// 运行状态
-	private String statedsp;// 状态dsp
-	private String code;// 设备序号
-	private Timestamp starttime;// 开始时间
-	private String usestate;// 使用情况
-	private String maintainstate;// 基本状态
-	private String crossClass;//
-	private String maintainstatedsp;//基本状态dsp
-	private String productname;// 产品名称
-	private String model;// 模式
-	private String state;// 状态
+public class Equipment implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String equOrderChildNo;// 子订单编号
+	private String equProductCode;// 设备编号
+	private String equUseStatedsp;// 运行状态
+	private String equStatedsp;// 状态dsp
+	private String equCode;// 设备序号
+	private Timestamp equStartTime;// 开始时间
+	private String equUseState;// 使用情况
+	private String equMaintainState;// 基本状态
+	private String equMaintainStatedsp;// 基本状态dsp
+	private String equProductName;// 产品名称
+	private String equModel;// 模式
+	private String equState;// 状态
 	private int equId;// 设备Id编号
-	private String runningstate;//运行状态
-	private String repairstatedsp;//
-	private String quantity;//计划生产数
-	private String datamode;//数据模式
-	private String stopreason;//停机原因
-	private String deviceordercount;//设备订单数
-	private String alarmcount;//报警数
-	private String completequantity;//实际生产数
-	private String qualifiedquantity;//合格数
-	private String repairstate;//维修情况
-	private String progress;//生产进度
-	private int rn;//排序
+	private String equRunningState;// 运行状态
+	private String equRepairStatedsp;//
+	private String equQuantity;// 计划生产数
+	private String equDataMode;// 数据模式
+	private String equStopReason;// 停机原因
+	private int equDeviceOrderCount;// 设备订单数
+	private String equAlarmCount;// 报警数
+	private String equCompleteQuantity;// 实际生产数
+	private String equQualifiedQuantity;// 合格数
+	private String equRepairState;// 维修情况
+	private String equProgress;// 生产进度
 
 	public Equipment() {
 	}
 
-	public String getOrderChildNo() {
-		return orderChildNo;
+	public int getId() {
+		return id;
 	}
 
-	public void setOrderChildNo(String orderChildNo) {
-		this.orderChildNo = orderChildNo;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getProductCode() {
-		return productCode;
+	public String getEquOrderChildNo() {
+		return equOrderChildNo;
 	}
 
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
+	public void setEquOrderChildNo(String equOrderChildNo) {
+		this.equOrderChildNo = equOrderChildNo;
 	}
 
-	public String getUseStatedsp() {
-		return useStatedsp;
+	public String getEquProductCode() {
+		return equProductCode;
 	}
 
-	public void setUseStatedsp(String useStatedsp) {
-		this.useStatedsp = useStatedsp;
+	public void setEquProductCode(String equProductCode) {
+		this.equProductCode = equProductCode;
 	}
 
-	public String getStatedsp() {
-		return statedsp;
+	public String getEquUseStatedsp() {
+		return equUseStatedsp;
 	}
 
-	public void setStatedsp(String statedsp) {
-		this.statedsp = statedsp;
+	public void setEquUseStatedsp(String equUseStatedsp) {
+		this.equUseStatedsp = equUseStatedsp;
 	}
 
-	public String getCode() {
-		return code;
+	public String getEquStatedsp() {
+		return equStatedsp;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setEquStatedsp(String equStatedsp) {
+		this.equStatedsp = equStatedsp;
 	}
 
-	public Timestamp getStarttime() {
-		return starttime;
+	public String getEquCode() {
+		return equCode;
 	}
 
-	public void setStarttime(Timestamp starttime) {
-		this.starttime = starttime;
+	public void setEquCode(String equCode) {
+		this.equCode = equCode;
 	}
 
-	public String getUsestate() {
-		return usestate;
+	public Timestamp getEquStartTime() {
+		return equStartTime;
 	}
 
-	public void setUsestate(String usestate) {
-		this.usestate = usestate;
+	public void setEquStartTime(Timestamp equStartTime) {
+		this.equStartTime = equStartTime;
 	}
 
-	public String getMaintainstate() {
-		return maintainstate;
+	public String getEquUseState() {
+		return equUseState;
 	}
 
-	public void setMaintainstate(String maintainstate) {
-		this.maintainstate = maintainstate;
+	public void setEquUseState(String equUseState) {
+		this.equUseState = equUseState;
 	}
 
-	public String getCrossClass() {
-		return crossClass;
+	public String getEquMaintainState() {
+		return equMaintainState;
 	}
 
-	public void setCrossClass(String crossClass) {
-		this.crossClass = crossClass;
+	public void setEquMaintainState(String equMaintainState) {
+		this.equMaintainState = equMaintainState;
 	}
 
-	public String getMaintainstatedsp() {
-		return maintainstatedsp;
+	public String getEquMaintainStatedsp() {
+		return equMaintainStatedsp;
 	}
 
-	public void setMaintainstatedsp(String maintainstatedsp) {
-		this.maintainstatedsp = maintainstatedsp;
+	public void setEquMaintainStatedsp(String equMaintainStatedsp) {
+		this.equMaintainStatedsp = equMaintainStatedsp;
 	}
 
-	public String getProductname() {
-		return productname;
+	public String getEquProductName() {
+		return equProductName;
 	}
 
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setEquProductName(String equProductName) {
+		this.equProductName = equProductName;
 	}
 
-	public String getModel() {
-		return model;
+	public String getEquModel() {
+		return equModel;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setEquModel(String equModel) {
+		this.equModel = equModel;
 	}
 
-	public String getState() {
-		return state;
+	public String getEquState() {
+		return equState;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setEquState(String equState) {
+		this.equState = equState;
 	}
 
 	public int getEquId() {
@@ -145,113 +149,108 @@ public class Equipment {
 		this.equId = equId;
 	}
 
-	public String getRunningstate() {
-		return runningstate;
+	public String getEquRunningState() {
+		return equRunningState;
 	}
 
-	public void setRunningstate(String runningstate) {
-		this.runningstate = runningstate;
+	public void setEquRunningState(String equRunningState) {
+		this.equRunningState = equRunningState;
 	}
 
-	public String getRepairstatedsp() {
-		return repairstatedsp;
+	public String getEquRepairStatedsp() {
+		return equRepairStatedsp;
 	}
 
-	public void setRepairstatedsp(String repairstatedsp) {
-		this.repairstatedsp = repairstatedsp;
+	public void setEquRepairStatedsp(String equRepairStatedsp) {
+		this.equRepairStatedsp = equRepairStatedsp;
 	}
 
-	public String getQuantity() {
-		return quantity;
+	public String getEquQuantity() {
+		return equQuantity;
 	}
 
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public void setEquQuantity(String equQuantity) {
+		this.equQuantity = equQuantity;
 	}
 
-	public String getDatamode() {
-		return datamode;
+	public String getEquDataMode() {
+		return equDataMode;
 	}
 
-	public void setDatamode(String datamode) {
-		this.datamode = datamode;
+	public void setEquDataMode(String equDataMode) {
+		this.equDataMode = equDataMode;
 	}
 
-	public String getStopreason() {
-		return stopreason;
+	public String getEquStopReason() {
+		return equStopReason;
 	}
 
-	public void setStopreason(String stopreason) {
-		this.stopreason = stopreason;
+	public void setEquStopReason(String equStopReason) {
+		this.equStopReason = equStopReason;
 	}
 
-	public String getDeviceordercount() {
-		return deviceordercount;
+	public int getEquDeviceOrderCount() {
+		return equDeviceOrderCount;
 	}
 
-	public void setDeviceordercount(String deviceordercount) {
-		this.deviceordercount = deviceordercount;
+	public void setEquDeviceOrderCount(int equDeviceOrderCount) {
+		this.equDeviceOrderCount = equDeviceOrderCount;
 	}
 
-	public String getAlarmcount() {
-		return alarmcount;
+	public String getEquAlarmCount() {
+		return equAlarmCount;
 	}
 
-	public void setAlarmcount(String alarmcount) {
-		this.alarmcount = alarmcount;
+	public void setEquAlarmCount(String equAlarmCount) {
+		this.equAlarmCount = equAlarmCount;
 	}
 
-	public String getCompletequantity() {
-		return completequantity;
+	public String getEquCompleteQuantity() {
+		return equCompleteQuantity;
 	}
 
-	public void setCompletequantity(String completequantity) {
-		this.completequantity = completequantity;
+	public void setEquCompleteQuantity(String equCompleteQuantity) {
+		this.equCompleteQuantity = equCompleteQuantity;
 	}
 
-	public String getQualifiedquantity() {
-		return qualifiedquantity;
+	public String getEquQualifiedQuantity() {
+		return equQualifiedQuantity;
 	}
 
-	public void setQualifiedquantity(String qualifiedquantity) {
-		this.qualifiedquantity = qualifiedquantity;
+	public void setEquQualifiedQuantity(String equQualifiedQuantity) {
+		this.equQualifiedQuantity = equQualifiedQuantity;
 	}
 
-	public String getRepairstate() {
-		return repairstate;
+	public String getEquRepairState() {
+		return equRepairState;
 	}
 
-	public void setRepairstate(String repairstate) {
-		this.repairstate = repairstate;
+	public void setEquRepairState(String equRepairState) {
+		this.equRepairState = equRepairState;
 	}
 
-	public String getProgress() {
-		return progress;
+	public String getEquProgress() {
+		return equProgress;
 	}
 
-	public void setProgress(String progress) {
-		this.progress = progress;
-	}
-
-	public int getRn() {
-		return rn;
-	}
-
-	public void setRn(int rn) {
-		this.rn = rn;
+	public void setEquProgress(String equProgress) {
+		this.equProgress = equProgress;
 	}
 
 	@Override
 	public String toString() {
-		return "Equipment [orderChildNo=" + orderChildNo + ", productCode=" + productCode + ", useStatedsp="
-				+ useStatedsp + ", statedsp=" + statedsp + ", code=" + code + ", starttime=" + starttime + ", usestate="
-				+ usestate + ", maintainstate=" + maintainstate + ", crossClass=" + crossClass + ", maintainstatedsp="
-				+ maintainstatedsp + ", productname=" + productname + ", model=" + model + ", state=" + state
-				+ ", equId=" + equId + ", runningstate=" + runningstate + ", repairstatedsp=" + repairstatedsp
-				+ ", quantity=" + quantity + ", datamode=" + datamode + ", stopreason=" + stopreason
-				+ ", deviceordercount=" + deviceordercount + ", alarmcount=" + alarmcount + ", completequantity="
-				+ completequantity + ", qualifiedquantity=" + qualifiedquantity + ", repairstate=" + repairstate
-				+ ", progress=" + progress + ", rn=" + rn + "]";
+		return "Equipment [id=" + id + ", equOrderChildNo=" + equOrderChildNo + ", equProductCode=" + equProductCode
+				+ ", equUseStatedsp=" + equUseStatedsp + ", equStatedsp=" + equStatedsp + ", equCode=" + equCode
+				+ ", equStartTime=" + equStartTime + ", equUseState=" + equUseState + ", equMaintainState="
+				+ equMaintainState + ", equMaintainStatedsp=" + equMaintainStatedsp + ", equProductName="
+				+ equProductName + ", equModel=" + equModel + ", equState=" + equState + ", equId=" + equId
+				+ ", equRunningState=" + equRunningState + ", equRepairStatedsp=" + equRepairStatedsp + ", equQuantity="
+				+ equQuantity + ", equDataMode=" + equDataMode + ", equStopReason=" + equStopReason
+				+ ", equDeviceOrderCount=" + equDeviceOrderCount + ", equAlarmCount=" + equAlarmCount
+				+ ", equCompleteQuantity=" + equCompleteQuantity + ", equQualifiedQuantity=" + equQualifiedQuantity
+				+ ", equRepairState=" + equRepairState + ", equProgress=" + equProgress + "]";
 	}
+
+	
 
 }
