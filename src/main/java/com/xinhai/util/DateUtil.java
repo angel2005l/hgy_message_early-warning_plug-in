@@ -246,7 +246,7 @@ public final class DateUtil {
 	 * @return: String
 	 *
 	 */
-	public static String getDay(String date) {
+	public static String getHour(String date) {
 		Calendar startTime = Calendar.getInstance();
 		startTime.setTime(curDate(date, YMDHMS));
 		Calendar endTime = Calendar.getInstance();
@@ -259,7 +259,7 @@ public final class DateUtil {
 
 		return result.toString();
 	}
-
+	
 	// 判断选择的日期是否是本周
 	public static boolean isThisWeek(long time) {
 		Calendar calendar = Calendar.getInstance();
@@ -292,6 +292,8 @@ public final class DateUtil {
 		}
 		return false;
 	}
+	
+	
 
 	// /**
 	// *
