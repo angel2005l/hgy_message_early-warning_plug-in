@@ -1,6 +1,7 @@
 package com.xinhai.dao;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.xinhai.entity.Task;
@@ -27,5 +28,7 @@ public interface ITaskDao {
 
 	// 删除task信息
 	public int deleteTask(int id) throws SQLException;
+
+	public int updateTaskLastExecuteTime(Timestamp newLastExecuteTime, String taskCode) throws SQLException;
 
 }

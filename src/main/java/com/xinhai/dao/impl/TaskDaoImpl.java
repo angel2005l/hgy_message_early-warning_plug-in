@@ -3,6 +3,7 @@ package com.xinhai.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import com.xinhai.entity.Task;
 import com.xinhai.util.SqlPoolUtil;
 import com.xinhai.util.StrUtil;
 
-public class TaskDao implements ITaskDao {
+public class TaskDaoImpl implements ITaskDao {
 	SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
@@ -93,7 +94,7 @@ public class TaskDao implements ITaskDao {
 
 	@Override
 	public int insertTask(Task data) throws SQLException {
-		String sql = "insert into mpe_task(task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "insert into mpe_task(task_code,task_name,task_type,task_run_type,task_time,task_timing,status) VALUES(?,?,?,?,?,?,?)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, data.getTaskCode());
@@ -102,9 +103,10 @@ public class TaskDao implements ITaskDao {
 		ps.setString(4, data.getTaskRunType());
 		ps.setInt(5, data.getTaskTime());
 		ps.setString(6, data.getTaskTimming());
-		ps.setTimestamp(7, data.getTaskLastExecuteTime());
-		ps.setString(8, data.getStatus());
-		return ps.executeUpdate();
+		ps.setString(7, data.getStatus());
+		int executeUpdate = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
+		return executeUpdate;
 	}
 
 	@Override
@@ -119,7 +121,9 @@ public class TaskDao implements ITaskDao {
 		ps.setString(5, data.getTaskTimming());
 		ps.setString(6, data.getStatus());
 		ps.setInt(7, data.getId());
-		return ps.executeUpdate();
+		int executeUpdate = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
+		return executeUpdate;
 	}
 
 	@Override
@@ -140,6 +144,7 @@ public class TaskDao implements ITaskDao {
 			obj.setTaskTimming(rs.getString("task_timing"));
 			obj.setTaskLastExecuteTime(rs.getTimestamp("task_last_execute_time"));
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return obj;
 	}
 
@@ -149,7 +154,21 @@ public class TaskDao implements ITaskDao {
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
-		return ps.executeUpdate();
+		int executeUpdate = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
+		return executeUpdate;
+	}
+
+	@Override
+	public int updateTaskLastExecuteTime(Timestamp newLastExecuteTime, String taskCode) throws SQLException {
+		String sql = "update mep_task set task_last_execute_time = ? where task_code = ? ";
+		DruidPooledConnection conn = instance.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setTimestamp(1, newLastExecuteTime);
+		ps.setString(2, taskCode);
+		int executeUpdate = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
+		return executeUpdate;
 	}
 
 }
