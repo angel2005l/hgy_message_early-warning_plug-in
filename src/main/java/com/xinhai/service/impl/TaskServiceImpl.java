@@ -27,14 +27,16 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	@Override
-	public List<Task> selectTaskAll() throws Exception {
+	public List<Task> selectDataTaskAll() throws Exception {
 		try {
-			return dao.selectTaskAll();
+			return dao.selectTaskAll("data");
 		} catch (SQLException e) {
-			log.error("查询全部启用的调度任务信息异常,异常原因:" + e.getMessage());
+			log.error("查询全部启用的数据调度任务信息异常,异常原因:" + e.getMessage());
 			return null;
 		}
 	}
+	
+	
 
 	@Override
 	public boolean insTask(Task data) throws Exception {
@@ -83,6 +85,16 @@ public class TaskServiceImpl implements ITaskService {
 		} catch (SQLException e) {
 			log.error("查询调度任务信息异常,异常原因:" + e.getMessage());
 			return false;
+		}
+	}
+
+	@Override
+	public List<Task> seListWorkTaskAll() throws Exception {
+		try {
+			return dao.selectTaskAll("work");
+		} catch (SQLException e) {
+			log.error("查询全部启用的业务调度任务信息异常,异常原因:" + e.getMessage());
+			return null;
 		}
 	}
 

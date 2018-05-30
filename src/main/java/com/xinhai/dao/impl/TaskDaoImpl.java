@@ -19,7 +19,7 @@ public class TaskDaoImpl implements ITaskDao {
 	@Override
 	public List<Task> selectTask(String taskName) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mpe_task where 1=1 ");
+				"select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mep_task where 1=1 ");
 		if (StrUtil.notBlank(taskName)) {
 			sql.append(" and task_name = ?");
 		}
@@ -48,10 +48,14 @@ public class TaskDaoImpl implements ITaskDao {
 	}
 
 	@Override
-	public List<Task> selectTaskAll() throws SQLException {
-		String sql = "select task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time from mpe_task where status ='Y'";
+	public List<Task> selectTaskAll(String taskType) throws SQLException {
+		StringBuffer sql = new StringBuffer(
+				"select task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time from mep_task where status ='Y'");
+		if (StrUtil.notBlank(taskType)) {
+			sql.append(" and task_type ='").append(taskType).append("'");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
 		List<Task> result = new ArrayList<Task>();
 		while (rs.next()) {
@@ -71,7 +75,7 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public int selectTaskCount(String taskName) throws SQLException {
-		StringBuffer sql = new StringBuffer("select count(1) from mpe_task where 1=1 ");
+		StringBuffer sql = new StringBuffer("select count(1) from mep_task where 1=1 ");
 		if (StrUtil.notBlank(taskName)) {
 			sql.append(" and task_name = ?");
 		}
@@ -94,7 +98,7 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public int insertTask(Task data) throws SQLException {
-		String sql = "insert into mpe_task(task_code,task_name,task_type,task_run_type,task_time,task_timing,status) VALUES(?,?,?,?,?,?,?)";
+		String sql = "insert into mep_task(task_code,task_name,task_type,task_run_type,task_time,task_timing,status) VALUES(?,?,?,?,?,?,?)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, data.getTaskCode());
@@ -128,7 +132,7 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public Task selectTaskById(int id) throws SQLException {
-		String sql = "select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mpe_task id=? ";
+		String sql = "select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mep_task id=? ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
@@ -150,7 +154,7 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public int deleteTask(int id) throws SQLException {
-		String sql = "delete from mpe_task where id =?";
+		String sql = "delete from mep_task where id =?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);

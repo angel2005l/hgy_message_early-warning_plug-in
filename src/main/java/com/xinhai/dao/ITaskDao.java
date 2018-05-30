@@ -15,7 +15,7 @@ public interface ITaskDao {
 	public int selectTaskCount(String taskName) throws SQLException;
 
 	// 查询task集合
-	public List<Task> selectTaskAll() throws SQLException;
+	public List<Task> selectTaskAll(String taskType) throws SQLException;
 
 	// 添加task信息
 	public int insertTask(Task data) throws SQLException;

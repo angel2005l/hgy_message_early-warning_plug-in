@@ -11,7 +11,9 @@ public interface ITaskService {
 	public List<Task> selTask(String taskName) throws Exception;
 
 	// 查询全部启动的调度任务
-	public List<Task> selectTaskAll() throws Exception;
+	public List<Task> selectDataTaskAll() throws Exception;
+
+	public List<Task> seListWorkTaskAll() throws Exception;
 
 	public boolean uptTaskLastExecuteTime(Timestamp newLastExecuteTime, String taskCode) throws Exception;
 

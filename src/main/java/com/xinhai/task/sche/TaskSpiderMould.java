@@ -13,6 +13,7 @@ import com.xinhai.entity.Mould;
 import com.xinhai.service.ISpiderService;
 import com.xinhai.service.impl.SpiderServiceImpl;
 import com.xinhai.util.HttpClientUtil;
+import com.xinhai.util.StrUtil;
 
 public class TaskSpiderMould {
 	private static final Logger log = LoggerFactory.getLogger(TaskSpiderMould.class);
@@ -29,38 +30,35 @@ public class TaskSpiderMould {
 			List<Mould> insLists = new ArrayList<Mould>();
 			for (JSONObject jsonObj : rowsList) {
 				Mould obj = new Mould();
-				obj.setId(jsonObj.getIntValue(key));
-				obj.setMouldFactoryId(jsonObj.getIntValue(key));
-				obj.setMouldCode(jsonObj.getString(key));
-				obj.setMouldName(jsonObj.getString(rows));
-				obj.setMouldType(jsonObj.getString(key));
-				obj.setMouldState(jsonObj.getString(key));
-				obj.setMouldUseState(jsonObj.getString(key));
-				obj.setMouldMaintainState(jsonObj.getString(key));
-				obj.setMouldRepairState(jsonObj.getString(key));
-				obj.setMouldHolesNum(jsonObj.getIntValue(key));
-				obj.setMouldRealHoleUse(jsonObj.getIntValue(key));
-				obj.setMouldLifeTimes(jsonObj.getIntValue(key));
-				obj.setMouldInternalTimes(jsonObj.getIntValue(key));
-				obj.setMouldExternalTimes(jsonObj.getIntValue(key));
-				obj.setMouldProduceCycle(jsonObj.getString(key));
-				obj.setMouldQuantityQuota(jsonObj.getString(key));
-				obj.setMouldWeight(jsonObj.getString(key));
-				obj.setMouldDimension(jsonObj.getString(key));
-				obj.setMouldChangeOverTime(jsonObj.getString(key));
-				obj.setMouldWeekCapacity(jsonObj.getIntValue(key));
-				obj.setMouldSupplierNo(jsonObj.getString(key));
-				obj.setMouldSupplier(jsonObj.getString(key));
-				obj.setMouldPrimaryMode(jsonObj.getIntValue(key));
-				obj.setMouldSecondaryMode(jsonObj.getIntValue(key));
-				obj.setMouldThirdMode(jsonObj.getIntValue(key));
-				obj.setMouldAcceptDate(jsonObj.getString(key));
-				obj.setMouldFactory(jsonObj.getString(key));
-				obj.setMouldManufacturers(jsonObj.getString(key));
-				obj.setMouldStorage(jsonObj.getString(key));
-				obj.setMouldCustomerName(jsonObj.getString(key));
-				obj.setMouldModelUseStateNew(jsonObj.getString(key));
-				obj.setMouldRemainingTimes(jsonObj.getIntValue(key));
+				obj.setId(jsonObj.getIntValue("id"));
+				obj.setMouldCode(jsonObj.getString("code"));
+				obj.setMouldName(jsonObj.getString("name"));
+				obj.setMouldType(jsonObj.getString("type"));
+				obj.setMouldState(jsonObj.getString("state"));
+				obj.setMouldUseState(jsonObj.getString("usestate"));
+				obj.setMouldMaintainState(jsonObj.getString("maintainstate"));
+				obj.setMouldRepairState(jsonObj.getString("repairstate"));
+				obj.setMouldHolesNum(jsonObj.getIntValue("holesnum"));
+				obj.setMouldLifeTimes(jsonObj.getIntValue("lifetimes"));
+				obj.setMouldInternalTimes(
+						StrUtil.isBlank(jsonObj.getString("internaltimes")) ? 0 : jsonObj.getIntValue("internaltimes"));
+				obj.setMouldExternalTimes(
+						StrUtil.isBlank(jsonObj.getString("externaltimes")) ? 0 : jsonObj.getIntValue("externaltimes"));
+				obj.setMouldProduceCycle(jsonObj.getString("producecycle"));
+				obj.setMouldQuantityQuota(jsonObj.getString("quantityquota"));
+				obj.setMouldChangeOverTime(jsonObj.getString("changeovertime"));
+				obj.setMouldWeekCapacity(
+						StrUtil.isBlank(jsonObj.getString("weekcapacity")) ? 0 : jsonObj.getIntValue("weekcapacity"));
+				obj.setMouldPrimaryMode(
+						StrUtil.isBlank(jsonObj.getString("primarymode")) ? 0 : jsonObj.getIntValue("primarymode"));
+				obj.setMouldSecondaryMode(
+						StrUtil.isBlank(jsonObj.getString("secondarymode")) ? 0 : jsonObj.getIntValue("secondarymode"));
+				obj.setMouldThirdMode(
+						StrUtil.isBlank(jsonObj.getString("thirdmode")) ? 0 : jsonObj.getIntValue("thirdmode"));
+				obj.setMouldAcceptDate(jsonObj.getString("acceptdate"));
+				obj.setMouldModelUseStateNew(jsonObj.getString("modelusestatenew"));
+				obj.setMouldRemainingTimes(StrUtil.isBlank(jsonObj.getString("remainingtimes")) ? 0
+						: jsonObj.getIntValue("remainingtimes"));
 				insLists.add(obj);
 			}
 			ISpiderService service = new SpiderServiceImpl();
@@ -70,6 +68,7 @@ public class TaskSpiderMould {
 		} catch (NumberFormatException e) {
 			log.error("调度任务【获取模具信息】解析数据报文失败,失败原因:" + e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("调度任务【获取模具信息】异常,异常原因:" + e.getMessage());
 		}
 	}
