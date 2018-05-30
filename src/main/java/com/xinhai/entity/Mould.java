@@ -9,7 +9,6 @@ public class Mould {
 	// private int moldHolesNum;// 模具型腔数
 
 	private int id;// 模具编号
-	private int mouldFactoryId;// 工厂编号
 	private String mouldCode;// 模具编码
 	private String mouldName;// 模具名称
 	private String mouldType;// 模具类型
@@ -18,26 +17,17 @@ public class Mould {
 	private String mouldMaintainState;// 模具维修状态
 	private String mouldRepairState;// 模具修复状态
 	private int mouldHolesNum;// 型腔数
-	private int mouldRealHoleUse;// 实际使用型腔数
 	private int mouldLifeTimes;// 模具寿命
 	private int mouldInternalTimes;// 厂内打模次数
 	private int mouldExternalTimes;// 外协打模次数
 	private String mouldProduceCycle;// 生产周期
 	private String mouldQuantityQuota;// 产量定额
-	private String mouldWeight;// 重量
-	private String mouldDimension;// 尺寸
 	private String mouldChangeOverTime;// 预警换模时间
 	private int mouldWeekCapacity;// 周生产能力
-	private String mouldSupplierNo;// 供应厂商编码
-	private String mouldSupplier;// 供应厂商
 	private int mouldPrimaryMode;// 一级保养模次
 	private int mouldSecondaryMode;// 二级保养模次
 	private int mouldThirdMode;// 三级保养模次
 	private String mouldAcceptDate;// 接受日期
-	private String mouldFactory;// 厂区
-	private String mouldManufacturers;// 制造厂商
-	private String mouldStorage;// 库位
-	private String mouldCustomerName;// 客户名称
 	private String mouldModelUseStateNew;// 模具最新使用状态
 	private int mouldRemainingTimes;// 剩余使用次数
 
@@ -50,14 +40,6 @@ public class Mould {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getMouldFactoryId() {
-		return mouldFactoryId;
-	}
-
-	public void setMouldFactoryId(int mouldFactoryId) {
-		this.mouldFactoryId = mouldFactoryId;
 	}
 
 	public String getMouldCode() {
@@ -124,14 +106,6 @@ public class Mould {
 		this.mouldHolesNum = mouldHolesNum;
 	}
 
-	public int getMouldRealHoleUse() {
-		return mouldRealHoleUse;
-	}
-
-	public void setMouldRealHoleUse(int mouldRealHoleUse) {
-		this.mouldRealHoleUse = mouldRealHoleUse;
-	}
-
 	public int getMouldLifeTimes() {
 		return mouldLifeTimes;
 	}
@@ -172,22 +146,6 @@ public class Mould {
 		this.mouldQuantityQuota = mouldQuantityQuota;
 	}
 
-	public String getMouldWeight() {
-		return mouldWeight;
-	}
-
-	public void setMouldWeight(String mouldWeight) {
-		this.mouldWeight = mouldWeight;
-	}
-
-	public String getMouldDimension() {
-		return mouldDimension;
-	}
-
-	public void setMouldDimension(String mouldDimension) {
-		this.mouldDimension = mouldDimension;
-	}
-
 	public String getMouldChangeOverTime() {
 		return mouldChangeOverTime;
 	}
@@ -202,22 +160,6 @@ public class Mould {
 
 	public void setMouldWeekCapacity(int mouldWeekCapacity) {
 		this.mouldWeekCapacity = mouldWeekCapacity;
-	}
-
-	public String getMouldSupplierNo() {
-		return mouldSupplierNo;
-	}
-
-	public void setMouldSupplierNo(String mouldSupplierNo) {
-		this.mouldSupplierNo = mouldSupplierNo;
-	}
-
-	public String getMouldSupplier() {
-		return mouldSupplier;
-	}
-
-	public void setMouldSupplier(String mouldSupplier) {
-		this.mouldSupplier = mouldSupplier;
 	}
 
 	public int getMouldPrimaryMode() {
@@ -252,38 +194,6 @@ public class Mould {
 		this.mouldAcceptDate = mouldAcceptDate;
 	}
 
-	public String getMouldFactory() {
-		return mouldFactory;
-	}
-
-	public void setMouldFactory(String mouldFactory) {
-		this.mouldFactory = mouldFactory;
-	}
-
-	public String getMouldManufacturers() {
-		return mouldManufacturers;
-	}
-
-	public void setMouldManufacturers(String mouldManufacturers) {
-		this.mouldManufacturers = mouldManufacturers;
-	}
-
-	public String getMouldStorage() {
-		return mouldStorage;
-	}
-
-	public void setMouldStorage(String mouldStorage) {
-		this.mouldStorage = mouldStorage;
-	}
-
-	public String getMouldCustomerName() {
-		return mouldCustomerName;
-	}
-
-	public void setMouldCustomerName(String mouldCustomerName) {
-		this.mouldCustomerName = mouldCustomerName;
-	}
-
 	public String getMouldModelUseStateNew() {
 		return mouldModelUseStateNew;
 	}
@@ -302,19 +212,15 @@ public class Mould {
 
 	@Override
 	public String toString() {
-		return "Mould [id=" + id + ", mouldFactoryId=" + mouldFactoryId + ", mouldCode=" + mouldCode + ", mouldName="
-				+ mouldName + ", mouldType=" + mouldType + ", mouldState=" + mouldState + ", mouldUseState="
-				+ mouldUseState + ", mouldMaintainState=" + mouldMaintainState + ", mouldRepairState="
-				+ mouldRepairState + ", mouldHolesNum=" + mouldHolesNum + ", mouldRealHoleUse=" + mouldRealHoleUse
+		return "Mould [id=" + id + ", mouldCode=" + mouldCode + ", mouldName=" + mouldName + ", mouldType=" + mouldType
+				+ ", mouldState=" + mouldState + ", mouldUseState=" + mouldUseState + ", mouldMaintainState="
+				+ mouldMaintainState + ", mouldRepairState=" + mouldRepairState + ", mouldHolesNum=" + mouldHolesNum
 				+ ", mouldLifeTimes=" + mouldLifeTimes + ", mouldInternalTimes=" + mouldInternalTimes
 				+ ", mouldExternalTimes=" + mouldExternalTimes + ", mouldProduceCycle=" + mouldProduceCycle
-				+ ", mouldQuantityQuota=" + mouldQuantityQuota + ", mouldWeight=" + mouldWeight + ", mouldDimension="
-				+ mouldDimension + ", mouldChangeOverTime=" + mouldChangeOverTime + ", mouldWeekCapacity="
-				+ mouldWeekCapacity + ", mouldSupplierNo=" + mouldSupplierNo + ", mouldSupplier=" + mouldSupplier
-				+ ", mouldPrimaryMode=" + mouldPrimaryMode + ", mouldSecondaryMode=" + mouldSecondaryMode
-				+ ", mouldThirdMode=" + mouldThirdMode + ", mouldAcceptDate=" + mouldAcceptDate + ", mouldFactory="
-				+ mouldFactory + ", mouldManufacturers=" + mouldManufacturers + ", mouldStorage=" + mouldStorage
-				+ ", mouldCustomerName=" + mouldCustomerName + ", mouldModelUseStateNew=" + mouldModelUseStateNew
+				+ ", mouldQuantityQuota=" + mouldQuantityQuota + ", mouldChangeOverTime=" + mouldChangeOverTime
+				+ ", mouldWeekCapacity=" + mouldWeekCapacity + ", mouldPrimaryMode=" + mouldPrimaryMode
+				+ ", mouldSecondaryMode=" + mouldSecondaryMode + ", mouldThirdMode=" + mouldThirdMode
+				+ ", mouldAcceptDate=" + mouldAcceptDate + ", mouldModelUseStateNew=" + mouldModelUseStateNew
 				+ ", mouldRemainingTimes=" + mouldRemainingTimes + "]";
 	}
 

@@ -21,7 +21,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertWarning(List<Warning> data, boolean isInit) throws SQLException {
-		String sql = "insert into mpe_warning(event_id,event_type,event_code,title,message,device_id,guid,status,create_time,reliever,relieve_time,read_status)"
+		String sql = "insert into mep_warning(event_id,event_type,event_code,title,message,device_id,guid,status,create_time,reliever,relieve_time,read_status)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?,?) on duplicate key update reliever=VALUES(reliever),relieve_time=VALUES(relieve_time),status=VALUES(status)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -50,7 +50,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertWarnType(List<Event> data) throws SQLException {
-		String sql = "insert into mpe_event(event_id,event_code,event_name,event_pid) values(?,?,?,?) on duplicate key update event_code=VALUES(event_code), event_name=VALUES(event_name) ";
+		String sql = "insert into mep_event(event_id,event_code,event_name,event_pid) values(?,?,?,?) on duplicate key update event_code=VALUES(event_code), event_name=VALUES(event_name) ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (Event obj : data) {
@@ -66,20 +66,17 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertMould(List<Mould> data) throws SQLException {
-		String sql = "insert into mpe_mould(mould_factory_id,mould_code,mould_name,mould_type,mould_state,mould_use_state,mould_maintain_state,mould_repair_state,mould_holes_num"
-				+ ",mould_real_hole_use,mould_life_times,mould_internal_times,mould_external_times,mould_produce_cycle,mould_quantity_quota,mould_weight,mould_dimension,mould_change_over_time"
-				+ ",mould_week_capacity,mould_supplier_no,mould_supplier,mould_primary_mode,mould_secondary_mode,mould_third_mode,mould_accept_date,mould_factory,mould_manufacturers,mould_storage"
-				+ ",mould_customer_name,mould_model_use_state_new,mould_remaining_times)"
-				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
+		String sql = "insert into mep_mould(id,mould_code,mould_name,mould_type,mould_state,mould_use_state,mould_maintain_state,mould_repair_state,mould_holes_num,mould_life_times,mould_internal_times,mould_external_times,mould_produce_cycle,mould_quantity_quota,mould_change_over_time,mould_week_capacity,mould_primary_mode,mould_secondary_mode,mould_third_mode,mould_accept_date,mould_model_use_state_new,mould_remaining_times)"
+				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
 				+ "on duplicate key update mould_state=VALUES(mould_state),mould_use_state=VALUES(mould_use_state),"
-				+ "mould_maintain_state=VALUES(mould_maintain_state),mould_repair_state=VALUES(mould_repair_state),mould_real_hole_use=VALUES(mould_real_hole_use)"
+				+ "mould_maintain_state=VALUES(mould_maintain_state),mould_repair_state=VALUES(mould_repair_state)"
 				+ ",mould_life_times=VALUES(mould_life_times),mould_internal_times=VALUES(mould_internal_times),mould_external_times=VALUES(mould_external_times)"
 				+ ",mould_primary_mode=VALUES(mould_primary_mode),mould_secondary_mode=VALUES(mould_secondary_mode),mould_third_mode=VALUES(mould_third_mode),"
 				+ "mould_model_use_state_new=VALUES(mould_model_use_state_new),mould_remaining_times=VALUES(mould_remaining_times)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (Mould mould : data) {
-			ps.setInt(1, mould.getMouldFactoryId());
+			ps.setInt(1, mould.getId());
 			ps.setString(2, mould.getMouldCode());
 			ps.setString(3, mould.getMouldName());
 			ps.setString(4, mould.getMouldType());
@@ -88,28 +85,19 @@ public class SpiderDaoImpl implements ISpiderDao {
 			ps.setString(7, mould.getMouldMaintainState());
 			ps.setString(8, mould.getMouldRepairState());
 			ps.setInt(9, mould.getMouldHolesNum());
-			ps.setInt(10, mould.getMouldRealHoleUse());
-			ps.setInt(11, mould.getMouldLifeTimes());
-			ps.setInt(12, mould.getMouldInternalTimes());
-			ps.setInt(13, mould.getMouldExternalTimes());
-			ps.setString(14, mould.getMouldProduceCycle());
-			ps.setString(15, mould.getMouldQuantityQuota());
-			ps.setString(16, mould.getMouldWeight());
-			ps.setString(17, mould.getMouldDimension());
-			ps.setString(18, mould.getMouldChangeOverTime());
-			ps.setInt(19, mould.getMouldWeekCapacity());
-			ps.setString(20, mould.getMouldSupplierNo());
-			ps.setString(21, mould.getMouldSupplier());
-			ps.setInt(22, mould.getMouldPrimaryMode());
-			ps.setInt(23, mould.getMouldSecondaryMode());
-			ps.setInt(24, mould.getMouldThirdMode());
-			ps.setString(25, mould.getMouldAcceptDate());
-			ps.setString(26, mould.getMouldFactory());
-			ps.setString(27, mould.getMouldManufacturers());
-			ps.setString(28, mould.getMouldStorage());
-			ps.setString(29, mould.getMouldCustomerName());
-			ps.setString(30, mould.getMouldModelUseStateNew());
-			ps.setInt(31, mould.getMouldRemainingTimes());
+			ps.setInt(10, mould.getMouldLifeTimes());
+			ps.setInt(11, mould.getMouldInternalTimes());
+			ps.setInt(12, mould.getMouldExternalTimes());
+			ps.setString(13, mould.getMouldProduceCycle());
+			ps.setString(14, mould.getMouldQuantityQuota());
+			ps.setString(15, mould.getMouldChangeOverTime());
+			ps.setInt(16, mould.getMouldWeekCapacity());
+			ps.setInt(17, mould.getMouldPrimaryMode());
+			ps.setInt(18, mould.getMouldSecondaryMode());
+			ps.setInt(19, mould.getMouldThirdMode());
+			ps.setString(20, mould.getMouldAcceptDate());
+			ps.setString(21, mould.getMouldModelUseStateNew());
+			ps.setInt(22, mould.getMouldRemainingTimes());
 			ps.executeUpdate();
 		}
 		SqlPoolUtil.closeConnection(conn, ps, null);
@@ -118,7 +106,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insetrtMouldDevice(List<MouldDevice> data) throws SQLException {
-		String sql = "insert into mpe_mould_device vaules(?,?,?,?) ";
+		String sql = "insert into mep_mould_device vaules(?,?,?,?) ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (MouldDevice md : data) {
@@ -134,7 +122,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean deleteMouldDevice(int mouldId) throws SQLException {
-		String sql = "delete from mpe_moild_device where mold_id=? ";
+		String sql = "delete from mep_moild_device where mold_id=? ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, mouldId);
@@ -145,7 +133,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertEquipment(List<Equipment> data) throws SQLException {
-		String sql = "insert into mpe_equipment(equ_order_child_no,equ_product_code,equ_use_statedsp,equ_statedsp,equ_code,equ_start_time,"
+		String sql = "insert into mep_equipment(equ_order_child_no,equ_product_code,equ_use_statedsp,equ_statedsp,equ_code,equ_start_time,"
 				+ "equ_use_state,equ_maintain_state,equ_maintain_statedsp,equ_product_name,equ_model,equ_state,equ_equid,equ_running_state,equ_repair_statedsp,"
 				+ "equ_quantity,equ_data_mode,equ_stop_reason,equ_device_order_count,equ_alarm_count,equ_complete_quantity,equ_qualified_quantity,equ_repair_state,equ_progress)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
@@ -190,7 +178,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public List<String> selectMouldIdAll() throws SQLException {
-		String sql = "select id from mpe_mould ";
+		String sql = "select id from mep_mould ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
