@@ -26,16 +26,16 @@ public class TaskWorkEntry extends TimerTask {
 		// synchronized (this) {
 		//
 		// }
-		log.info("【数据调度任务开始执行】--执行时间【" + DateUtil.curDateYMDHMS() + "】");
+		log.info("【业务调度任务开始执行】--执行时间【" + DateUtil.curDateYMDHMS() + "】");
 		try {
 			List<Task> selectTaskAll = service.seListWorkTaskAll();
 			for (Task task : selectTaskAll) {
 				runningTask(task);
 			}
 		} catch (Exception e) {
-			log.info("【数据调度任务异常】,异常原因:" + e.getMessage());
+			log.info("【业务调度任务异常】,异常原因:" + e.getMessage());
 		} finally {
-			log.info("【数据调度任务结束】");
+			log.info("【业务调度任务结束】");
 		}
 	}
 
@@ -82,7 +82,7 @@ public class TaskWorkEntry extends TimerTask {
 				break;
 			}
 			service.uptTaskLastExecuteTime(new Timestamp(nowTime), task.getTaskCode());
-			log.info("数据调度任务【" + task.getTaskName() + "】---开始执行");
+			log.info("业务调度任务【" + task.getTaskName() + "】---开始执行");
 			switch (task.getTaskCode()) {
 			case "task_w_warning":
 				new TaskWorkWarning();
@@ -90,10 +90,11 @@ public class TaskWorkEntry extends TimerTask {
 			default:
 				break;
 			}
+			log.info("业务调度任务【" + task.getTaskName() + "】---执行结束");
 		} catch (ConnectException e) {
-			log.error("数据调度任务网络异常,异常原因:" + e.getMessage());
+			log.error("业务调度任务网络异常,异常原因:" + e.getMessage());
 		} catch (Exception e) {
-			log.error("数据调度任务异常,异常原因:" + e.getMessage());
+			log.error("业务调度任务异常,异常原因:" + e.getMessage());
 		}
 	}
 }

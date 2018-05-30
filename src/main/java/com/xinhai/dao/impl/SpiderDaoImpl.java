@@ -106,7 +106,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insetrtMouldDevice(List<MouldDevice> data) throws SQLException {
-		String sql = "insert into mep_mould_device vaules(?,?,?,?) ";
+		String sql = "insert into mep_mould_device values(?,?,?,?) ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (MouldDevice md : data) {
@@ -122,7 +122,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean deleteMouldDevice(int mouldId) throws SQLException {
-		String sql = "delete from mep_moild_device where mold_id=? ";
+		String sql = "delete from mep_mould_device where mold_id=? ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, mouldId);

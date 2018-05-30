@@ -108,10 +108,11 @@ public class TaskDataEntry extends TimerTask {
 			default:
 				break;
 			}
+			log.info("数据调度任务【" + task.getTaskName() + "】---执行结束");
 		} catch (ConnectException e) {
 			log.error("数据调度任务网络异常,异常原因:" + e.getMessage());
 		} catch (Exception e) {
-			log.error("数据调度任务异常,异常原因:" + e.getMessage());
+			log.error("数据调度任务【 "+ task.getTaskName() + "】异常,异常原因:" + e.getMessage());
 		}
 	}
 

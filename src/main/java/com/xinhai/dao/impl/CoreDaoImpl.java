@@ -17,7 +17,7 @@ public class CoreDaoImpl implements ICoreDao {
 
 	@Override
 	public List<WarningWithRule> selWarningPush() throws SQLException {
-		String sql = "SELECT a.`title`,a.`message`,a.`device_id`,a.`create_time`,a.`guid`,a.`read_status`,c.`rule_first_time`,c.`rule_second_time`,c.`rule_third_time`,c.`rule_fourth_time` FROM mep_warning a INNER JOIN mep_event b ON a.`event_code` = b.`event_code` INNER JOIN mep_push_rule c ON b.`rule_code`=c.`rule_code` WHERE a.`status`= '0' AND a.`read_status` <>'4'";
+		String sql = "SELECT a.`title`,a.`message`,a.`device_id`,a.`create_time`,a.`guid`,a.`read_status`,c.`rule_first_time`,c.`rule_second_time`,c.`rule_third_time`,c.`rule_fourth_time` FROM mep_warning a INNER JOIN mep_event b ON a.`event_code` = b.`event_code` INNER JOIN mep_push_rule c ON b.`rule_code`=c.`rule_code` WHERE a.`status`= '0' AND a.`read_status` <>'4' ORDER BY create_time ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -53,7 +53,7 @@ public class CoreDaoImpl implements ICoreDao {
 	@Override
 	public String selUserTokenByLevel(int level) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"select user_name,user_token,user_email,user_phone from mep_user where status='1' and user_level = ?");
+				"select user_name,user_token,user_email,user_phone from mep_user where user_status='1' and user_level = ?");
 		if (level == 1) {
 			sql.append(" and is_work= 'Y'");
 		}

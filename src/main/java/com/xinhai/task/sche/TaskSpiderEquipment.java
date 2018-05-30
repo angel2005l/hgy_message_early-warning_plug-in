@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xinhai.entity.Equipment;
 import com.xinhai.service.ISpiderService;
 import com.xinhai.service.impl.SpiderServiceImpl;
+import com.xinhai.util.DateUtil;
 import com.xinhai.util.HttpClientUtil;
 
 public class TaskSpiderEquipment {
@@ -36,7 +37,7 @@ public class TaskSpiderEquipment {
 				obj.setEquUseStatedsp(jsonObj.getString("usestatedsp"));
 				obj.setEquStatedsp(jsonObj.getString("statedsp"));
 				obj.setEquCode(jsonObj.getString("code"));
-				obj.setEquStartTime(jsonObj.getTimestamp("starttime"));
+				obj.setEquStartTime(DateUtil.curTimestampByStr(jsonObj.getString("starttime").trim()));
 				obj.setEquUseState(jsonObj.getString("usestate"));
 				obj.setEquMaintainState(jsonObj.getString("maintainstate"));
 				obj.setEquMaintainStatedsp(jsonObj.getString("maintainstatedsp"));

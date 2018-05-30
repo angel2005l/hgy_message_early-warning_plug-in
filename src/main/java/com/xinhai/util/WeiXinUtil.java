@@ -29,7 +29,7 @@ public class WeiXinUtil {
 			log.info("【微信推送接口】缺少基础地址配置");
 			return;
 		}
-		StringBuffer goUrl = new StringBuffer().append("/myData?warnId=").append(obj.getGuid()).append("&method=mod4");
+		StringBuffer goUrl = new StringBuffer(rootPath).append("/myData?warnId=").append(obj.getGuid()).append("&method=mod4");
 		List<NameValuePair> data = new ArrayList<NameValuePair>();
 		data.add(new BasicNameValuePair("title", new String(obj.getTitle().getBytes(), "utf-8")));
 		data.add(new BasicNameValuePair("message", obj.getMessage()));
