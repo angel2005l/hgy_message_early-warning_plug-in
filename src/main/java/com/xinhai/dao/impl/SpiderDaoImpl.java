@@ -134,7 +134,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 	@Override
 	public boolean insertEquipment(List<Equipment> data) throws SQLException {
 		String sql = "insert into mep_equipment(equ_order_child_no,equ_product_code,equ_use_statedsp,equ_statedsp,equ_code,equ_start_time,"
-				+ "equ_use_state,equ_maintain_state,equ_maintain_statedsp,equ_product_name,equ_model,equ_state,equ_equid,equ_running_state,equ_repair_statedsp,"
+				+ "equ_use_state,equ_maintain_state,equ_maintain_statedsp,equ_product_name,equ_model,equ_state,equ_id,equ_running_state,equ_repair_statedsp,"
 				+ "equ_quantity,equ_data_mode,equ_stop_reason,equ_device_order_count,equ_alarm_count,equ_complete_quantity,equ_qualified_quantity,equ_repair_state,equ_progress)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 				+ " on duplicate key update equ_order_child_no=values(equ_order_child_no),equ_use_statedsp=values(equ_use_statedsp),"
@@ -186,6 +186,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 		while (rs.next()) {
 			result.add(rs.getString("id"));
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 

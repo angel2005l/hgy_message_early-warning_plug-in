@@ -14,6 +14,7 @@ import com.xinhai.service.ISpiderService;
 import com.xinhai.service.impl.SpiderServiceImpl;
 import com.xinhai.util.DateUtil;
 import com.xinhai.util.HttpClientUtil;
+import com.xinhai.util.StrUtil;
 
 public class TaskSpiderEquipment {
 	private static final Logger log = LoggerFactory.getLogger(TaskSpiderEquipment.class);
@@ -50,7 +51,7 @@ public class TaskSpiderEquipment {
 				obj.setEquQuantity(jsonObj.getString("quantity"));
 				obj.setEquDataMode(jsonObj.getString("datamode"));
 				obj.setEquStopReason(jsonObj.getString("stopreason"));
-				obj.setEquDeviceOrderCount(jsonObj.getIntValue("deviceordercount"));
+				obj.setEquDeviceOrderCount( StrUtil.isBlank(jsonObj.getString("deviceordercount"))?0:jsonObj.getIntValue("deviceordercount"));
 				obj.setEquAlarmCount(jsonObj.getString("deviceordercount"));
 				obj.setEquCompleteQuantity(jsonObj.getString("completequantity"));
 				obj.setEquQualifiedQuantity(jsonObj.getString("qualifiedquantity"));
@@ -65,6 +66,7 @@ public class TaskSpiderEquipment {
 		} catch (NumberFormatException e) {
 			log.error("调度任务【获取机台信息】解析数据报文失败,失败原因:" + e.getMessage());
 		} catch (Exception e) {
+			System.err.println(e);
 			log.error("调度任务【获取机台信息】异常,异常原因:" + e.getMessage());
 		}
 	}

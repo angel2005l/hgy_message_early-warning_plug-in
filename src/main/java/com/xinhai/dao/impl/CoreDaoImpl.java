@@ -37,6 +37,7 @@ public class CoreDaoImpl implements ICoreDao {
 			obj.setRuleFourthTime(rs.getInt("rule_fourth_time"));
 			result.add(obj);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 
@@ -47,7 +48,9 @@ public class CoreDaoImpl implements ICoreDao {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, readStatus);
 		ps.setString(2, guid);
-		return ps.executeUpdate() > 0 ? true : false;
+		int rtn = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
+		return rtn > 0 ? true : false;
 	}
 
 	@Override
@@ -71,6 +74,7 @@ public class CoreDaoImpl implements ICoreDao {
 			// obj.setUserPhone(rs.getString("user_phone"));
 			// result.add(obj);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return StrUtil.cutStringForLeft(result.toString(), 1);
 	}
 
