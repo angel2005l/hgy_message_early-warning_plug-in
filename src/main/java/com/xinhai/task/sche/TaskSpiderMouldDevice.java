@@ -15,10 +15,10 @@ import com.xinhai.service.ISpiderService;
 import com.xinhai.service.impl.SpiderServiceImpl;
 import com.xinhai.util.HttpClientUtil;
 
-public class TaskSpriderMouldDevice {
-	private static final Logger log = LoggerFactory.getLogger(TaskSpriderMouldDevice.class);
+public class TaskSpiderMouldDevice {
+	private static final Logger log = LoggerFactory.getLogger(TaskSpiderMouldDevice.class);
 
-	public TaskSpriderMouldDevice() {
+	public TaskSpiderMouldDevice() {
 		try {
 			ISpiderService service = new SpiderServiceImpl();
 			List<String> moldIds = service.selMouleIdAll();

@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xinhai</groupId>
-	<artifactId>xh_f7_mpe</artifactId>
+	<artifactId>xh_f7_mep</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>xh_f7_mpe Maven Webapp</name>
+	<name>xh_f7_mep Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<!-- spring版本号 -->
@@ -116,7 +116,7 @@
 		<!-- 结束 -->
 	</dependencies>
 	<build>
-		<finalName>xh_f7_mpe</finalName>
+		<finalName>xh_f7_mep</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
