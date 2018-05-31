@@ -43,7 +43,7 @@ html {
 								type="text" name="userToken" placeholder="请输入员工微信识别码..." />
 						</div>
 						<div class="field-box">
-							<label>*员工邮箱:</label> <input class="span5 inline-input"
+							<label>员工邮箱:</label> <input class="span5 inline-input"
 								type="text" name="userEmail" placeholder="请输入员工邮箱..." />
 						</div>
 						<div class="field-box">
@@ -86,43 +86,6 @@ html {
 	<!-- scripts -->
 	<script type="text/javascript" src="js/jquery.form.js"></script>
 	<script>
-			<%-- var selectObj =$("#tid");
-			$.ajax({
-				url:'<%=basePath%>newsManage?method=news_type_sel_id_typeName&id',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(result){
-						selectObj.empty();
-						selectObj.append($("<option />").text("请选择新闻分类").attr("value","").attr("selected","selected"));
-					if(result.code ==0){
-						$(result.data).each(function(){
-							selectObj.append($("<option />").text(this.value).attr("value",this.code));
-						})
-					}else{
-						alert(result.msg);
-					}
-				},
-				error:function(){
-					alert("服务未响应")
-				}
-			})
-			typeChange();
-		});
-		function typeChange(){
-			if($("#type").val()==1){
-				$("#http_url_input").css("display","none");
-				$("#httpurl").val("");
-			}else{
-				$("#http_url_input").css("display","block");
-			}
-			
-		}
-		
-		$("#type").on("change",function(){
-			typeChange();
-		}) --%>
-	
 		var index = parent.layer.getFrameIndex(window.name);
 		$("#sumbit_form").on("click",function(){
 			if(check()){

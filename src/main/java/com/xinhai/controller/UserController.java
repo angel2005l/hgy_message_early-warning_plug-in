@@ -1,14 +1,17 @@
 package com.xinhai.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,6 +70,12 @@ public class UserController extends HttpServlet {
 			break;
 		case "user_batch_add":
 			addBacthUser(req, resp);
+			break;
+		case "download_file":
+			downloadFile(req, resp);
+			break;
+		case "logout":
+
 			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
@@ -268,6 +277,33 @@ public class UserController extends HttpServlet {
 			json = JSON.toJSONString(new Result<>(Result.ERROR_6000, "批量添加用户信息异常"));
 		}
 		returnData(json, response);
+	}
+
+	@SuppressWarnings("resource")
+	private void downloadFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String HOME_PATH = UserController.class.getResource("/").getPath();
+		String DOWNLOAD_TEMP_FILE = HOME_PATH.subSequence(0, HOME_PATH.indexOf("WEB-INF")) + "warn/download/";
+		String fileName = "员工导入模板.xlsx";
+		// 处理请求
+		// 读取要下载的文件
+		File f = new File(DOWNLOAD_TEMP_FILE + fileName);
+		response.setCharacterEncoding("utf-8");
+		if (f.exists()) {
+			FileInputStream fis = new FileInputStream(f);
+			String filename = URLEncoder.encode(f.getName(), "utf-8"); // 解决中文文件名下载后乱码的问题
+			byte[] b = new byte[fis.available()];
+			fis.read(b);
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename + "");
+			// 获取响应报文输出流对象
+			ServletOutputStream out = response.getOutputStream();
+			// 输出
+			out.write(b);
+			out.flush();
+			out.close();
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('文件缺失,请联系系统维护人员');window.location.href='view/user/batchLayer.jsp';</script>");
+		}
 	}
 
 	/**

@@ -34,7 +34,7 @@ html {
 							<label>员工信息文件:</label> <input type="file" id="upLoad" name="file" />
 						</div>
 						<div class="field-box">
-							<a href="#">没有模板?</a>
+							<a href="userManage?method=download_file">没有模板?点这里下载</a>
 						</div>
 						<div id="alert" class="alert alert-info">
 							<i class="icon-exclamation-sign"></i>目前只支持Excel文件必须为2007及以上版本,空行请用*代替。

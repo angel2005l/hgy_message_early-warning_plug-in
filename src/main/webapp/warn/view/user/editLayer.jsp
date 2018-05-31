@@ -44,7 +44,7 @@ html {
 								type="text" name="userToken" value="${data.data.userToken }"  placeholder="请输入员工微信识别码..." />
 						</div>
 						<div class="field-box">
-							<label>*员工邮箱:</label> <input class="span5 inline-input"
+							<label>员工邮箱:</label> <input class="span5 inline-input"
 								type="text" name="userEmail" value="${data.data.userEmail }" placeholder="请输入员工邮箱..." />
 						</div>
 						<div class="field-box">
