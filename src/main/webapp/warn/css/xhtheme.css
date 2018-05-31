@@ -1,0 +1,49 @@
+.modal-form-row input {
+    text-align:left;
+    margin-top:-5px;
+    margin-bottom:15px;
+    height:30px;
+    line-height:1;
+}
+.modal-form-row .input-group {
+	margin-top:-5px;
+	margin-bottom: 15px;
+	height:30px;
+    line-height:1;
+}
+.modal-form-row .input-group .form-control {
+   	margin-top:0px;
+}
+.modal-form-row .bootstrap-select {
+	height:30px;
+	margin-top:-5px;
+	line-height:1;
+	margin-bottom:15px;
+}
+.modal-form-row .dropdown-toggle {
+	height:30px;
+	line-height:1;
+}
+.modal-span-row {
+    min-height:35px;
+    line-height:1;
+}
+.modal-dialog {
+    width:300px;
+}
+.modal-header {
+    background-color: #eb6100;
+    -webkit-border-radius: 4px 4px 0px 0px; //左上，右上，右下，左下
+    -moz-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+}
+.modal-body .separate-hr {
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.alert {
+	margin-bottom:10px;
+}
+.modal-alert {
+    margin:10px 0 0 0;
+}
