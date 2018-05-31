@@ -15,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class UserController extends HttpServlet {
 			downloadFile(req, resp);
 			break;
 		case "logout":
-
+			logout(req, resp);
 			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
@@ -95,9 +96,14 @@ public class UserController extends HttpServlet {
 	private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		String json = JSON.toJSONString(
-				"xinhai".equals(userName) && "123".equals(password) ? new Result<Object>(Result.SUCCESS_0, "登录成功")
-						: new Result<Object>(Result.ERROR_4300, "用户名/密码不正确"));
+		String json = "";
+		if ("xinhai".equals(userName) && "123".equals(password)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("isLogin", true);
+			json = JSON.toJSONString(new Result<Object>(Result.SUCCESS_0, "登录成功"));
+		} else {
+			json = JSON.toJSONString(new Result<Object>(Result.ERROR_4300, "用户名/密码不正确"));
+		}
 		returnData(json, response);
 	}
 
@@ -304,6 +310,21 @@ public class UserController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('文件缺失,请联系系统维护人员');window.location.href='view/user/batchLayer.jsp';</script>");
 		}
+	}
+
+	/**
+	 * 
+	 * @Title: logout   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
+	private void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate();
 	}
 
 	/**
