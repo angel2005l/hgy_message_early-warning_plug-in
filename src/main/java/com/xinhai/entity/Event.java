@@ -10,6 +10,7 @@ public class Event {
 	private String eventName;
 	private int pId;
 	private String ruleCode;
+	private String eventStatus;
 
 	public Event() {
 	}
@@ -62,10 +63,18 @@ public class Event {
 		this.ruleCode = ruleCode;
 	}
 
+	public String getEventStatus() {
+		return eventStatus;
+	}
+
+	public void setEventStatus(String eventStatus) {
+		this.eventStatus = eventStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", eventId=" + eventId + ", eventCode=" + eventCode + ", eventName=" + eventName
-				+ ", pId=" + pId + ", ruleCode=" + ruleCode + "]";
+				+ ", pId=" + pId + ", ruleCode=" + ruleCode + ", eventStatus=" + eventStatus + "]";
 	}
 
 }

@@ -36,9 +36,11 @@ public class TaskSpiderWarningType {
 				obj.setEventCode(jsonObj.getString("code"));
 				obj.setEventName(jsonObj.getString("name"));
 				obj.setpId(jsonObj.getIntValue("pid"));
+				obj.setRuleCode("default_rule");
+				obj.setEventStatus("1");
 				insLists.add(obj);
 			}
-			
+
 			ISpiderService service = new SpiderServiceImpl();
 			if (!service.insWarningType(insLists)) {
 				log.info("调度任务【获取预警分类信息】执行成功,保存数据失败");

@@ -77,5 +77,4 @@ public class CoreDaoImpl implements ICoreDao {
 		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return StrUtil.cutStringForLeft(result.toString(), 1);
 	}
-
 }

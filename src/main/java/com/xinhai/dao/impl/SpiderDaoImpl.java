@@ -50,7 +50,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertWarnType(List<Event> data) throws SQLException {
-		String sql = "insert into mep_event(event_id,event_code,event_name,event_pid) values(?,?,?,?) on duplicate key update event_code=VALUES(event_code), event_name=VALUES(event_name) ";
+		String sql = "insert into mep_event(event_id,event_code,event_name,event_pid,rule_code,event_status) values(?,?,?,?,?,?) on duplicate key update event_code=VALUES(event_code), event_name=VALUES(event_name) ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		for (Event obj : data) {
@@ -58,6 +58,8 @@ public class SpiderDaoImpl implements ISpiderDao {
 			ps.setString(2, obj.getEventCode());
 			ps.setString(3, obj.getEventName());
 			ps.setInt(4, obj.getpId());
+			ps.setString(5, obj.getRuleCode());
+			ps.setString(6, obj.getEventStatus());
 			ps.executeUpdate();
 		}
 		SqlPoolUtil.closeConnection(conn, ps, null);

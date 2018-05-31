@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
 <link rel="stylesheet"
-	href="<%=basePath%>css/compiled/personal-info.css" type="text/css"
+	href="css/compiled/personal-info.css" type="text/css"
 	media="screen" />
 
 <!--[if lt IE 9]>
@@ -87,12 +87,12 @@ html {
 	<!-- end main container -->
 
 	<!-- scripts -->
-	<script src="<%=basePath%>js/jquery.form.js"></script>
+	<script src="js/jquery.form.js"></script>
 	<script>
 	$(function(){
 		var selectObj =$("#pid");
 		$.ajax({
-			url:'<%=basePath%>productManage?method=product_id_productName',
+			url:'productManage?method=product_id_productName',
 			type:'post',
 			dataType:'json',
 			async:false,
@@ -118,13 +118,13 @@ html {
 			var fileUrl =$("#upLoad").val();
 			 if(checkExcel(fileUrl)){
 				$("#tableForm").ajaxSubmit({
-				url:'<%=basePath%>productManage?method=product_img_ins',
+				url:'productManage?method=product_img_ins',
 				type:'post',
 				dataType : "json",
 				success:function(result){
 					alert(result.msg);
 					if(result.code == 0){
-						parent.location.href='<%=basePath%>productManage?method=product_img_sel';
+						parent.location.href='productManage?method=product_img_sel';
 						parent.layer.close(index);
 					} else {
 						return;
@@ -139,7 +139,8 @@ html {
 		$("#close_win").on("click", function() {
 			parent.layer.close(index);
 		})
-		function checkExcel(fileUrl) {
+		function checkExcel() {
+			var fileUrl =$("#upLoad").val();
 			if (fileUrl.indexOf(" ") >= 0) {
 				alert("文件名不能有空格");
 				return false;
