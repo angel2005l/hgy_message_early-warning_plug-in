@@ -30,12 +30,13 @@ html {
 				<!-- edit form column -->
 				<div class="span7 personal-info">
 					<form id="tableForm">
+						<input name="id" type="hidden" value="${data.data.id }">
 						<div class="field-box">
-						<label>*员工工号:</label> <input class="span5 inline-input"
+						<label>员工工号:</label> <input class="span5 inline-input"
 								type="text" name="userCode" value="${data.data.userCode }" readonly />
 						</div>
 						<div class="field-box">
-							<label>*员工姓名:</label> <input class="span5 inline-input"
+							<label>员工姓名:</label> <input class="span5 inline-input"
 								type="text" name="userName" value="${data.data.userName }" readonly />
 						</div>
 						<div class="field-box">

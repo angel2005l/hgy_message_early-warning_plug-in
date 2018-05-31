@@ -111,9 +111,8 @@ public class UserDaoImpl implements IUserDao {
 				ps.setString(4, user.getUserEmail());
 				ps.setString(5, user.getUserPhone());
 				ps.setInt(6, user.getUserLevel());
-				ps.setString(7, user.getIsWork());
-				ps.setString(8, user.getUserStatus());
-				;
+				ps.setString(7, "N");
+				ps.setString(8, "1");
 				if (ps.executeUpdate() < 1) {
 					isSuccess = false;
 					break;

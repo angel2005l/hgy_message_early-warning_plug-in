@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>新闻信息弹窗</title>
+<title>员工信息弹窗</title>
+<base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
-<link rel="stylesheet" href="<%=basePath %>css/compiled/personal-info.css"
+<link rel="stylesheet" href="css/compiled/personal-info.css"
 	type="text/css" media="screen" />
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,52 +29,20 @@ html {
 				<div class="span1 avatar-box"></div>
 				<!-- edit form column -->
 				<div class="span7 personal-info">
-					<form id="tableForm">
+					<form id="tableForm" enctype="multipart/form-data">
 						<div class="field-box">
-							<label>新闻标题:</label> <input class="span5 inline-input"
-								type="text" name="title" placeholder="请输入新闻标题..." />
-						</div>
-						<div class="field-box">
-							<label>主要内容（摘要）</label>
-							<textarea class="span5" name="main_content" rows="2"></textarea>
+							<label>员工信息文件:</label> <input type="file" id="upLoad" name="file" />
 						</div>
 						<div class="field-box">
-							<label>新闻内容</label>
-							<textarea class="span5" name="content" rows="2"></textarea>
+							<a href="#">没有模板?</a>
 						</div>
-						<div class="field-box">
-							<label>所属分类</label>
-							<div class="ui-select">
-								<select id="tid" name="tid">
-									<option value="" selected="selected">请选择新闻分类</option>
-								</select>
-							</div>
-						</div>
-						<div class="field-box">
-							<label>新闻类型</label>
-							<div class="ui-select">
-								<select id="type" name="type">
-									<option value="1" selected="selected">内部新闻</option>
-									<option value="2">外部新闻</option>
-								</select>
-							</div>
-						</div>
-						<div class="field-box" id="http_url_input">
-							<label>引用外部链接:</label> <input class="span5 inline-input" id="httpurl"
-								type="text" name="httpurl" placeholder="请输入引用外部链接..." />
-						</div>
-						<div class="field-box">
-							<label>状态:</label> <label style="width: 20%;"><input
-								type="radio" name="status" value="1" checked="checked" />正常</label> <label
-								style="width: 20%; float: left;"><input type="radio"
-								name="status" value="2" />锁定</label>
-						</div>
-						<div class="alert alert-info">
-							<i class="icon-exclamation-sign"></i>请认真填写新闻信息
+						<div id="alert" class="alert alert-info">
+							<i class="icon-exclamation-sign"></i>目前只支持Excel文件必须为2007及以上版本,空行请用*代替。
 						</div>
 						<div class="field-box actions">
-							<input id="sumbit_form" type="button" class="btn-flat primary" value="保存" /> <input
-								id="close_win" type="button" class="btn-flat danger" value="取消" />
+							<input id="sumbit_form" type="button" class="btn-flat primary"
+								value="保存" /> <input id="close_win" type="button"
+								class="btn-flat danger" value="取消" />
 						</div>
 					</form>
 				</div>
@@ -83,69 +52,63 @@ html {
 	<!-- end main container -->
 
 	<!-- scripts -->
-	<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
 	<script>
-		$(function(){
-			var selectObj =$("#tid");
-			$.ajax({
-				url:'<%=basePath%>newsManage?method=news_type_sel_id_typeName&id',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(result){
-						selectObj.empty();
-						selectObj.append($("<option />").text("请选择新闻分类").attr("value","").attr("selected","selected"));
-					if(result.code ==0){
-						$(result.data).each(function(){
-							selectObj.append($("<option />").text(this.value).attr("value",this.code));
-						})
-					}else{
-						alert(result.msg);
-					}
-				},
-				error:function(){
-					alert("服务未响应")
-				}
-			})
-			typeChange();
-		});
-		function typeChange(){
-			if($("#type").val()==1){
-				$("#http_url_input").css("display","none");
-				$("#httpurl").val("");
-			}else{
-				$("#http_url_input").css("display","block");
-			}
-			
-		}
-		
-		$("#type").on("change",function(){
-			typeChange();
-		})
-	
 		var index = parent.layer.getFrameIndex(window.name);
 		$("#sumbit_form").on("click",function(){
-			$("#tableForm").ajaxSubmit({
-				url:'<%=basePath%>newsManage?method=news_ins',
-				type:'post',
-				dataType:'json',
-				success:function(result){
-					alert(result.msg);
-					if(result.code == 0){
-						parent.location.href='<%=basePath%>newsManage?method=news_sel';
-						parent.layer.close(index);
+			if(checkExcel()){
+				$("#tableForm").ajaxSubmit({
+					url:'userManage?method=user_batch_add',
+					type:'post',
+					dataType:'json',
+					success:function(result){
+						alert(result.msg);
+						if(result.code == 0){
+							parent.location.href='userManage?method=user_sel';
+							parent.layer.close(index);
 						} else {
 							return;
 						}
 					},
 					error : function() {
 						alert("服务未响应");
-					}
-				});
+						}
+					});
+				}
 			});
 		$("#close_win").on("click", function() {
 			parent.layer.close(index);
-		})
+		});
+		
+		function checkExcel() {
+			var fileUrl =$("#upLoad").val();
+			if (fileUrl.indexOf(" ") >= 0) {
+				changeAlert("文件名不能有空格");
+				return false;
+			}
+			var re = /(\\+)/g;
+			var filename = fileUrl.replace(re, "#");
+			var one = filename.split("#");
+			var two = one[one.length - 1];
+			var three = two.split(".");
+			var last = three[three.length - 1];
+			var tp = "xlsx";
+			var rs = tp.indexOf(last);
+			if (rs >= 0) {
+				return true;
+			} else {
+				changeAlert("当前只支持文件扩展名为.xlsx的Excel2007及以上文件！");
+				return false;
+			}
+		}
+		
+		function changeAlert(msg){
+			var alertDiv = $("#alert");
+			alertDiv.removeClass("alert-info");
+			alertDiv.addClass("alert-error");
+			alertDiv.empty();
+			alertDiv.prepend("<i class='icon-remove-sign'></i>"+msg);
+		}		
 	</script>
 </body>
 

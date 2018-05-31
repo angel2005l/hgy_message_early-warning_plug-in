@@ -2,6 +2,7 @@ package com.xinhai.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +147,71 @@ public class POIUtil {
 				inputStream.close();
 			}
 		}
+	}
+
+	public static List<Map<String, String>> readExcelXlsx(InputStream inputStream, int colCount, int rowNum,
+			String[] rowCodes)
+			throws IOException {
+		XSSFWorkbook workbook = null;
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		try {
+			// inputStream = new FileInputStream(filePath);// 创建文件流对象
+			// XSSFWorkbook 就代表一个 Excel 文件
+			// 创建其对象，就打开这个 Excel 文件
+			workbook = new XSSFWorkbook(inputStream);
+			// System.out.println(workbook);
+			// XSSFSheet 代表 Excel 文件中的一张表格
+			// 我们通过 getSheetAt(0) 指定表格索引来获取对应表格
+			// 注意表格索引从 0 开始！
+			XSSFSheet sheet = workbook.getSheetAt(0);// 选择第一个分页
+			// 开始循环表格数据,表格的行索引从 0 开始
+			// employees.xlsx 第一行是标题行，我们从第二行开始, 对应的行索引是 1
+			// sheet.getLastRowNum() : 获取当前表格中最后一行数据对应的行索引
+
+			// 判断当前页 是否有数据
+			if (null == sheet || sheet.getLastRowNum() < rowNum)
+				throw new IOException("Excel文件有误，数据必须放在第一个sheet，请检查Excel");
+
+			// 校验数据行数据
+			for (int rowIndex = rowNum; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+				XSSFRow row = sheet.getRow(rowIndex);
+
+				if (null == row)
+					throw new IOException("Excel文件第" + (rowIndex + 1) + "行数据为空");
+				// 根据传入的columnCount与实际excel中读到的列数量进行比较
+				if (row.getLastCellNum() < colCount)
+					throw new IOException("Excel文件第" + (rowIndex + 1) + "行数据列总数小于规定的格式");
+				// excel一行数据就是一个map
+				Integer cellCountInRow = Math.min(row.getLastCellNum(), colCount);
+				Map<String, String> map = new HashMap<String, String>();
+				// 检查当前行数据是否为空
+				if (!isCellNull(row)) {
+					continue;
+				}
+				// 遍历列
+				for (int cellIndex = 0; cellIndex < cellCountInRow; cellIndex++) {
+					XSSFCell cell = row.getCell(cellIndex);
+					if (null == cell)
+						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第" + (cellIndex + 1) + "列数据为空");
+					String cellStr = getValue(cell).trim();
+					if ("".equals(cellStr))
+						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第" + (cellIndex + 1) + "列的数据不能为空单元格");
+					else if ("*".equals(cellStr))
+						cellStr = "";
+					// 按照索引从键数组中得到字段英文名
+					map.put(rowCodes[cellIndex], cellStr);
+				}
+				list.add(map);
+			}
+			return list;
+		} catch (IOException e) {
+			log.error("POI工具类【readExcelXlsx】方法异常,异常原因:" + e.getMessage());
+			throw new IOException("操作excel文件错误");
+		} finally {
+			if (null != inputStream) {
+				inputStream.close();
+			}
+		}
 
 	}
 
@@ -159,7 +225,6 @@ public class POIUtil {
 	 * @return: Boolean
 	 *
 	 */
-	@SuppressWarnings("deprecation")
 	private static Boolean isCellNull(XSSFRow row) {
 		// 进行row对象是否为空
 		if (null == row) {
@@ -197,7 +262,7 @@ public class POIUtil {
 	// }
 	// }
 
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings({ "static-access" })
 	private static String getValue(XSSFCell xssfCell) {
 		if (xssfCell.getCellType() == xssfCell.CELL_TYPE_BOOLEAN) {
 			return String.valueOf(xssfCell.getBooleanCellValue());

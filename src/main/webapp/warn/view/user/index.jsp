@@ -36,6 +36,7 @@
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
 							<a class="btn-flat success new-product" onclick="addUser()">添加员工信息</a>
+							<a class="btn-flat success new-product" onclick="batchUser()">批量添加员工信息</a>
 						</div>
 					</form>
 				</div>
@@ -102,7 +103,18 @@
 			}  
 			htmlStr += "<li><a onclick=searchBtn('next')>&#8250;</a></li>";
 			pagingBth.append(htmlStr);
-		})
+		});
+		
+		function batchUser(){
+			layer.open({
+				type: 2,
+				title:'批量添加员工信息',
+				area: ['600px', '299px'],
+				shadeClose: false, //点击遮罩关闭
+				content: 'view/user/batchLayer.jsp'
+//				content:'grids.html'
+			})
+		}
 	
 			function addUser() {
 				layer.open({

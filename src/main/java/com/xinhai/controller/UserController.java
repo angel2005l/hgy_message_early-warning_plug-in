@@ -1,8 +1,12 @@
 package com.xinhai.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +22,7 @@ import com.xinhai.entity.User;
 import com.xinhai.service.IUserService;
 import com.xinhai.service.impl.UserServiceImpl;
 import com.xinhai.util.IOUtil;
+import com.xinhai.util.POIUtil;
 import com.xinhai.util.Page;
 import com.xinhai.util.Result;
 import com.xinhai.util.StrUtil;
@@ -60,6 +65,9 @@ public class UserController extends HttpServlet {
 		case "user_del":
 			delUser(req, resp);
 			break;
+		case "user_batch_add":
+			addBacthUser(req, resp);
+			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
 			break;
@@ -84,6 +92,18 @@ public class UserController extends HttpServlet {
 		returnData(json, response);
 	}
 
+	/**
+	 * 
+	 * @Title: selUser   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
 	private void selUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -100,17 +120,26 @@ public class UserController extends HttpServlet {
 	private void selUserById(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
-		System.err.println(id);
 		try {
 			Result<User> selUserById = service.selUserById(id);
 			request.setAttribute("data", selUserById);
-			System.err.println(selUserById);
 		} catch (Exception e) {
 			log.error("跳转用户信息修改页面异常,异常原因:" + e.toString());
 		}
 		request.getRequestDispatcher("view/user/editLayer.jsp").forward(request, response);
 	}
 
+	/**
+	 * 
+	 * @Title: addUser   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
 	private void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String json = "";
 		try {
@@ -142,6 +171,17 @@ public class UserController extends HttpServlet {
 
 	}
 
+	/**
+	 * 
+	 * @Title: uptUser   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
 	private void uptUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
 		String userToken = request.getParameter("userToken");
@@ -167,6 +207,17 @@ public class UserController extends HttpServlet {
 		returnData(json, response);
 	}
 
+	/**
+	 * 
+	 * @Title: delUser   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
 	private void delUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
 		String json = "";
@@ -180,19 +231,56 @@ public class UserController extends HttpServlet {
 		returnData(json, response);
 	}
 
-	private void addBacthUser(HttpServletRequest request, HttpServletResponse response) {
+	/**
+	 * 
+	 * @Title: addBacthUser   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
+	private void addBacthUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 获得文件流对象
+		String json = "";
 		try {
 			List<InputStream> fileStreams = IOUtil.getFileStreams(request);
-
-			// 修改POI工具类 使其兼容输入流
-
+			if (null == fileStreams || fileStreams.isEmpty()) {
+				json = JSON.toJSONString(new Result<Object>(Result.ERROR_4300, "无法识别的文件"));
+			} else {
+				String[] rowCodes = { "userCode", "userName", "userToken", "userEmail", "userPhone", "userLevel" };
+				List<Map<String, String>> resultList = POIUtil.readExcelXlsx(fileStreams.get(0), 6, 1,
+						rowCodes);
+				List<User> data = new ArrayList<User>();
+				for (Map<String, String> map : resultList) {
+					data.add(JSON.parseObject(JSON.toJSONString(map), User.class));
+				}
+				Result<Object> insBatch = service.insBatch(data);
+				json = JSON.toJSONString(insBatch);
+			}
 		} catch (FileUploadException | IOException e) {
-			e.printStackTrace();
+			log.error("批量添加用户信息异常,异常原因:" + e.toString());
+			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, e.toString()));
+		} catch (Exception e) {
+			log.error("批量添加用户信息异常,异常原因:" + e.toString());
+			json = JSON.toJSONString(new Result<>(Result.ERROR_6000, "批量添加用户信息异常"));
 		}
-
+		returnData(json, response);
 	}
 
+	/**
+	 * 
+	 * @Title: returnData   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param json
+	 * @param response
+	 * @throws IOException
+	 * @author: MR.H
+	 * @return: void
+	 *
+	 */
 	private void returnData(String json, HttpServletResponse response) throws IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
