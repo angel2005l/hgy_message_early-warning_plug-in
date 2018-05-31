@@ -61,8 +61,9 @@ public class UserDaoImpl implements IUserDao {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ResultSet rs = ps.executeQuery();
-		User user = new User();
+		User user = null;
 		if (rs.next()) {
+			user = new User();
 			user.setId(rs.getInt("id"));
 			user.setUserCode(rs.getString("user_code"));
 			user.setUserName(rs.getString("user_name"));
@@ -111,7 +112,8 @@ public class UserDaoImpl implements IUserDao {
 				ps.setString(5, user.getUserPhone());
 				ps.setInt(6, user.getUserLevel());
 				ps.setString(7, user.getIsWork());
-				ps.setString(8, user.getUserStatus());;
+				ps.setString(8, user.getUserStatus());
+				;
 				if (ps.executeUpdate() < 1) {
 					isSuccess = false;
 					break;

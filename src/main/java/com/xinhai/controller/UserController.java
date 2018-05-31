@@ -100,13 +100,15 @@ public class UserController extends HttpServlet {
 	private void selUserById(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
+		System.err.println(id);
 		try {
 			Result<User> selUserById = service.selUserById(id);
 			request.setAttribute("data", selUserById);
+			System.err.println(selUserById);
 		} catch (Exception e) {
 			log.error("跳转用户信息修改页面异常,异常原因:" + e.toString());
 		}
-		request.getRequestDispatcher("warn/view/user/editLayer.jsp").forward(request, response);
+		request.getRequestDispatcher("view/user/editLayer.jsp").forward(request, response);
 	}
 
 	private void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -35,7 +35,7 @@ public class UserServiceImpl extends BaseResult implements IUserService {
 
 		try {
 			User selectUserById = dao.selectUserById(Integer.parseInt(id));
-			return null == selectUserById ? rtnSuccessResult("", selectUserById)
+			return null != selectUserById ? rtnSuccessResult("", selectUserById)
 					: rtnFailResult(Result.ERROR_4300, "无效的id信息");
 		} catch (SQLException e) {
 			log.error("查询特定用户信息数据接口异常,异常原因:" + e.toString());
