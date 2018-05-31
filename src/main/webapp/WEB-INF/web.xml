@@ -28,5 +28,28 @@
 		<servlet-name>userController</servlet-name>
 		<url-pattern>/warn/userManage</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<servlet-name>taskController</servlet-name>
+		<servlet-class>com.xinhai.controller.TaskController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>taskController</servlet-name>
+		<url-pattern>/warn/taskManage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>pushRuleController</servlet-name>
+		<servlet-class>com.xinhai.controller.PushRuleController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pushRuleController</servlet-name>
+		<url-pattern>/warn/prManage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>eventController</servlet-name>
+		<servlet-class>com.xinhai.controller.EventController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>eventController</servlet-name>
+		<url-pattern>/warn/warningManage</url-pattern>
+	</servlet-mapping>
 </web-app>
