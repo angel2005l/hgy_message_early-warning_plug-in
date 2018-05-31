@@ -2,6 +2,7 @@ package com.xinhai.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.xinhai.entity.PushRule;
 
@@ -81,5 +82,17 @@ public interface IPushRuleDao {
 	 *
 	 */
 	public int deletePushRule(int id) throws SQLException;
+
+	/**
+	 * 
+	 * @Title: selectPushRuleKV   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @return
+	 * @throws SQLException
+	 * @author: MR.H
+	 * @return: List<Map<String,String>>
+	 *
+	 */
+	public List<Map<String, String>> selectPushRuleKV() throws SQLException;
 
 }
