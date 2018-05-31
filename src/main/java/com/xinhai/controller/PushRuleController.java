@@ -163,7 +163,7 @@ public class PushRuleController extends HttpServlet {
 				json = JSON.toJSONString(new Result<List<Map<String, String>>>(Result.SUCCESS_0, "", selPushRuleKV));
 			}
 		} catch (Exception e) {
-			log.error("删除推送规则异常,异常原因:" + e.toString());
+			log.error("查询推送规则键值对数据异常,异常原因:" + e.toString());
 			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "查询推送规则键值对数据异常"));
 		}
 		returnData(json, response);

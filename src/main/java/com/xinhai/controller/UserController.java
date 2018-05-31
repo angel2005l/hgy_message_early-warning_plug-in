@@ -320,11 +320,13 @@ public class UserController extends HttpServlet {
 	 * @param response
 	 * @author: MR.H
 	 * @return: void
+	 * @throws IOException 
 	 *
 	 */
-	private void logout(HttpServletRequest request, HttpServletResponse response) {
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
+		response.sendRedirect("view/login.jsp");
 	}
 
 	/**
