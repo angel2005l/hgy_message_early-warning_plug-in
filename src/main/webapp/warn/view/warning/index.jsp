@@ -30,12 +30,12 @@
 					<form id="searchForm"
 						action="warningManage?method=warning_sel" method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title" placeholder="请输入新闻标题关键字" /> <input
+							<input type="text" class="search" name="title" placeholder="请输入预警类别关键字" /> <input
 								type="hidden" id="pageNum" name="pageNum" value="${data.totalPage }">
 							<input type="hidden" id="page" name = "page"
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
-							<a class="btn-flat success new-product" onclick="addWarnType()">添加预警分类</a>
+							<a class="btn-flat success new-product" onclick="addWarnType()">添加预警类别</a>
 						</div>
 					</form>
 				</div>
@@ -108,7 +108,6 @@
 					content: 'view/warning/addLayer.jsp'
 //					content:'grids.html'
 				});
-				layer.full(index);
 			}
 			
 			function searchBtn(msg){
@@ -133,6 +132,37 @@
 					break;
 				}
 				$("#searchForm").submit();
+			}
+			
+			function disable(id) {
+				$.ajax({
+					url:'warningManage?method=warning_upt_event_status',
+					type:'post',
+					dataType:'json',
+					data:{"id":id,"eventStatus":"2"},
+					success:function(result){
+						alert(result.msg)
+						location.reload();
+					},
+					error:function(){
+						alert("服务未响应");
+					}
+				});
+			}
+			function enabled(id) {
+				$.ajax({
+					url:'warningManage?method=warning_upt_event_status',
+					type:'post',
+					dataType:'json',
+					data:{"id":id,"eventStatus":"1"},
+					success:function(result){
+						alert(result.msg)
+						location.reload();
+					},
+					error:function(){
+						alert("服务未响应");
+					}
+				});
 			}
 			
 		</script>

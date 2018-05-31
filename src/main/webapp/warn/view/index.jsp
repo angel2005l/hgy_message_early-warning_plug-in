@@ -46,7 +46,7 @@
 						</ul>
 					</li>
 					<li class="settings hidden-phone">
-						<a href="login.jsp" role="button">
+						<a href="userManage?method=user_sel" role="button">
 							<i class="icon-share-alt"></i>
 						</a>
 					</li>
@@ -76,11 +76,11 @@
 					</a>
 					<ul class="submenu">
 						<li>
-							<a class="func" href="newsManage?method=news_type_sel" target="mainFrame">预警类别</a>
+							<a class="func" href="warningManage?method=warning_sel" target="mainFrame">预警类别</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a class="func" href="newsManage?method=news_type_sel" target="mainFrame">模具类别</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 				<li class="left-nav-li">

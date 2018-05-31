@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>新闻信息弹窗</title>
+<title>预警类别弹窗</title>
+<base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
-<link rel="stylesheet" href="<%=basePath %>css/compiled/personal-info.css"
+<link rel="stylesheet" href="css/compiled/personal-info.css"
 	type="text/css" media="screen" />
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -30,50 +31,38 @@ html {
 				<div class="span7 personal-info">
 					<form id="tableForm">
 						<div class="field-box">
-							<label>新闻标题:</label> <input class="span5 inline-input"
-								type="text" name="title" placeholder="请输入新闻标题..." />
+							<label>*事件编号:</label> <input class="span5 inline-input"
+								type="text" name="eventId" placeholder="请输入事件编号..." />
 						</div>
 						<div class="field-box">
-							<label>主要内容（摘要）</label>
-							<textarea class="span5" name="main_content" rows="2"></textarea>
+							<label>*事件编码:</label> <input class="span5 inline-input"
+								type="text" name="eventCode" placeholder="请输入事件编码..." />
 						</div>
 						<div class="field-box">
-							<label>新闻内容</label>
-							<textarea class="span5" name="content" rows="2"></textarea>
+							<label>*事件名称:</label> <input class="span5 inline-input"
+								type="text" name="eventName" placeholder="请输入事件编码..." />
 						</div>
 						<div class="field-box">
-							<label>所属分类</label>
+							<label>*预警规则编码</label>
 							<div class="ui-select">
-								<select id="tid" name="tid">
-									<option value="" selected="selected">请选择新闻分类</option>
+								<select id="ruleCode" name="ruleCode">
+									<option value="" selected="selected">请选择预警规则编码</option>
 								</select>
 							</div>
 						</div>
 						<div class="field-box">
-							<label>新闻类型</label>
-							<div class="ui-select">
-								<select id="type" name="type">
-									<option value="1" selected="selected">内部新闻</option>
-									<option value="2">外部新闻</option>
-								</select>
-							</div>
+							<label>*事件状态:</label> <label style="width: 20%;"><input
+								type="radio" name="eventStatus" value="1" checked="checked" />启用</label>
+							<label style="width: 20%; float: left;"><input
+								type="radio" name="eventStatus" value="2" />不启用</label>
 						</div>
-						<div class="field-box" id="http_url_input">
-							<label>引用外部链接:</label> <input class="span5 inline-input" id="httpurl"
-								type="text" name="httpurl" placeholder="请输入引用外部链接..." />
-						</div>
-						<div class="field-box">
-							<label>状态:</label> <label style="width: 20%;"><input
-								type="radio" name="status" value="1" checked="checked" />正常</label> <label
-								style="width: 20%; float: left;"><input type="radio"
-								name="status" value="2" />锁定</label>
-						</div>
-						<div class="alert alert-info">
-							<i class="icon-exclamation-sign"></i>请认真填写新闻信息
+						<div id="alert" class="alert alert-info">
+							<i class="icon-exclamation-sign"></i>请认真填写预警类别,*为必填字段
 						</div>
 						<div class="field-box actions">
-							<input id="sumbit_form" type="button" class="btn-flat primary" value="保存" /> <input
-								id="close_win" type="button" class="btn-flat danger" value="取消" />
+							<input id="sumbit_form" type="button" class="btn-flat primary"
+								value="保存" /> <input id="close_win" type="button"
+								class="btn-flat danger" value="取消" />
 						</div>
 					</form>
 				</div>
@@ -83,69 +72,99 @@ html {
 	<!-- end main container -->
 
 	<!-- scripts -->
-	<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
 	<script>
-		$(function(){
-			var selectObj =$("#tid");
-			$.ajax({
-				url:'<%=basePath%>newsManage?method=news_type_sel_id_typeName&id',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(result){
-						selectObj.empty();
-						selectObj.append($("<option />").text("请选择新闻分类").attr("value","").attr("selected","selected"));
-					if(result.code ==0){
-						$(result.data).each(function(){
-							selectObj.append($("<option />").text(this.value).attr("value",this.code));
-						})
-					}else{
-						alert(result.msg);
-					}
-				},
-				error:function(){
-					alert("服务未响应")
+	$(function(){
+		var selectObj =$("#ruleCode");
+		$.ajax({
+			url:'prManage?method=pr_sel_kv',
+			type:'post',
+			dataType:'json',
+			async:false,
+			success:function(result){
+					selectObj.empty();
+					selectObj.append($("<option />").text("请选择预警规则编码").attr("value","").attr("selected","selected"));
+				if(result.code ==0){
+					$(result.data).each(function(){
+						selectObj.append($("<option />").text(this.text).attr("value",this.code));
+					})
+				}else{
+					alert(result.msg);
 				}
-			})
-			typeChange();
-		});
-		function typeChange(){
-			if($("#type").val()==1){
-				$("#http_url_input").css("display","none");
-				$("#httpurl").val("");
-			}else{
-				$("#http_url_input").css("display","block");
+			},
+			error:function(){
+				alert("服务未响应")
 			}
-			
-		}
-		
-		$("#type").on("change",function(){
-			typeChange();
 		})
-	
+		typeChange();
+	});
 		var index = parent.layer.getFrameIndex(window.name);
 		$("#sumbit_form").on("click",function(){
-			$("#tableForm").ajaxSubmit({
-				url:'<%=basePath%>newsManage?method=news_ins',
-				type:'post',
-				dataType:'json',
-				success:function(result){
-					alert(result.msg);
-					if(result.code == 0){
-						parent.location.href='<%=basePath%>newsManage?method=news_sel';
-						parent.layer.close(index);
+			if(check()){
+				$("#tableForm").ajaxSubmit({
+					url:'warningManage?method=warning_ins',
+					type:'post',
+					dataType:'json',
+					success:function(result){
+						alert(result.msg);
+						if(result.code == 0){
+							parent.location.href='warningManage?method=warning_sel';
+							parent.layer.close(index);
 						} else {
 							return;
 						}
 					},
 					error : function() {
 						alert("服务未响应");
-					}
-				});
+						}
+					});
+				}
 			});
 		$("#close_win").on("click", function() {
 			parent.layer.close(index);
-		})
+		});
+		
+		function check(){
+			var eventId = $("input[name='eventId']").val();
+			var eventCode = $("input[name='eventCode']").val();
+			var eventName = $("input[name='eventName']").val();
+			var ruleCode = $("#ruleCode").val();
+			var isChecked = $("input[name='eventStatus']").is(":checked");
+			var msg = ""
+			var isSuccess = true;
+			if(eventId==""){
+				msg="请填写事件编号。";
+				isSuccess =false;
+			}else if(eventCode==""){
+				msg="请填写事件编码。";
+				isSuccess =false;
+			}else if(eventName==""){
+				msg="请填写事件名称。";
+				isSuccess =false;
+			}else if(ruleCode==""){
+				msg="请选择预警规则编码。";
+				isSuccess =false;
+			}else if(!isChecked){
+				msg="请选择事件状态。";
+				isSuccess =false;
+			}
+			
+			if(isSuccess){
+				return true;
+			}else{
+				changeAlert(msg);
+				return false;
+			}
+			
+		}
+		
+		function changeAlert(msg){
+			var alertDiv = $("#alert");
+			alertDiv.removeClass("alert-info");
+			alertDiv.addClass("alert-error");
+			alertDiv.empty();
+			alertDiv.prepend("<i class='icon-remove-sign'></i>"+msg);
+		}		
 	</script>
 </body>
 
