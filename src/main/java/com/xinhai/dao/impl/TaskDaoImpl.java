@@ -39,8 +39,9 @@ public class TaskDaoImpl implements ITaskDao {
 			obj.setTaskType(rs.getString("task_type"));
 			obj.setTaskRunType(rs.getString("task_run_type"));
 			obj.setTaskTime(rs.getInt("task_time"));
-			obj.setTaskTimming(rs.getString("task_timing"));
+			obj.setTaskTiming(rs.getString("task_timing"));
 			obj.setTaskLastExecuteTime(rs.getTimestamp("task_last_execute_time"));
+			obj.setStatus(rs.getString("status"));
 			result.add(obj);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -60,12 +61,13 @@ public class TaskDaoImpl implements ITaskDao {
 		List<Task> result = new ArrayList<Task>();
 		while (rs.next()) {
 			Task obj = new Task();
+			obj.setId(rs.getInt("id"));
 			obj.setTaskCode(rs.getString("task_code"));
 			obj.setTaskName(rs.getString("task_name"));
 			obj.setTaskType(rs.getString("task_type"));
 			obj.setTaskRunType(rs.getString("task_run_type"));
 			obj.setTaskTime(rs.getInt("task_time"));
-			obj.setTaskTimming(rs.getString("task_timing"));
+			obj.setTaskTiming(rs.getString("task_timing"));
 			obj.setTaskLastExecuteTime(rs.getTimestamp("task_last_execute_time"));
 			result.add(obj);
 		}
@@ -106,7 +108,7 @@ public class TaskDaoImpl implements ITaskDao {
 		ps.setString(3, data.getTaskType());
 		ps.setString(4, data.getTaskRunType());
 		ps.setInt(5, data.getTaskTime());
-		ps.setString(6, data.getTaskTimming());
+		ps.setString(6, data.getTaskTiming());
 		ps.setString(7, data.getStatus());
 		int executeUpdate = ps.executeUpdate();
 		SqlPoolUtil.closeConnection(conn, ps, null);
@@ -115,14 +117,14 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public int updateTask(Task data) throws SQLException {
-		String sql = "update set task_name=?,task_type=?,task_run_type=?,task_time=?,task_timing=?,status=? where id = ?";
+		String sql = "update mep_task set task_name=?,task_type=?,task_run_type=?,task_time=?,task_timing=?,status=? where id = ?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, data.getTaskName());
 		ps.setString(2, data.getTaskType());
 		ps.setString(3, data.getTaskRunType());
 		ps.setInt(4, data.getTaskTime());
-		ps.setString(5, data.getTaskTimming());
+		ps.setString(5, data.getTaskTiming());
 		ps.setString(6, data.getStatus());
 		ps.setInt(7, data.getId());
 		int executeUpdate = ps.executeUpdate();
@@ -132,7 +134,7 @@ public class TaskDaoImpl implements ITaskDao {
 
 	@Override
 	public Task selectTaskById(int id) throws SQLException {
-		String sql = "select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mep_task id=? ";
+		String sql = "select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mep_task where id=? ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
@@ -145,8 +147,9 @@ public class TaskDaoImpl implements ITaskDao {
 			obj.setTaskType(rs.getString("task_type"));
 			obj.setTaskRunType(rs.getString("task_run_type"));
 			obj.setTaskTime(rs.getInt("task_time"));
-			obj.setTaskTimming(rs.getString("task_timing"));
+			obj.setTaskTiming(rs.getString("task_timing"));
 			obj.setTaskLastExecuteTime(rs.getTimestamp("task_last_execute_time"));
+			obj.setStatus(rs.getString("status"));
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return obj;

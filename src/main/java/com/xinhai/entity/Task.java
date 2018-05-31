@@ -8,15 +8,15 @@ public class Task implements Serializable {
 	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;//编码
-	private String taskCode;//调度任务编码
-	private String taskName;//调度任务名称
-	private String taskType;//调度任务名称（data/work）
-	private String taskRunType;//调度任务执行类型（once/cont）
-	private int taskTime;//执行时间间隔
-	private String taskTimming;//执行时间点
-	private Timestamp taskLastExecuteTime;//最后一次执行时间
-	private String status;//状态
+	private int id;// 编码
+	private String taskCode;// 调度任务编码
+	private String taskName;// 调度任务名称
+	private String taskType;// 调度任务名称（data/work）
+	private String taskRunType;// 调度任务执行类型（once/cont）
+	private int taskTime;// 执行时间间隔
+	private String taskTiming;// 执行时间点
+	private Timestamp taskLastExecuteTime;// 最后一次执行时间
+	private String status;// 状态
 
 	public Task() {
 	}
@@ -69,12 +69,12 @@ public class Task implements Serializable {
 		this.taskTime = taskTime;
 	}
 
-	public String getTaskTimming() {
-		return taskTimming;
+	public String getTaskTiming() {
+		return taskTiming;
 	}
 
-	public void setTaskTimming(String taskTimming) {
-		this.taskTimming = taskTimming;
+	public void setTaskTiming(String taskTiming) {
+		this.taskTiming = taskTiming;
 	}
 
 	public Timestamp getTaskLastExecuteTime() {
@@ -96,7 +96,7 @@ public class Task implements Serializable {
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", taskCode=" + taskCode + ", taskName=" + taskName + ", taskType=" + taskType
-				+ ", taskRunType=" + taskRunType + ", taskTime=" + taskTime + ", taskTimming=" + taskTimming
+				+ ", taskRunType=" + taskRunType + ", taskTime=" + taskTime + ", taskTiming=" + taskTiming
 				+ ", taskLastExecuteTime=" + taskLastExecuteTime + ", status=" + status + "]";
 	}
 

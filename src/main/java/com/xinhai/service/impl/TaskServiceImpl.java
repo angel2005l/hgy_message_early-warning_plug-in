@@ -11,15 +11,18 @@ import com.xinhai.dao.ITaskDao;
 import com.xinhai.dao.impl.TaskDaoImpl;
 import com.xinhai.entity.Task;
 import com.xinhai.service.ITaskService;
+import com.xinhai.util.Page;
 
 public class TaskServiceImpl implements ITaskService {
 	private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
 	private ITaskDao dao = new TaskDaoImpl();
 
 	@Override
-	public List<Task> selTask(String taskName) throws Exception {
+	public Page<Task> selTaskPageWithCount(String taskName, String page) throws Exception {
 		try {
-			return dao.selectTask(taskName);
+			List<Task> selectTask = dao.selectTask(taskName);
+			int countNum = dao.selectTaskCount(taskName);
+			return new Page<Task>(10, countNum, Integer.parseInt(page), selectTask);
 		} catch (SQLException e) {
 			log.error("查询调度任务信息异常,异常原因:" + e.getMessage());
 			return null;
@@ -35,8 +38,6 @@ public class TaskServiceImpl implements ITaskService {
 			return null;
 		}
 	}
-	
-	
 
 	@Override
 	public boolean insTask(Task data) throws Exception {

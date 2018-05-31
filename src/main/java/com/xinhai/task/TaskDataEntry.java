@@ -62,7 +62,7 @@ public class TaskDataEntry extends TimerTask {
 			// 分为 每日一次 和每日循环
 			switch (task.getTaskRunType()) {
 			case "once":
-				nextExecuteTime = DateUtil.curTimestampByStr(DateUtil.curDateYMD() + " " + task.getTaskTimming())
+				nextExecuteTime = DateUtil.curTimestampByStr(DateUtil.curDateYMD() + " " + task.getTaskTiming())
 						.getTime();
 				if (nowTime - nextExecuteTime < 0) {
 					return;

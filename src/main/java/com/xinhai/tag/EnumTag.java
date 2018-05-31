@@ -31,7 +31,7 @@ public class EnumTag extends BodyTagSupport {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public int doEndTag() throws JspException {
-		String value = this.getBodyContent().getString().toUpperCase();
+		String value = this.getBodyContent().getString();
 		if (StrUtil.notBlank(value)) {
 			Class clazz = null;
 			try {
