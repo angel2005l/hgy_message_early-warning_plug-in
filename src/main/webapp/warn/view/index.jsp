@@ -76,7 +76,10 @@
 					</a>
 					<ul class="submenu">
 						<li>
-							<a class="func" href="newsManage?method=news_type_sel" target="mainFrame">预警分类</a>
+							<a class="func" href="newsManage?method=news_type_sel" target="mainFrame">预警类别</a>
+						</li>
+						<li>
+							<a class="func" href="newsManage?method=news_type_sel" target="mainFrame">模具类别</a>
 						</li>
 					</ul>
 				</li>
@@ -94,11 +97,14 @@
 				<li class="left-nav-li">
 					<a class="dropdown-toggle" href="#">
 						<i class="icon-cog"></i>
-						<span>任务管理</span>
+						<span>系统管理</span>
 					</a>
 					<ul class="submenu">
 						<li>
-							<a class="func" href="productManage?method=product_sel" target="mainFrame">任务信息</a>
+							<a class="func" href="taskManage?method=task_sel" target="mainFrame">调度任务</a>
+						</li>
+						<li>
+							<a class="func" href="prManage?method=pr_sel" target="mainFrame">推送规则</a>
 						</li>
 					</ul>
 				</li>

@@ -5,7 +5,7 @@
 <html style="margin-top: 30px">
 
 <head>
-<title>预警类型管理</title>
+<title>预警类别管理</title>
 <base href="<%=basePath %>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -23,12 +23,12 @@
 			<div class="table-wrapper products-table section">
 				<div class="row-fluid head">
 					<div class="span12">
-						<h4>预警类型管理</h4>
+						<h4>预警类别管理</h4>
 					</div>
 				</div>
 				<div class="row-fluid filter-block">
 					<form id="searchForm"
-						action="newsManage?method=news_sel" method="post">
+						action="warningManage?method=warning_sel" method="post">
 						<div class="pull-right">
 							<input type="text" class="search" name="title" placeholder="请输入新闻标题关键字" /> <input
 								type="hidden" id="pageNum" name="pageNum" value="${data.totalPage }">
@@ -49,6 +49,7 @@
 								<th class="span2"><span class="line"></span>事件编码</th>
 								<th class="span1"><span class="line"></span>事件名称</th>
 								<th class="span2"><span class="line"></span>预警规则编码</th>
+								<th class="span2"><span class="line"></span>事件状态</th>
 								<th class="span2"><span class="line"></span>操作</th>
 							</tr>
 						</thead>
@@ -61,8 +62,14 @@
 									<td>${b.eventCode }</td>
 									<td>${b.eventName }</td>
 									<td>${b.ruleCode }</td>
+									<td><span
+										<c:choose>
+										<c:when test="${b.eventStatus !=1 }">class="label label-warning"</c:when>
+										<c:otherwise>class="label label-success"</c:otherwise>
+									</c:choose>><tag:enum className="EventStatusEnum" >${b.eventStatus }</tag:enum></span></td>
 									<td><ul class="actions">
-												<li><a onclick="edit(${b.id })">编辑</a></li>
+												<c:if test="${b.eventStatus ==1 }"><li class="last"><a onclick="disable(${b.id })">不启用</a></li></c:if>
+												<c:if test="${b.eventStatus ==2 }"><li class="last"><a onclick="enabled(${b.id })">启用</a></li></c:if>
 												<%-- <li class="last"><a onclick="del(${b.id })">删除</a></li> --%>
 											</ul>
 										</td>
@@ -95,39 +102,13 @@
 			function addWarnType() {
 				var index = layer.open({
 					type: 2,
-					title:'添加预警分类信息',
+					title:'添加预警类别',
 					area: ['600px', '500px'],
 					shadeClose: false, //点击遮罩关闭
 					content: 'view/warning/addLayer.jsp'
 //					content:'grids.html'
 				});
 				layer.full(index);
-			}
-			
-			function edit(id){
-				var index = layer.open({
-					type:2,
-					title:'修改新闻信息',
-					area : [ '400px', '500px' ],
-					shadeClose : false, //点击遮罩关闭
-					content: 'newsManage?method=news_sel_id&id='+id
-				});
-				layer.full(index);
-			}
-			function del(id){
-				$.ajax({
-					url:'newsManage?method=news_del',
-					type:'post',
-					dataType:'json',
-					data:{"id":id},
-					success:function(result){
-						alert(result.msg)
-						location.reload();
-					},
-					error:function(){
-						alert("服务未响应");
-					}
-				});
 			}
 			
 			function searchBtn(msg){

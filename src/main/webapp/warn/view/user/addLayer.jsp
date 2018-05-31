@@ -53,7 +53,7 @@ html {
 						<div class="field-box">
 							<label>*通知层级</label>
 							<div class="ui-select">
-								<select name="userLevel">
+								<select id="userLevel" name="userLevel">
 									<option value="" selected="selected">请选择通知层级</option>
 									<option value="1">第一通知级</option>
 									<option value="2">第二通知级</option>
@@ -116,7 +116,7 @@ html {
 			var userCode = $("input[name='userCode']").val();
 			var userName = $("input[name='userName']").val();
 			var userToken = $("input[name='userToken']").val();
-			var userLevel = $("input[name='userLevel']").val();
+			var userLevel = $("#userLevel").val();
 			var isChecked = $("input[name='userStatus']").is(":checked");
 			var msg = ""
 			var isSuccess = true;

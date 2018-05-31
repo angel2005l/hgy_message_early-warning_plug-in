@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>员工信息弹窗</title>
+<title>调度任务弹窗</title>
 <base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
