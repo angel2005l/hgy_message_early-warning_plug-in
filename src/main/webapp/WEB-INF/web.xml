@@ -20,4 +20,13 @@
 		<display-name>SchedulingJobsListener</display-name>
 		<listener-class>com.xinhai.listener.SchedulingJobsListener</listener-class>
 	</listener>
+	<servlet>
+		<servlet-name>userController</servlet-name>
+		<servlet-class>com.xinhai.controller.UserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userController</servlet-name>
+		<url-pattern>/warn/userManage</url-pattern>
+	</servlet-mapping>
+
 </web-app>

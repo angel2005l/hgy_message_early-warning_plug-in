@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.tools.javac.code.Attribute.Constant;
+import com.xinhai.base.Constant;
 
 public class POIUtil {
 	private static final Logger log = LoggerFactory.getLogger(POIUtil.class);
@@ -35,8 +35,8 @@ public class POIUtil {
 	// 入口方法
 	/**
 	 * 
-	 * @Title: readExcel   
-	 * @Description: 入口方法 
+	 * @Title: readExcel
+	 * @Description: 入口方法
 	 * @param filePath
 	 * @param colCount
 	 * @param rowNum
@@ -50,8 +50,7 @@ public class POIUtil {
 	 *
 	 */
 	public static final List<Map<String, String>> readExcel(String filePath, int colCount, int rowNum,
-			String[] rowCodes)
-			throws IOException, NullPointerException, Exception {
+			String[] rowCodes) throws IOException, NullPointerException, Exception {
 		// 确认 如何将错误反馈
 		if (StrUtil.isBlank(filePath)) {
 			throw new NullPointerException("文件路径名为空字符串");
@@ -73,20 +72,21 @@ public class POIUtil {
 
 	/**
 	 * 
-	 * @Title: insertExcel2007   
+	 * @Title: insertExcel2007
 	 * @Description: 2017及以上版本的excel文件操作
 	 * @param filePath
 	 * @param rowCount
-	 * @param rowNum 第一行数据结构
+	 * @param rowNum
+	 *            第一行数据结构
 	 * @param rowCodes
 	 * @return
 	 * @author: MR.H
 	 * @return: List<Map<String,Object>>
-	 * @throws IOException 
+	 * @throws IOException
 	 *
 	 */
-	public static List<Map<String, String>> readExcelXlsx(String filePath, int colCount, int rowNum,
-			String[] rowCodes) throws IOException {
+	public static List<Map<String, String>> readExcelXlsx(String filePath, int colCount, int rowNum, String[] rowCodes)
+			throws IOException {
 		FileInputStream inputStream = null;
 		XSSFWorkbook workbook = null;
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
@@ -116,11 +116,9 @@ public class POIUtil {
 					throw new IOException("Excel文件第" + (rowIndex + 1) + "行数据为空");
 				// 根据传入的columnCount与实际excel中读到的列数量进行比较
 				if (row.getLastCellNum() < colCount)
-					throw new IOException("Excel文件第" + (rowIndex + 1)
-							+ "行数据列总数小于规定的格式");
+					throw new IOException("Excel文件第" + (rowIndex + 1) + "行数据列总数小于规定的格式");
 				// excel一行数据就是一个map
-				Integer cellCountInRow = Math.min(row.getLastCellNum(),
-						colCount);
+				Integer cellCountInRow = Math.min(row.getLastCellNum(), colCount);
 				Map<String, String> map = new HashMap<String, String>();
 				// 检查当前行数据是否为空
 				if (!isCellNull(row)) {
@@ -130,12 +128,10 @@ public class POIUtil {
 				for (int cellIndex = 0; cellIndex < cellCountInRow; cellIndex++) {
 					XSSFCell cell = row.getCell(cellIndex);
 					if (null == cell)
-						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第"
-								+ (cellIndex + 1) + "列数据为空");
+						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第" + (cellIndex + 1) + "列数据为空");
 					String cellStr = getValue(cell).trim();
 					if ("".equals(cellStr))
-						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第"
-								+ (cellIndex + 1) + "列的数据不能为空单元格");
+						throw new IOException("Excel文件第" + (rowIndex + 1) + "行第" + (cellIndex + 1) + "列的数据不能为空单元格");
 					// 按照索引从键数组中得到字段英文名
 					map.put(rowCodes[cellIndex], cellStr);
 				}
@@ -149,16 +145,13 @@ public class POIUtil {
 			if (null != inputStream) {
 				inputStream.close();
 			}
-			if (null != workbook) {
-				workbook.close();
-			}
 		}
 
 	}
 
 	/**
 	 * 
-	 * @Title: isCellNull   
+	 * @Title: isCellNull
 	 * @Description: 是否是整行为空
 	 * @param row
 	 * @return
@@ -182,9 +175,10 @@ public class POIUtil {
 		}
 		return false;
 	}
+
 	/**
 	 * 
-	 * @Title: getValue   
+	 * @Title: getValue
 	 * @Description: 待启用 用于2007一下版本获得数据
 	 * @param hssfCell
 	 * @return

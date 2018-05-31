@@ -3,11 +3,11 @@ package com.xinhai.entity;
 public class User {
 
 	private int id;
+	private String userCode;
 	private String userName;
 	private String userToken;
 	private String userEmail;
 	private String userPhone;
-	private String userType;
 	private int userLevel;
 	private String IsWork;
 	private String userStatus;
@@ -21,6 +21,14 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
 
 	public String getUserName() {
@@ -55,14 +63,6 @@ public class User {
 		this.userPhone = userPhone;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
 	public int getUserLevel() {
 		return userLevel;
 	}
@@ -89,8 +89,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", userToken=" + userToken + ", userEmail=" + userEmail
-				+ ", userPhone=" + userPhone + ", userType=" + userType + ", userLevel=" + userLevel + ", IsWork="
+		return "User [id=" + id + ", userCode=" + userCode + ", userName=" + userName + ", userToken=" + userToken
+				+ ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", userLevel=" + userLevel + ", IsWork="
 				+ IsWork + ", userStatus=" + userStatus + "]";
 	}
 
