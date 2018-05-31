@@ -13,7 +13,7 @@ import com.xinhai.util.SqlPoolUtil;
 
 public class UserDaoImpl implements IUserDao {
 
-	SqlPoolUtil instance = SqlPoolUtil.getInstance();
+	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
 	public List<User> selectUser() throws SQLException {

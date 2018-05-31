@@ -14,7 +14,7 @@ import com.xinhai.util.SqlPoolUtil;
 import com.xinhai.util.StrUtil;
 
 public class TaskDaoImpl implements ITaskDao {
-	SqlPoolUtil instance = SqlPoolUtil.getInstance();
+	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
 	public List<Task> selectTask(String taskName) throws SQLException {

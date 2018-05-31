@@ -13,7 +13,7 @@ import com.xinhai.util.SqlPoolUtil;
 import com.xinhai.util.StrUtil;
 
 public class CoreDaoImpl implements ICoreDao {
-	SqlPoolUtil instance = SqlPoolUtil.getInstance();
+	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
 	public List<WarningWithRule> selWarningPush() throws SQLException {
