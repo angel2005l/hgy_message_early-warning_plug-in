@@ -57,19 +57,21 @@ public class EventController extends HttpServlet {
 		case "warning_sel_kv":
 			selWarnKV(req, resp);
 			break;
+		case "warning_sel_id":
+			selWarnById(req, resp);
+			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
 			break;
 		}
 	}
 
-	private void selWarn(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException {
+	private void selWarn(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");
 
-			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(StrUtil.isBlank(page) ? "1"
-					: page);
+			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selWarnTypePageWithCount);
 		} catch (Exception e) {
 			log.error("查询预警类别异常,异常原因" + e.toString());
@@ -116,7 +118,7 @@ public class EventController extends HttpServlet {
 	}
 
 	private void uptBatchWarnRuleCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//String eventCode = request.getParameter("eventCode");
+		// String eventCode = request.getParameter("eventCode");
 		String ruleCode = request.getParameter("ruleCode");
 		String json = "";
 		try {
@@ -159,10 +161,21 @@ public class EventController extends HttpServlet {
 		returnData(json, response);
 	}
 
+	private void selWarnById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String id = request.getParameter("id");
+			Event selWarnById = service.selWarnById(id);
+			request.setAttribute("data", selWarnById);
+		} catch (Exception e) {
+			log.error("查询特定预警类别异常,异常原因" + e.toString());
+		}
+		request.getRequestDispatcher("view/warning/editLayer.jsp").forward(request, response);
+	}
+
 	/**
 	 * 
-	 * @Title: returnData   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: returnData
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param json
 	 * @param response
 	 * @throws IOException

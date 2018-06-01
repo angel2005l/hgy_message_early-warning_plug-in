@@ -36,6 +36,8 @@
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
 							<a class="btn-flat success new-product" onclick="addWarnType()">添加预警类别</a>
+							<a class="btn-flat success new-product" onclick="addWarnType()">快速绑定推送规则</a>
+							<a class="btn-flat success new-product" onclick="synchro()">同步预警类别</a> 
 						</div>
 					</form>
 				</div>
@@ -68,9 +70,9 @@
 										<c:otherwise>class="label label-success"</c:otherwise>
 									</c:choose>><tag:enum className="EventStatusEnum" >${b.eventStatus }</tag:enum></span></td>
 									<td><ul class="actions">
+												<li><a onclick="edit(${b.id })">绑定推送规则</a></li>
 												<c:if test="${b.eventStatus ==1 }"><li class="last"><a onclick="disable(${b.id })">不启用</a></li></c:if>
 												<c:if test="${b.eventStatus ==2 }"><li class="last"><a onclick="enabled(${b.id })">启用</a></li></c:if>
-												<%-- <li class="last"><a onclick="del(${b.id })">删除</a></li> --%>
 											</ul>
 										</td>
 								</tr>
@@ -110,6 +112,16 @@
 				});
 			}
 			
+		function edit(id){
+			layer.open({
+				type:2,
+				title:'绑定预警类别',
+				area : [ '600px', '417px' ],
+				shadeClose : true, //点击遮罩关闭
+				content: 'warningManage?method=warning_sel_id&id='+id
+			});
+		}
+		
 			function searchBtn(msg){
 				var page = $("#page");
 				var pageNum = $("#pageNum").val();
@@ -163,6 +175,31 @@
 						alert("服务未响应");
 					}
 				});
+			}
+			
+			function batchBoundRule(){
+				layer.open({
+					type:2,
+					title:'批量绑定预警类别',
+					area : [ '600px', '417px' ],
+					shadeClose : true, //点击遮罩关闭
+					content: 'view/warning/batchLayer.jsp'
+				});
+			}
+			
+			function synchro(){
+				$.ajax({
+					url:'warningManage?method=warning_upt_event_status',
+					type:'post',
+					dataType:'json',
+					success:function(result){
+						alert(result.msg)
+						location.reload();
+					},
+					error:function(){
+						alert("服务未响应");
+					}
+				})
 			}
 			
 		</script>

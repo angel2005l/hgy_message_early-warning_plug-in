@@ -86,4 +86,13 @@ public class EventTypeServiceImpl extends BaseResult implements IEventTypeServic
 		}
 	}
 
+	@Override
+	public Event selWarnById(String id) throws Exception {
+		try {
+			return dao.selectWarnById(Integer.parseInt(id));
+		} catch (SQLException e) {
+			log.error("查询特定预警类别数据接口异常,异常原因:" + e.toString());
+			return null;
+		}
+	}
 }

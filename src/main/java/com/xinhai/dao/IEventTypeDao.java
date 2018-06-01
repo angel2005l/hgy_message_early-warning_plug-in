@@ -22,4 +22,6 @@ public interface IEventTypeDao {
 	public int updateEventWithEventStatus(String eventStatus, int id) throws SQLException;
 
 	public List<Map<String, String>> selectEventKV() throws SQLException;
+
+	public Event selectWarnById(int id) throws SQLException;
 }

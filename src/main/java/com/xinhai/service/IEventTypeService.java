@@ -21,4 +21,6 @@ public interface IEventTypeService {
 
 	public List<Map<String, String>> selWarnTypeKV() throws Exception;
 
+	public Event selWarnById(String id) throws Exception;
+
 }

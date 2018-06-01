@@ -29,18 +29,16 @@ html {
 				<div class="span1 avatar-box"></div>
 				<!-- edit form column -->
 				<div class="span7 personal-info">
+					<input type="hidden" id="ruleCodeStr" value="${data.ruleCode }" />
 					<form id="tableForm">
-						<div class="field-box">
-							<label>*事件编号:</label> <input class="span5 inline-input"
-								type="text" name="eventId" placeholder="请输入事件编号..." />
-						</div>
+						<input type="hidden" name="id" value="${data.id }" />
 						<div class="field-box">
 							<label>*事件编码:</label> <input class="span5 inline-input"
-								type="text" name="eventCode" placeholder="请输入事件编码..." />
+								type="text" name="eventCode" value="${data.eventCode }" readonly />
 						</div>
 						<div class="field-box">
 							<label>*事件名称:</label> <input class="span5 inline-input"
-								type="text" name="eventName" placeholder="请输入事件编码..." />
+								type="text" name="eventName" value="${data.eventName }" readonly />
 						</div>
 						<div class="field-box">
 							<label>*预警规则编码</label>
@@ -49,12 +47,6 @@ html {
 									<option value="" selected="selected">请选择预警规则编码</option>
 								</select>
 							</div>
-						</div>
-						<div class="field-box">
-							<label>*事件状态:</label> <label style="width: 20%;"><input
-								type="radio" name="eventStatus" value="1" checked="checked" />启用</label>
-							<label style="width: 20%; float: left;"><input
-								type="radio" name="eventStatus" value="2" />不启用</label>
 						</div>
 						<div id="alert" class="alert alert-info">
 							<i class="icon-exclamation-sign"></i>请认真填写预警类别,*为必填字段
@@ -96,12 +88,19 @@ html {
 				alert("服务未响应")
 			}
 		})
+		$("#ruleCode option").each(function(){
+			if(this.value == $("#ruleCodeStr").val()){
+				$(this).attr("selected", "selected");
+				return;
+			}
+		})
+		
 	});
 		var index = parent.layer.getFrameIndex(window.name);
 		$("#sumbit_form").on("click",function(){
 			if(check()){
 				$("#tableForm").ajaxSubmit({
-					url:'warningManage?method=warning_ins',
+					url:'warningManage?method=warning_upt_rule_code',
 					type:'post',
 					dataType:'json',
 					success:function(result){
@@ -124,17 +123,12 @@ html {
 		});
 		
 		function check(){
-			var eventId = $("input[name='eventId']").val();
 			var eventCode = $("input[name='eventCode']").val();
 			var eventName = $("input[name='eventName']").val();
 			var ruleCode = $("#ruleCode").val();
-			var isChecked = $("input[name='eventStatus']").is(":checked");
 			var msg = ""
 			var isSuccess = true;
-			if(eventId==""){
-				msg="请填写事件编号。";
-				isSuccess =false;
-			}else if(eventCode==""){
+			if(eventCode==""){
 				msg="请填写事件编码。";
 				isSuccess =false;
 			}else if(eventName==""){
@@ -142,9 +136,6 @@ html {
 				isSuccess =false;
 			}else if(ruleCode==""){
 				msg="请选择预警规则编码。";
-				isSuccess =false;
-			}else if(!isChecked){
-				msg="请选择事件状态。";
 				isSuccess =false;
 			}
 			

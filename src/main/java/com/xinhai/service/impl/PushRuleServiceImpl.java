@@ -41,7 +41,6 @@ public class PushRuleServiceImpl extends BaseResult implements IPushRuleService 
 		}
 	}
 
-	// 推送规则
 	@Override
 	public Result<Object> insPushRule(PushRule data) throws Exception {
 		try {

@@ -131,4 +131,25 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 			throw e;
 		}
 	}
+
+	@Override
+	public Event selectWarnById(int id) throws SQLException {
+		String sql = "select id,event_id,event_code,event_name,event_pid,rule_code,event_status from mep_event where id = ? ";
+		DruidPooledConnection conn = instance.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		Event obj = null;
+		while (rs.next()) {
+			obj = new Event();
+			obj.setId(rs.getInt("id"));
+			obj.setEventId(rs.getInt("event_id"));
+			obj.setEventCode(rs.getString("event_code"));
+			obj.setEventName(rs.getString("event_name"));
+			obj.setpId(rs.getInt("event_pid"));
+			obj.setRuleCode(rs.getString("rule_code"));
+			obj.setEventStatus(rs.getString("event_status"));
+		}
+		return obj;
+	}
 }
