@@ -57,7 +57,7 @@ public class EventTypeServiceImpl extends BaseResult implements IEventTypeServic
 	@Override
 	public Result<Object> uptBatchWarnTypeWithRuleCode(String ruleCode, String[] eventCodes) throws Exception {
 		try {
-			return dao.updateBatchEventWithRuleCode(ruleCode, eventCodes) >= 0 ? rtnSuccessResult("更新预警类别成功")
+			return dao.updateBatchEventWithRuleCode(ruleCode, eventCodes) > 0 ? rtnSuccessResult("更新预警类别成功")
 					: rtnFailResult(Result.ERROR_4000, "更新预警类别失败");
 		} catch (SQLException e) {
 			log.error("更新预警类别数据接口异常,异常原因:" + e.toString());

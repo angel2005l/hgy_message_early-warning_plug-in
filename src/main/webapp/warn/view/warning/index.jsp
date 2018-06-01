@@ -36,7 +36,7 @@
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
 							<a class="btn-flat success new-product" onclick="addWarnType()">添加预警类别</a>
-							<a class="btn-flat success new-product" onclick="addWarnType()">快速绑定推送规则</a>
+							<a class="btn-flat success new-product" onclick="batchBoundRule()">快速绑定推送规则</a>
 							<a class="btn-flat success new-product" onclick="synchro()">同步预警类别</a> 
 						</div>
 					</form>
@@ -181,7 +181,7 @@
 				layer.open({
 					type:2,
 					title:'批量绑定预警类别',
-					area : [ '600px', '417px' ],
+					area : [ '600px', '340px' ],
 					shadeClose : true, //点击遮罩关闭
 					content: 'view/warning/batchLayer.jsp'
 				});

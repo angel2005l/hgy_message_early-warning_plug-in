@@ -55,7 +55,7 @@ html {
 								type="text" name="ruleFourthTime" placeholder="请输入第四级推送时间..." />
 						</div>
 						<div id="alert" class="alert alert-info">
-							<i class="icon-exclamation-sign"></i>请认真填写推送规则,*为必填字段
+							<i class="icon-exclamation-sign"></i>请认真填写推送规则,*为必填字段。推送时间为：分钟（min）
 						</div>
 						<div class="field-box actions">
 							<input id="sumbit_form" type="button" class="btn-flat primary"

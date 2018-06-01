@@ -12,6 +12,7 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 import com.xinhai.dao.IEventTypeDao;
 import com.xinhai.entity.Event;
 import com.xinhai.util.SqlPoolUtil;
+import com.xinhai.util.StrUtil;
 
 public class EventTypeDaoImpl implements IEventTypeDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
@@ -117,6 +118,9 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		try {
 			for (String eventCode : eventCodes) {
+				if (StrUtil.isBlank(eventCode)) {
+					continue;
+				}
 				ps.setString(1, ruleCode);
 				ps.setString(2, eventCode);
 				int rtn = ps.executeUpdate();

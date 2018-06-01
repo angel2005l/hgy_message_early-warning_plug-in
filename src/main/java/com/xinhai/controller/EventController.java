@@ -48,7 +48,7 @@ public class EventController extends HttpServlet {
 		case "warning_upt_rule_code":
 			uptWarnRuleCode(req, resp);
 			break;
-		case "warning_upt__batch_rule_code":
+		case "warning_upt_batch_rule_code":
 			uptBatchWarnRuleCode(req, resp);
 			break;
 		case "warning_upt_event_status":
@@ -118,11 +118,11 @@ public class EventController extends HttpServlet {
 	}
 
 	private void uptBatchWarnRuleCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// String eventCode = request.getParameter("eventCode");
+		String[] eventCodes = request.getParameterValues("eventCode");
 		String ruleCode = request.getParameter("ruleCode");
 		String json = "";
 		try {
-			Result<Object> insWarnType = service.uptBatchWarnTypeWithRuleCode(ruleCode, new String[10]);
+			Result<Object> insWarnType = service.uptBatchWarnTypeWithRuleCode(ruleCode, eventCodes);
 			json = JSON.toJSONString(insWarnType);
 		} catch (Exception e) {
 			log.error("更新预警类别异常,异常原因:" + e.toString());
@@ -161,7 +161,8 @@ public class EventController extends HttpServlet {
 		returnData(json, response);
 	}
 
-	private void selWarnById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void selWarnById(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
 			Event selWarnById = service.selWarnById(id);
