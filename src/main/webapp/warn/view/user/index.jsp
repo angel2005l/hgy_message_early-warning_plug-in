@@ -1,13 +1,18 @@
 <%@ include file="../../view/base/base.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Object obj = session.getAttribute("isLogin");
+	if (null == obj || !Boolean.parseBoolean(obj.toString())) {
+		response.sendRedirect("../login.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html style="margin-top: 30px">
 <head>
 <title>员工信息管理</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<base href="<%=basePath %>warn/">
+<base href="<%=basePath%>warn/">
 <link rel="stylesheet" href="theme/default/layer.css" />
 <link rel="stylesheet" href="css/compiled/tables.css" type="text/css"
 	media="screen" />
@@ -26,8 +31,8 @@
 					</div>
 				</div>
 				<div class="row-fluid filter-block">
-					<form id="searchForm"
-						action="userManage?method=user_sel" method="post">
+					<form id="searchForm" action="userManage?method=user_sel"
+						method="post">
 						<div class="pull-right">
 							<input type="text" class="search" name="title"
 								placeholder="请输入员工姓名关键字" /> <input type="hidden" id="pageNum"
@@ -66,7 +71,8 @@
 									<td>${b.userToken }</td>
 									<td>${b.userEmail }</td>
 									<td>${b.userPhone }</td>
-									<td><tag:enum className="LevelTypeEnum">${b.userLevel }</tag:enum> </td>
+									<td><tag:enum className="LevelTypeEnum">${b.userLevel }</tag:enum>
+									</td>
 									<td><span
 										<c:choose>
 										<c:when test="${b.userStatus!=1 }">class="label label-warning"</c:when>

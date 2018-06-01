@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class UserController extends HttpServlet {
 		String json = "";
 		if ("xinhai".equals(userName) && "123".equals(password)) {
 			HttpSession session = request.getSession();
-			session.setAttribute("isLogin", true);
+			session.setAttribute("isLogin", "true");
 			json = JSON.toJSONString(new Result<Object>(Result.SUCCESS_0, "登录成功"));
 		} else {
 			json = JSON.toJSONString(new Result<Object>(Result.ERROR_4300, "用户名/密码不正确"));
@@ -109,8 +110,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: selUser   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: selUser
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -146,8 +147,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: addUser   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: addUser
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -188,8 +189,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: uptUser   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: uptUser
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -224,8 +225,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: delUser   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: delUser
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -248,8 +249,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: addBacthUser   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: addBacthUser
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -266,8 +267,7 @@ public class UserController extends HttpServlet {
 				json = JSON.toJSONString(new Result<Object>(Result.ERROR_4300, "无法识别的文件"));
 			} else {
 				String[] rowCodes = { "userCode", "userName", "userToken", "userEmail", "userPhone", "userLevel" };
-				List<Map<String, String>> resultList = POIUtil.readExcelXlsx(fileStreams.get(0), 6, 1,
-						rowCodes);
+				List<Map<String, String>> resultList = POIUtil.readExcelXlsx(fileStreams.get(0), 6, 1, rowCodes);
 				List<User> data = new ArrayList<User>();
 				for (Map<String, String> map : resultList) {
 					data.add(JSON.parseObject(JSON.toJSONString(map), User.class));
@@ -292,6 +292,7 @@ public class UserController extends HttpServlet {
 		String fileName = "员工导入模板.xlsx";
 		// 处理请求
 		// 读取要下载的文件
+		DOWNLOAD_TEMP_FILE = URLDecoder.decode(DOWNLOAD_TEMP_FILE, "utf-8");
 		File f = new File(DOWNLOAD_TEMP_FILE + fileName);
 		response.setCharacterEncoding("utf-8");
 		if (f.exists()) {
@@ -314,13 +315,13 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: logout   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: logout
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param request
 	 * @param response
 	 * @author: MR.H
 	 * @return: void
-	 * @throws IOException 
+	 * @throws IOException
 	 *
 	 */
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -331,8 +332,8 @@ public class UserController extends HttpServlet {
 
 	/**
 	 * 
-	 * @Title: returnData   
-	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @Title: returnData
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param json
 	 * @param response
 	 * @throws IOException

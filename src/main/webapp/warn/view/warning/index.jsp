@@ -1,17 +1,23 @@
 <%@ include file="../../view/base/base.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Object obj = session.getAttribute("isLogin");
+	if (null == obj || !Boolean.parseBoolean(obj.toString())) {
+		response.sendRedirect("../login.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html style="margin-top: 30px">
 
 <head>
 <title>预警类别管理</title>
-<base href="<%=basePath %>warn/">
+<base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="theme/default/layer.css" />
-<link rel="stylesheet" href="css/compiled/tables.css"
-	type="text/css" media="screen" />
+<link rel="stylesheet" href="css/compiled/tables.css" type="text/css"
+	media="screen" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -27,17 +33,19 @@
 					</div>
 				</div>
 				<div class="row-fluid filter-block">
-					<form id="searchForm"
-						action="warningManage?method=warning_sel" method="post">
+					<form id="searchForm" action="warningManage?method=warning_sel"
+						method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title" placeholder="请输入预警类别关键字" /> <input
-								type="hidden" id="pageNum" name="pageNum" value="${data.totalPage }">
-							<input type="hidden" id="page" name = "page"
+							<input type="text" class="search" name="title"
+								placeholder="请输入预警类别关键字" /> <input type="hidden" id="pageNum"
+								name="pageNum" value="${data.totalPage }"> <input
+								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
 							<a class="btn-flat success new-product" onclick="addWarnType()">添加预警类别</a>
-							<a class="btn-flat success new-product" onclick="batchBoundRule()">快速绑定推送规则</a>
-							<a class="btn-flat success new-product" onclick="synchro()">同步预警类别</a> 
+							<a class="btn-flat success new-product"
+								onclick="batchBoundRule()">快速绑定推送规则</a> <a
+								class="btn-flat success new-product" onclick="synchro()">同步预警类别</a>
 						</div>
 					</form>
 				</div>
@@ -68,13 +76,17 @@
 										<c:choose>
 										<c:when test="${b.eventStatus !=1 }">class="label label-warning"</c:when>
 										<c:otherwise>class="label label-success"</c:otherwise>
-									</c:choose>><tag:enum className="EventStatusEnum" >${b.eventStatus }</tag:enum></span></td>
+									</c:choose>><tag:enum
+												className="EventStatusEnum">${b.eventStatus }</tag:enum></span></td>
 									<td><ul class="actions">
-												<li><a onclick="edit(${b.id })">绑定推送规则</a></li>
-												<c:if test="${b.eventStatus ==1 }"><li class="last"><a onclick="disable(${b.id })">不启用</a></li></c:if>
-												<c:if test="${b.eventStatus ==2 }"><li class="last"><a onclick="enabled(${b.id })">启用</a></li></c:if>
-											</ul>
-										</td>
+											<li><a onclick="edit(${b.id })">绑定推送规则</a></li>
+											<c:if test="${b.eventStatus ==1 }">
+												<li class="last"><a onclick="disable(${b.id })">不启用</a></li>
+											</c:if>
+											<c:if test="${b.eventStatus ==2 }">
+												<li class="last"><a onclick="enabled(${b.id })">启用</a></li>
+											</c:if>
+										</ul></td>
 								</tr>
 							</c:forEach>
 						</tbody>

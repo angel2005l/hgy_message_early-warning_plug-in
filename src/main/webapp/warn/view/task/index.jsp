@@ -1,16 +1,22 @@
 <%@ include file="../../view/base/base.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Object obj = session.getAttribute("isLogin");
+	if (null == obj || !Boolean.parseBoolean(obj.toString())) {
+		response.sendRedirect("../login.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html style="margin-top: 30px">
 <head>
 <title>调度任务管理</title>
-<base href="<%=basePath %>warn/">
+<base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="theme/default/layer.css" />
-<link rel="stylesheet" href="css/compiled/tables.css"
-	type="text/css" media="screen" />
+<link rel="stylesheet" href="css/compiled/tables.css" type="text/css"
+	media="screen" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -26,12 +32,13 @@
 					</div>
 				</div>
 				<div class="row-fluid filter-block">
-					<form id="searchForm"
-						action="taskManage?method=task_sel" method="post">
+					<form id="searchForm" action="taskManage?method=task_sel"
+						method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title" placeholder="请输入调度任务关键字" /> <input
-								type="hidden" id="pageNum" name="pageNum" value="${data.totalPage }">
-							<input type="hidden" id="page" name = "page"
+							<input type="text" class="search" name="title"
+								placeholder="请输入调度任务关键字" /> <input type="hidden" id="pageNum"
+								name="pageNum" value="${data.totalPage }"> <input
+								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
 							<a class="btn-flat success new-product" onclick="addTask()">添加调度任务</a>
@@ -60,20 +67,21 @@
 									<td>${s.count }</td>
 									<td>${b.taskCode }</td>
 									<td>${b.taskName }</td>
-									<td><tag:enum className="TaskEnum" >${b.taskType }</tag:enum></td>
-									<td><tag:enum className="TaskEnum" >${b.taskRunType }</tag:enum></td>
-									<td><fmt:formatDate value="${b.taskLastExecuteTime }"	pattern="yyyy-MM-dd HH:mm:ss" /></td>
-									
+									<td><tag:enum className="TaskEnum">${b.taskType }</tag:enum></td>
+									<td><tag:enum className="TaskEnum">${b.taskRunType }</tag:enum></td>
+									<td><fmt:formatDate value="${b.taskLastExecuteTime }"
+											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+
 									<td><span
 										<c:choose>
 										<c:when test="${b.status eq 'N' }">class="label label-warning"</c:when>
 										<c:otherwise>class="label label-success"</c:otherwise>
-									</c:choose>><tag:enum className="TaskEnum" >${b.status }</tag:enum></span></td>
+									</c:choose>><tag:enum
+												className="TaskEnum">${b.status }</tag:enum></span></td>
 									<td><ul class="actions">
-												<li><a onclick="edit(${b.id })">编辑</a></li>
-												<li class="last"><a onclick="del(${b.id })">删除</a></li>
-											</ul>
-										</td>
+											<li><a onclick="edit(${b.id })">编辑</a></li>
+											<li class="last"><a onclick="del(${b.id })">删除</a></li>
+										</ul></td>
 								</tr>
 							</c:forEach>
 						</tbody>

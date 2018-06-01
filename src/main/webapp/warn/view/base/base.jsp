@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="/WEB-INF/mytags.tld" prefix="tag" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/mytags.tld" prefix="tag"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -12,11 +12,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<base href="<%=basePath %>warn/">
+<base href="<%=basePath%>warn/">
 <!-- bootstrap -->
 <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
 <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-<link href="css/bootstrap/bootstrap-overrides.css"	type="text/css" rel="stylesheet" />
+<link href="css/bootstrap/bootstrap-overrides.css" type="text/css"
+	rel="stylesheet" />
 
 <!-- global styles -->
 <link rel="stylesheet" type="text/css" href="css/layout.css" />

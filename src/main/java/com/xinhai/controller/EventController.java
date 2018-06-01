@@ -74,7 +74,6 @@ public class EventController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");//当前页数
-			System.err.println(page);
 			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selWarnTypePageWithCount);
 		} catch (Exception e) {
