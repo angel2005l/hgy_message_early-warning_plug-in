@@ -51,7 +51,7 @@ public class TaskDaoImpl implements ITaskDao {
 	@Override
 	public List<Task> selectTaskAll(String taskType) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"select task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time from mep_task where status ='Y'");
+				"select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time from mep_task where status ='Y'");
 		if (StrUtil.notBlank(taskType)) {
 			sql.append(" and task_type ='").append(taskType).append("'");
 		}

@@ -10,6 +10,7 @@
 <!-- this page specific styles -->
 <link rel="stylesheet" href="css/compiled/personal-info.css"
 	type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="css/datetime/bootstrap-datetimepicker.min.css" />
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -64,8 +65,8 @@ html {
 								type="text" name="taskTime" value="${data.taskTime }" placeholder="请输入任务执行时间间隔..." />
 						</div>
 						<div class="field-box" id = "taskTiming">
-							<label>*任务执行时间点</label> <input class="span5 inline-input"
-								type="text" name="taskTiming" value="${data.taskTiming }" placeholder="请输入任务执行时间点..." />
+							<label>*任务执行时间点</label> <input class="span5 inline-input form_datetime"
+								type="text" name="taskTiming" value="${data.taskTiming }" placeholder="请输入任务执行时间点..." readonly />
 						</div>
 						<div class="field-box">
 							<label>*任务状态:</label> <label style="width: 20%;"><input
@@ -90,6 +91,8 @@ html {
 
 	<!-- scripts -->
 	<script type="text/javascript" src="js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/datetime/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="js/datetime/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
 		$(function(){
 			changeTime();
@@ -139,7 +142,15 @@ html {
 				timeDiv.css("display","none");
 			}
 		}
-		
+		$('.form_datetime').datetimepicker({
+			language: 'zh-CN',
+			weekStart: 1,
+			autoclose: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 1,
+			format: 'hh:ii:ss'
+		});
 		function check(){
 			var taskName = $("input[name='taskName']").val();
 			var taskType = $("#taskType").val();
