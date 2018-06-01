@@ -21,7 +21,7 @@ public class UserServiceImpl extends BaseResult implements IUserService {
 	@Override
 	public Page<User> selUserpageWithCount(String page) throws Exception {
 		try {
-			List<User> userObj = dao.selectUser();
+			List<User> userObj = dao.selectUser(Integer.parseInt(page));
 			int countNum = dao.selectUserCount();
 			return new Page<User>(10, countNum, Integer.parseInt(page), userObj);
 		} catch (SQLException e) {

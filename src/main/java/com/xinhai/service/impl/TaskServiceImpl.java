@@ -20,7 +20,7 @@ public class TaskServiceImpl implements ITaskService {
 	@Override
 	public Page<Task> selTaskPageWithCount(String taskName, String page) throws Exception {
 		try {
-			List<Task> selectTask = dao.selectTask(taskName);
+			List<Task> selectTask = dao.selectTask(taskName,Integer.parseInt(page));
 			int countNum = dao.selectTaskCount(taskName);
 			return new Page<Task>(10, countNum, Integer.parseInt(page), selectTask);
 		} catch (SQLException e) {

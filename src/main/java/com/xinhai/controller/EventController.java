@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import com.xinhai.entity.Event;
 import com.xinhai.service.IEventTypeService;
 import com.xinhai.service.impl.EventTypeServiceImpl;
+import com.xinhai.task.sche.TaskSpiderWarningType;
 import com.xinhai.util.Page;
 import com.xinhai.util.Result;
 import com.xinhai.util.StrUtil;
@@ -60,6 +61,9 @@ public class EventController extends HttpServlet {
 		case "warning_sel_id":
 			selWarnById(req, resp);
 			break;
+		case "warning_synchrodata":
+			synchroWarnTypeData(req, resp);
+			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
 			break;
@@ -69,8 +73,8 @@ public class EventController extends HttpServlet {
 	private void selWarn(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String page = request.getParameter("page");
-
+			String page = request.getParameter("page");//当前页数
+			System.err.println(page);
 			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selWarnTypePageWithCount);
 		} catch (Exception e) {
@@ -171,6 +175,11 @@ public class EventController extends HttpServlet {
 			log.error("查询特定预警类别异常,异常原因" + e.toString());
 		}
 		request.getRequestDispatcher("view/warning/editLayer.jsp").forward(request, response);
+	}
+
+	private void synchroWarnTypeData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		new TaskSpiderWarningType();
+		returnData(JSON.toJSONString(new Result<Object>(Result.SUCCESS_0, "MES预警类别同步成功")), response);
 	}
 
 	/**

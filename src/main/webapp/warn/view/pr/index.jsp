@@ -145,7 +145,7 @@
 					break;
 				case"next":
 					if(page.val() < pageNum){
-						page.val((page.val()+1));
+						page.val((page.val()-0+1));
 					}
 					break;
 				default:

@@ -16,9 +16,10 @@ public class UserDaoImpl implements IUserDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<User> selectUser() throws SQLException {
+	public List<User> selectUser(int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"select id,user_code,user_name,user_token,user_email,user_phone,user_level,is_work,user_status from mep_user where 1=1");
+		sql.append(" limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();

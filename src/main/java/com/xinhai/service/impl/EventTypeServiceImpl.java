@@ -22,7 +22,7 @@ public class EventTypeServiceImpl extends BaseResult implements IEventTypeServic
 	@Override
 	public Page<Event> selWarnTypePageWithCount(String page) throws Exception {
 		try {
-			List<Event> selectEvent = dao.selectEvent();
+			List<Event> selectEvent = dao.selectEvent(Integer.parseInt(page));
 			int countNum = dao.selectEventCount();
 			return new Page<Event>(10, countNum, Integer.parseInt(page), selectEvent);
 		} catch (SQLException e) {

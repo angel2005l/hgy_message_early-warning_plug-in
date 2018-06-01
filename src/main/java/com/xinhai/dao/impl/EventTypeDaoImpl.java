@@ -18,10 +18,12 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<Event> selectEvent() throws SQLException {
-		String sql = "select id,event_id,event_code,event_name,event_pid,rule_code,event_status from mep_event where 1=1 ";
+	public List<Event> selectEvent(int page) throws SQLException {
+		StringBuffer sql = new StringBuffer(
+				"select id,event_id,event_code,event_name,event_pid,rule_code,event_status from mep_event where 1=1 ");
+		sql.append("limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
 		List<Event> result = new ArrayList<Event>();
 		while (rs.next()) {

@@ -16,7 +16,7 @@ public interface IUserDao {
 	 * @return: List<User>
 	 *
 	 */
-	public List<User> selectUser() throws SQLException;
+	public List<User> selectUser(int page) throws SQLException;
 
 	/**
 	 * 

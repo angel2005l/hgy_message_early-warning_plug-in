@@ -22,7 +22,7 @@ public class PushRuleServiceImpl extends BaseResult implements IPushRuleService 
 	@Override
 	public Page<PushRule> selPushRulePageWithCount(String page) throws Exception {
 		try {
-			List<PushRule> selectPushRule = dao.selectPushRule();
+			List<PushRule> selectPushRule = dao.selectPushRule(Integer.parseInt(page));
 			int countNum = dao.selectPushRuleCount();
 			return new Page<PushRule>(10, countNum, Integer.parseInt(page), selectPushRule);
 		} catch (SQLException e) {

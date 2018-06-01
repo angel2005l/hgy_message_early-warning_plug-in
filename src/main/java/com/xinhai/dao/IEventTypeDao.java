@@ -7,7 +7,7 @@ import java.util.Map;
 import com.xinhai.entity.Event;
 
 public interface IEventTypeDao {
-	public List<Event> selectEvent() throws SQLException;
+	public List<Event> selectEvent(int page) throws SQLException;
 
 	public int selectEventCount() throws SQLException;
 

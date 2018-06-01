@@ -17,12 +17,13 @@ public class TaskDaoImpl implements ITaskDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<Task> selectTask(String taskName) throws SQLException {
+	public List<Task> selectTask(String taskName,int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"select id,task_code,task_name,task_type,task_run_type,task_time,task_timing,task_last_execute_time,status from mep_task where 1=1 ");
 		if (StrUtil.notBlank(taskName)) {
-			sql.append(" and task_name = ?");
+			sql.append(" and task_name = ? ");
 		}
+		sql.append("limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
 		int index = 1;

@@ -49,9 +49,9 @@
 								<th class="span2">序号</th>
 								<th class="span2"><span class="line"></span>事件编号</th>
 								<th class="span2"><span class="line"></span>事件编码</th>
-								<th class="span1"><span class="line"></span>事件名称</th>
+								<th class="span2"><span class="line"></span>事件名称</th>
 								<th class="span2"><span class="line"></span>预警规则编码</th>
-								<th class="span2"><span class="line"></span>事件状态</th>
+								<th class="span1"><span class="line"></span>事件状态</th>
 								<th class="span2"><span class="line"></span>操作</th>
 							</tr>
 						</thead>
@@ -122,29 +122,29 @@
 			});
 		}
 		
-			function searchBtn(msg){
-				var page = $("#page");
-				var pageNum = $("#pageNum").val();
-				switch (msg) {
-				case "q":
-					page.val(1);
-					break;
-				case "back":
-					if(page.val()>1){
-						page.val(page.val()-1)
-					}				
-					break;
-				case"next":
-					if(page.val() < pageNum){
-						page.val((page.val()+1));
-					}
-					break;
-				default:
-					page.val(parseInt(msg));
-					break;
+		function searchBtn(msg){
+			var page = $("#page");
+			var pageNum = $("#pageNum").val();
+			switch (msg) {
+			case "q":
+				page.val(1);
+				break;
+			case "back":
+				if(page.val()>1){
+					page.val(page.val()-1)
+				}				
+				break;
+			case"next":
+				if(page.val() < pageNum){
+					page.val((page.val()-0+1));
 				}
-				$("#searchForm").submit();
+				break;
+			default:
+				page.val(parseInt(msg));
+				break;
 			}
+			$("#searchForm").submit();
+		}
 			
 			function disable(id) {
 				$.ajax({
@@ -189,7 +189,7 @@
 			
 			function synchro(){
 				$.ajax({
-					url:'warningManage?method=warning_upt_event_status',
+					url:'warningManage?method=warning_synchrodata',
 					type:'post',
 					dataType:'json',
 					success:function(result){

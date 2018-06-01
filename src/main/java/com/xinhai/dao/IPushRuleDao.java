@@ -17,7 +17,7 @@ public interface IPushRuleDao {
 	 * @return: List<PushRule>
 	 *
 	 */
-	public List<PushRule> selectPushRule() throws SQLException;
+	public List<PushRule> selectPushRule(int page) throws SQLException;
 
 	/**
 	 * 

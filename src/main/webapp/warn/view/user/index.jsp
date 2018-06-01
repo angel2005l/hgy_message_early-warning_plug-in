@@ -151,7 +151,6 @@
 					}
 				});
 			}
-			
 			function searchBtn(msg){
 				var page = $("#page");
 				var pageNum = $("#pageNum").val();
@@ -166,7 +165,7 @@
 					break;
 				case"next":
 					if(page.val() < pageNum){
-						page.val((page.val()+1));
+						page.val((page.val()-0+1));
 					}
 					break;
 				default:
@@ -175,7 +174,6 @@
 				}
 				$("#searchForm").submit();
 			}
-			
 		</script>
 </body>
 </html>

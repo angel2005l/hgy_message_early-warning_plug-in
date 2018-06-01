@@ -17,10 +17,12 @@ public class PushRuleDaoImpl implements IPushRuleDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<PushRule> selectPushRule() throws SQLException {
-		String sql = "select id,rule_code,rule_name,rule_first_time,rule_second_time,rule_third_time,rule_fourth_time from mep_push_rule where 1=1";
+	public List<PushRule> selectPushRule(int page) throws SQLException {
+		StringBuffer sql = new StringBuffer(
+				"select id,rule_code,rule_name,rule_first_time,rule_second_time,rule_third_time,rule_fourth_time from mep_push_rule where 1=1 ");
+		sql.append("limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
 		List<PushRule> result = new ArrayList<PushRule>();
 		while (rs.next()) {

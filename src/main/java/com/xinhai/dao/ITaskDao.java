@@ -9,7 +9,7 @@ import com.xinhai.entity.Task;
 public interface ITaskDao {
 	// public List<Task> selectTaskPagewithCount() throws SQLException;
 	// 查询task集合（分页）
-	public List<Task> selectTask(String taskName) throws SQLException;
+	public List<Task> selectTask(String taskName,int page) throws SQLException;
 
 	// 查询task总行数
 	public int selectTaskCount(String taskName) throws SQLException;
