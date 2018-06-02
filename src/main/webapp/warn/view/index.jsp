@@ -96,7 +96,7 @@
 	<div class="content">
 		<div class="frame-div">
 			<iframe class="frame" id="mainFrame" name="mainFrame"
-				src="view/fixError.jsp"></iframe>
+				src="../panel/panelManage?method=index_panel"></iframe>
 		</div>
 	</div>
 

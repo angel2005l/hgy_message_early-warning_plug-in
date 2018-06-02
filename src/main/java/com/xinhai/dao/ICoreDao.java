@@ -2,6 +2,7 @@ package com.xinhai.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.xinhai.entity.WarningWithRule;
 
@@ -19,5 +20,21 @@ public interface ICoreDao {
 	public String selUserTokenByLevel(int level) throws SQLException;
 
 	// ----------------------------------------------------------------------------//
+
+	/*
+	 * OEE总产效率
+	 */
+	public List<Map<String, Object>> selectOEE() throws SQLException;
+
+	public List<Map<String, Object>> selectWarnDay() throws SQLException;
+
+	/*
+	 * 主页面板
+	 */
+	public List<String[]> selectWarn7Day() throws SQLException;
+	
+	public List<Map<String, String>> selectEquProduceType() throws SQLException;
+	
+	public List<Map<String, String>> selectWarnWeekTop5() throws SQLException;
 
 }

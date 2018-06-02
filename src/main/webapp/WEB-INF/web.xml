@@ -52,4 +52,13 @@
 		<servlet-name>eventController</servlet-name>
 		<url-pattern>/warn/warningManage</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>panelController</servlet-name>
+		<servlet-class>com.xinhai.controller.PanelController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>panelController</servlet-name>
+		<url-pattern>/panel/panelManage</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

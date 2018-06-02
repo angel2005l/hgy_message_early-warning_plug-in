@@ -10,7 +10,16 @@ public interface ICoreService {
 	public void mouldPush() throws Exception;
 
 	// OEE
-	public List<Map<String, Object>> selOEEInfoALL() throws Exception;
+	public List<Object[]> selOEEInfoALL() throws Exception;
+
+	public List<Map<String, Object>> selWarnDay() throws Exception;
+
+	// 主页数据
+	public List<String[]> selWarn7Day() throws Exception;
+
+	public List<Map<String,String>> selEquProduceType() throws Exception;
+
+	public List<Map<String,String>> selWarnWeekTop5() throws Exception;
 
 	// 车间面板
 

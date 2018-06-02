@@ -254,7 +254,7 @@ public final class DateUtil {
 		BigDecimal timeNum = new BigDecimal((endTime.getTimeInMillis() - startTime.getTimeInMillis()) + "");
 		BigDecimal result = timeNum
 				.divide(new BigDecimal("1000").multiply(new BigDecimal("60")).multiply(new BigDecimal("30")), 0,
-						BigDecimal.ROUND_DOWN)
+						BigDecimal.ROUND_UP)
 				.multiply(new BigDecimal("0.5"));
 
 		return result.toString();

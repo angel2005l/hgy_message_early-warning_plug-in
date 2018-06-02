@@ -2,6 +2,7 @@ package com.xinhai.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,9 @@ public class CoreServiceImpl implements ICoreService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selOEEInfoALL() throws Exception {
+	public List<Object[]> selOEEInfoALL() throws Exception {
+		List<Object[]> data = new ArrayList<Object[]>();
+
 		// IF(产量=0,"",(实际运行时间/工作时间)*((产量-次品)/产量)*(产量*循环时间(DESIGNCYCLE
 		// TIME)/3600/型腔数（CAV）/实际运行时间))
 		/*
@@ -107,11 +110,12 @@ public class CoreServiceImpl implements ICoreService {
 		// AH5=次品
 		// G5=循环时间(DESIGNCYCLE TIME)
 		// F5=型腔数（CAV）
-		// List<Map<String, Object>> datas = dao.selectOEEDatas(StrUtil.isBlank(coldId)
-		// ? 0 : Integer.parseInt(coldId));
-		List<Map<String, Object>> datas = null;
-		for (Map<String, Object> map : datas) {
-			if ("duWork".equals(map.get("use_state"))) {
+
+		List<Map<String, Object>> selectOEE = dao.selectOEE();
+		for (Map<String, Object> map : selectOEE) {
+			Object[] oeeInfo = new Object[2];
+			oeeInfo[0] = map.get("equ_code");
+			if ("duWork".equals(map.get("equ_use_state"))) {
 				// (AF5/AE5)
 				// AF5=实际运行时间
 				// AE5=工作时间
@@ -126,9 +130,9 @@ public class CoreServiceImpl implements ICoreService {
 				// ((AG5-AH5)/AG5)
 				// AG5=产量
 				// AH5=次品
-				BigDecimal output = new BigDecimal(map.get("com_qty").toString()); // AG
+				BigDecimal output = new BigDecimal(map.get("equ_complete_quantity").toString()); // AG
 
-				BigDecimal quaQty = new BigDecimal(map.get("qua_qty").toString());
+				BigDecimal quaQty = new BigDecimal(map.get("equ_qualified_quantity").toString());
 				// BigDecimal reject = new
 				// BigDecimal(map.get("qua_qty").toString()); // AH
 				BigDecimal outputPart = quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
@@ -137,15 +141,64 @@ public class CoreServiceImpl implements ICoreService {
 				// G5=循环时间(DESIGNCYCLE TIME)
 				// F5=型腔数（CAV）
 				// AF5=实际运行时间art
-				BigDecimal mouldPart = output.multiply(new BigDecimal(map.get("mpc").toString())).divide(
-						new BigDecimal("3600").multiply(new BigDecimal(map.get("mhn").toString())).multiply(art), 4,
-						BigDecimal.ROUND_HALF_UP);
-				// 出招表 x x
+				BigDecimal mouldPart = output.multiply(new BigDecimal(map.get("produce_cycle").toString())).divide(
+						new BigDecimal("3600").multiply(new BigDecimal(map.get("holes_num").toString())).multiply(art),
+						4, BigDecimal.ROUND_HALF_UP);
 				BigDecimal result = timePart.multiply(outputPart).multiply(mouldPart)
 						.setScale(2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
-				map.put("oee", result);
+				oeeInfo[1] = result;
+			} else {
+				oeeInfo[1] = BigDecimal.ZERO;
 			}
+			data.add(oeeInfo);
 		}
-		return datas;
+		return data;
+	}
+
+	@Override
+	public List<Map<String, Object>> selWarnDay() throws Exception {
+		try {
+			List<Map<String, Object>> selectWarnDay = dao.selectWarnDay();
+			if (null == selectWarnDay || selectWarnDay.isEmpty()) {
+				return null;
+			}
+			return selectWarnDay;
+		} catch (SQLException e) {
+			log.error("查询当天预警信息异常,异常原因:" + e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<String[]> selWarn7Day() throws Exception {
+		try {
+			List<String[]> selectWarn7Day = dao.selectWarn7Day();
+			return null == selectWarn7Day || selectWarn7Day.isEmpty() ? null : selectWarn7Day;
+		} catch (SQLException e) {
+			log.error("查询近七天预警次数数据接口异常,异常原因:" + e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<Map<String,String>> selEquProduceType() throws Exception {
+		try {
+			List<Map<String,String>> selectEquProduceType = dao.selectEquProduceType();
+			return null == selectEquProduceType || selectEquProduceType.isEmpty() ? null : selectEquProduceType;
+		} catch (SQLException e) {
+			log.error("查询近七天预警次数数据接口异常,异常原因:" + e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<Map<String,String>> selWarnWeekTop5() throws Exception {
+		try {
+			List<Map<String,String>> selectWarnWeekTop5 = dao.selectWarnWeekTop5();
+			return null == selectWarnWeekTop5 || selectWarnWeekTop5.isEmpty() ? null : selectWarnWeekTop5;
+		} catch (SQLException e) {
+			log.error("查询预警一周最高top5数据接口异常,异常原因:" + e.toString());
+			return null;
+		}
 	}
 }
