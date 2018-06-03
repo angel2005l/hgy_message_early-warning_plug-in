@@ -76,6 +76,9 @@ public class UserController extends HttpServlet {
 		case "download_file":
 			downloadFile(req, resp);
 			break;
+		case "sign_in_work":
+			singInWork(req, resp);
+			break;
 		case "logout":
 			logout(req, resp);
 			break;
@@ -311,6 +314,32 @@ public class UserController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('文件缺失,请联系系统维护人员');window.location.href='view/user/batchLayer.jsp';</script>");
 		}
+	}
+
+	/**
+	 * 
+	 * @Title: singInWork   
+	 * @Description: 一线员工的上下班签到
+	 * @param request
+	 * @param response
+	 * @author: MR.H
+	 * @return: void
+	 * @throws IOException 
+	 *
+	 */
+	private void singInWork(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String id = request.getParameter("id");
+		String workType = request.getParameter("workType");
+		String json = "";
+
+		try {
+			Result<Object> uptUserIsWork = service.uptUserIsWork(workType, id);
+			json = JSON.toJSONString(uptUserIsWork);
+		} catch (Exception e) {
+			log.error("员工签到异常,异常原因:" + e.toString());
+			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "员工签到异常"));
+		}
+		returnData(json, response);
 	}
 
 	/**
