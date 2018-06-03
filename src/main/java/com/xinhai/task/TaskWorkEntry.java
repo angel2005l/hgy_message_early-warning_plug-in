@@ -13,6 +13,7 @@ import com.xinhai.entity.Task;
 import com.xinhai.service.ITaskService;
 import com.xinhai.service.impl.TaskServiceImpl;
 import com.xinhai.task.sche.TaskWorkWarning;
+import com.xinhai.task.sche.TaskWorkWarningStat;
 import com.xinhai.util.DateUtil;
 
 public class TaskWorkEntry extends TimerTask {
@@ -86,6 +87,12 @@ public class TaskWorkEntry extends TimerTask {
 			switch (task.getTaskCode()) {
 			case "task_w_warning":
 				new TaskWorkWarning();
+				break;
+			case "task_w_warning_stat_week":
+				new TaskWorkWarningStat("week");
+				break;
+			case "task_w_warning_stat_month":
+				new TaskWorkWarningStat("month");
 				break;
 			default:
 				break;

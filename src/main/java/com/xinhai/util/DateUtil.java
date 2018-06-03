@@ -259,7 +259,7 @@ public final class DateUtil {
 
 		return result.toString();
 	}
-	
+
 	// 判断选择的日期是否是本周
 	public static boolean isThisWeek(long time) {
 		Calendar calendar = Calendar.getInstance();
@@ -292,9 +292,33 @@ public final class DateUtil {
 		}
 		return false;
 	}
-	
-	
 
+	/**
+	 * 
+	 * @Title: getWeekNum   
+	 * @Description: 今天是一周的第几天
+	 * @return
+	 * @author: MR.H
+	 * @return: int
+	 *
+	 */
+	public static int getWeekNum() {
+		Calendar calendar = Calendar.getInstance();
+		return calendar.get(Calendar.DAY_OF_WEEK) - 1;// 适应我国国情
+	}
+	/**
+	 * 
+	 * @Title: getMonthNum   
+	 * @Description: 今天是一个月的第几天 
+	 * @return
+	 * @author: MR.H
+	 * @return: int
+	 *
+	 */
+	public static int getMonthNum(){
+		Calendar calendar = Calendar.getInstance();
+		return calendar.get(Calendar.DAY_OF_MONTH);
+	}
 	// /**
 	// *
 	// * @Title: addMonth

@@ -26,13 +26,13 @@ public class CoreServiceImpl implements ICoreService {
 		// 查询预警信息 并且带上类型所绑定的 四级推送规则
 		try {
 			// 预警信息+ 预警规则
-			List<WarningWithRule> selWarningPush = dao.selWarningPush();
+			List<WarningWithRule> selWarningPush = dao.selectWarningPush();
 
 			// 获得4级的人员信息
-			String firstToken = dao.selUserTokenByLevel(1);
-			String secondToken = dao.selUserTokenByLevel(2);
-			String thirdToken = dao.selUserTokenByLevel(3);
-			String fouredToken = dao.selUserTokenByLevel(4);
+			String firstToken = dao.selectUserTokenByLevel(1);
+			String secondToken = dao.selectUserTokenByLevel(2);
+			String thirdToken = dao.selectUserTokenByLevel(3);
+			String fouredToken = dao.selectUserTokenByLevel(4);
 
 			// 经行预警通知
 			for (WarningWithRule wr : selWarningPush) {
@@ -75,7 +75,7 @@ public class CoreServiceImpl implements ICoreService {
 
 					break;
 				}
-				dao.uptWarningPush(wr.getGuid(), index);
+				dao.updateWarningPush(wr.getGuid(), index);
 			}
 		} catch (SQLException e) {
 			log.error("推送预警信息数据库交互异常,异常原因" + e.getMessage());

@@ -18,7 +18,7 @@ public class CoreDaoImpl implements ICoreDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<WarningWithRule> selWarningPush() throws SQLException {
+	public List<WarningWithRule> selectWarningPush() throws SQLException {
 		String sql = "SELECT a.`title`,a.`message`,a.`device_id`,a.`create_time`,a.`guid`,a.`read_status`,c.`rule_first_time`,c.`rule_second_time`,c.`rule_third_time`,c.`rule_fourth_time` FROM mep_warning a INNER JOIN mep_event b ON a.`event_code` = b.`event_code` INNER JOIN mep_push_rule c ON b.`rule_code`=c.`rule_code` WHERE a.`status`= '0' AND a.`read_status` <>'4' ORDER BY create_time ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class CoreDaoImpl implements ICoreDao {
 	}
 
 	@Override
-	public boolean uptWarningPush(String guid, String readStatus) throws SQLException {
+	public boolean updateWarningPush(String guid, String readStatus) throws SQLException {
 		String sql = "update mep_warning set read_status = ? where guid = ?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class CoreDaoImpl implements ICoreDao {
 	}
 
 	@Override
-	public String selUserTokenByLevel(int level) throws SQLException {
+	public String selectUserTokenByLevel(int level) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"select user_name,user_token,user_email,user_phone from mep_user where user_status='1' and user_level = ?");
 		if (level == 1) {
@@ -81,6 +81,21 @@ public class CoreDaoImpl implements ICoreDao {
 	}
 
 	@Override
+	public String selectUserEmailByLevel(int level) throws SQLException {
+		String sql = "select user_email from mep_user where user_status='1' and user_level = ? ";
+		DruidPooledConnection conn = instance.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, level);
+		ResultSet rs = ps.executeQuery();
+		StringBuffer result = new StringBuffer();
+		while (rs.next()) {
+			result.append(rs.getString("user_email")).append(";");
+		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
+		return StrUtil.cutStringForLeft(result.toString(), 1);
+	}
+
+	@Override
 	public List<Map<String, Object>> selectOEE() throws SQLException {
 		String sql = "SELECT aa.equ_code,IFNULL(aa.`equ_start_time`,'') AS equ_start_time,aa.equ_qualified_quantity,aa.equ_complete_quantity,aa.equ_product_code,bb.holes_num,bb.produce_cycle, aa.equ_use_state FROM mep_equipment aa INNER JOIN (SELECT a.`device_id`,SUM(b.`mould_holes_num`) AS holes_num ,SUM(b.mould_produce_cycle) AS produce_cycle FROM mep_mould_device a INNER JOIN mep_mould b ON a.`mold_id` = b.`id` GROUP BY a.`device_id`) bb ON aa.equ_id = bb.device_id";
 		DruidPooledConnection conn = instance.getConnection();
@@ -99,6 +114,7 @@ public class CoreDaoImpl implements ICoreDao {
 			map.put("equ_use_state", rs.getString("equ_use_state"));
 			result.add(map);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 
@@ -140,6 +156,7 @@ public class CoreDaoImpl implements ICoreDao {
 			str[1] = rs.getString("num");
 			result.add(str);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 
@@ -156,12 +173,13 @@ public class CoreDaoImpl implements ICoreDao {
 			map.put("value", rs.getString("num"));
 			result.add(map);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 
 	@Override
 	public List<Map<String, String>> selectWarnWeekTop5() throws SQLException {
-		String sql = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(create_time) GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
+		String sql = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d')) = YEARWEEK(NOW()) GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -172,6 +190,8 @@ public class CoreDaoImpl implements ICoreDao {
 			map.put("value", rs.getString("num"));
 			result.add(map);
 		}
+		SqlPoolUtil.closeConnection(null, ps, rs);
 		return result;
 	}
+
 }
