@@ -101,7 +101,7 @@
 		</div>
 		<div class="error_right">
 			<div class="error_detail">
-				<p class="error_p_title">哎呀~ 主页正在设计中!</p>
+				<p class="error_p_title">哎呀~ 页面不见了!</p>
 				<p class="error_p_con">别急，工程师正在紧急处理，马上就好。</p>
 			</div>
 		</div>

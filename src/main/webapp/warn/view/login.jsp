@@ -6,11 +6,11 @@
 
 <head>
 <title>新海集团_MES预警通知辅助系统_登录</title>
-<base href="<%=basePath %>warn/">
+<base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
-<link rel="stylesheet" href="css/compiled/signin.css"
-	type="text/css" media="screen" />
+<link rel="stylesheet" href="css/compiled/signin.css" type="text/css"
+	media="screen" />
 
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -46,25 +46,61 @@
 		$(function() {
 			$("html").css("background-image", "url('img/bgs/bgimage.jpg')");
 		});
-		function login() {
-		$.ajax({
-			url:'userManage?method=login',
-			type:'post',
-			data:{"userName":$("#userName").val(),"password":$("#password").val()},
-			dataType:"json",
-			success:function(result){
-				if(result.code == 0){
-					window.location.href="view/index.jsp";
-					} else {
-						alert(result.msg);
-						location.reload();
-					}
-				},
-				error : function() {
-					alert("服务未响应")
-				}
 
-			})
+		var accountIpunt = $("#userName");
+		var pwdInput = $("#password");
+		$(function() {
+			accountIpunt.keydown(function(e) {
+				if (13 == e.keyCode) {
+					pwdInput.focus();
+				}
+			});
+			pwdInput.keydown(function(e) {
+				if (e.keyCode == 13) {
+					login();
+				}
+			});
+		});
+
+		function login() {
+			if (check()) {
+				$.ajax({
+					url : 'userManage?method=login',
+					type : 'post',
+					data : {
+						"userName" : $("#userName").val(),
+						"password" : $("#password").val()
+					},
+					dataType : "json",
+					success : function(result) {
+						if (result.code == 0) {
+							window.location.href = "view/index.jsp";
+						} else {
+							alert(result.msg);
+							location.reload();
+						}
+					},
+					error : function() {
+						alert("服务未响应")
+					}
+
+				});
+			}
+		}
+
+		function check() {
+			var userAccount = accountIpunt.val();
+			var userPwd = pwdInput.val();
+			if ('' == userAccount) {
+				alert("请输入用户名")
+				accountIpunt.focus();
+				return false;
+			} else if ('' == userPwd) {
+				alert("请输入密码");
+				pwdInput.focus();
+				return false;
+			}
+			return true;
 		}
 	</script>
 </body>

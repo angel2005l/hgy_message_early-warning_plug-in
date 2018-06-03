@@ -249,10 +249,11 @@ body {
 			text : '近七天内每日预警次数'
 		},
 		tooltip : {
-			trigger : 'axis',
+			trigger : 'axis',			
 			axisPointer : {
 				type : 'shadow'
-			}
+			},
+			formatter:'{c}次'
 		},
 		xAxis : {
 			type : 'category',
