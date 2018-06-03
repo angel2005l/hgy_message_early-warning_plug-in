@@ -16,6 +16,8 @@ public class PushInfoController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	// private static final Logger log =
+	// LoggerFactory.getLogger(PushRuleController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,25 +27,9 @@ public class PushInfoController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String mod = req.getParameter("method");
-
 		switch (mod) {
-		case value:
-
-			break;
-		case value:
-
-			break;
-		case value:
-
-			break;
-		case value:
-
-			break;
-		case value:
-
-			break;
-		case value:
-
+		case "warn_info":
+			warnInfo(req, resp);
 			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
@@ -51,22 +37,18 @@ public class PushInfoController extends HttpServlet {
 		}
 	}
 
-	//预警页面
-	private void warnInfo(HttpServletRequest request, HttpServletResponse response){
-		
-		
-		
+	// 预警页面
+	private void warnInfo(HttpServletRequest request, HttpServletResponse response) {
+
 	}
 
-	//统计类型 预警
-	//如何去判断周、月的数据 及数据的统计
-	//规定每周的周一发送上周的数据|| 每月的月初规定 
-	
-	
+	// 统计类型 预警
+	// 如何去判断周、月的数据 及数据的统计
+	// 规定每周的周一发送上周的数据|| 每月的月初规定
+
 	//
 	//
-	
-	
+
 	/**
 	 * 
 	 * @Title: returnData   

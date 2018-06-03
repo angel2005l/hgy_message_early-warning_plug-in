@@ -19,7 +19,7 @@ public class CoreDaoImpl implements ICoreDao {
 
 	@Override
 	public List<WarningWithRule> selectWarningPush() throws SQLException {
-		String sql = "SELECT a.`title`,a.`message`,a.`device_id`,a.`create_time`,a.`guid`,a.`read_status`,c.`rule_first_time`,c.`rule_second_time`,c.`rule_third_time`,c.`rule_fourth_time` FROM mep_warning a INNER JOIN mep_event b ON a.`event_code` = b.`event_code` INNER JOIN mep_push_rule c ON b.`rule_code`=c.`rule_code` WHERE a.`status`= '0' AND a.`read_status` <>'4' ORDER BY create_time ";
+		String sql = "SELECT a.`title`,a.`message`,a.`device_id`,a.`create_time`,a.`guid`,a.`read_status`,c.`rule_first_time`,c.`rule_second_time`,c.`rule_third_time`,c.`rule_fourth_time` FROM mep_warning a INNER JOIN mep_event b ON a.`event_code` = b.`event_code` and event_status='1' INNER JOIN mep_push_rule c ON b.`rule_code`=c.`rule_code` WHERE a.`status`= '0' AND a.`read_status` <>'4' ORDER BY create_time ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 

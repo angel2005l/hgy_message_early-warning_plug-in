@@ -22,6 +22,7 @@ public final class DateUtil {
 	// 业务格式 （连续）
 	private static final String JOINT_YMD = "yyyyMMdd";
 	private static final String JOINT_YMDHM = "yyyyMMddHHmm";
+	private static final String JOINT_YMDHMSS = "yyyyMMddHHmmssSSS";
 
 	// 格式转换工具
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat();
@@ -131,6 +132,19 @@ public final class DateUtil {
 		return dateFormat.format(System.currentTimeMillis());
 	}
 
+	/**
+	 * 
+	 * @Title: curDateYMDHMSSForService   
+	 * @Description: 获得当前业务ID识别码 （yyyyMMddHHmmssSSS）  
+	 * @return
+	 * @author: MR.H
+	 * @return: String
+	 *
+	 */
+	public static String curDateYMDHMSSForService() {
+		dateFormat.applyPattern(JOINT_YMDHMSS);
+		return dateFormat.format(System.currentTimeMillis());
+	}
 	/*
 	 * 字符串转换Date
 	 */
@@ -306,6 +320,7 @@ public final class DateUtil {
 		Calendar calendar = Calendar.getInstance();
 		return calendar.get(Calendar.DAY_OF_WEEK) - 1;// 适应我国国情
 	}
+
 	/**
 	 * 
 	 * @Title: getMonthNum   
@@ -315,7 +330,7 @@ public final class DateUtil {
 	 * @return: int
 	 *
 	 */
-	public static int getMonthNum(){
+	public static int getMonthNum() {
 		Calendar calendar = Calendar.getInstance();
 		return calendar.get(Calendar.DAY_OF_MONTH);
 	}
