@@ -68,8 +68,8 @@ public class SpiderDaoImpl implements ISpiderDao {
 
 	@Override
 	public boolean insertMould(List<Mould> data) throws SQLException {
-		String sql = "insert into mep_mould(id,mould_code,mould_name,mould_type,mould_state,mould_use_state,mould_maintain_state,mould_repair_state,mould_holes_num,mould_life_times,mould_internal_times,mould_external_times,mould_produce_cycle,mould_quantity_quota,mould_change_over_time,mould_week_capacity,mould_primary_mode,mould_secondary_mode,mould_third_mode,mould_accept_date,mould_model_use_state_new,mould_remaining_times)"
-				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
+		String sql = "insert into mep_mould(id,mould_code,mould_name,mould_type,mould_state,mould_use_state,mould_maintain_state,mould_repair_state,mould_holes_num,mould_life_times,mould_internal_times,mould_external_times,mould_produce_cycle,mould_quantity_quota,mould_change_over_time,mould_week_capacity,mould_primary_mode,mould_secondary_mode,mould_third_mode,mould_accept_date,mould_model_use_state_new,mould_remaining_times,mould_rule_code,push_rule_code)"
+				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
 				+ "on duplicate key update mould_state=VALUES(mould_state),mould_use_state=VALUES(mould_use_state),"
 				+ "mould_maintain_state=VALUES(mould_maintain_state),mould_repair_state=VALUES(mould_repair_state)"
 				+ ",mould_life_times=VALUES(mould_life_times),mould_internal_times=VALUES(mould_internal_times),mould_external_times=VALUES(mould_external_times)"
@@ -100,6 +100,8 @@ public class SpiderDaoImpl implements ISpiderDao {
 			ps.setString(20, mould.getMouldAcceptDate());
 			ps.setString(21, mould.getMouldModelUseStateNew());
 			ps.setInt(22, mould.getMouldRemainingTimes());
+			ps.setString(23, mould.getMouldRuleCode());
+			ps.setString(24, mould.getPushRuleCode());
 			ps.executeUpdate();
 		}
 		SqlPoolUtil.closeConnection(conn, ps, null);
