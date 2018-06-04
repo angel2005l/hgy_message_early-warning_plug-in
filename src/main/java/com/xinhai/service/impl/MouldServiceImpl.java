@@ -104,7 +104,7 @@ public class MouldServiceImpl implements IMouldService {
 	}
 
 	@Override
-	public MouldLog selMouldLogByid(String id) throws Exception {
+	public MouldLog selMouldLogById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

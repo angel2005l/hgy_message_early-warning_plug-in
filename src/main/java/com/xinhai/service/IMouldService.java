@@ -20,9 +20,9 @@ public interface IMouldService {
 
 	public Mould selMouldById(String id) throws Exception;
 
-	public Result<Object> uptMouldMouldRuleCode(String id, String mouldRuleCode) throws Exception;
+	public Result<Object> uptMouldRuleCodeWithId(String id, String mouldRuleCode) throws Exception;
 
-	public Result<Object> uptMouldsMouldRuleCode(String[] ids, String mouldRuleCode) throws Exception;
+	public Result<Object> uptMouldRuleCodeWithIds(String[] ids, String mouldRuleCode) throws Exception;
 
 	public Result<Map<String, String>> selMouldKV() throws Exception;
 
@@ -55,7 +55,7 @@ public interface IMouldService {
 	public Page<MouldLog> selMouldLog(String page) throws Exception;
 
 	// 查询特定记录 byid
-	public MouldLog selMouldLogByid(String id) throws Exception;
+	public MouldLog selMouldLogById(String id) throws Exception;
 
 	// 更新记录
 	public Result<Object> uptMouldLog() throws Exception;
