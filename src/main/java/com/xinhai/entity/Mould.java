@@ -31,6 +31,7 @@ public class Mould {
 	private String mouldModelUseStateNew;// 模具最新使用状态
 	private int mouldRemainingTimes;// 剩余使用次数
 	private String mouldRuleCode;
+	private String pushRuleCode;
 
 	public Mould() {
 	}
@@ -218,6 +219,15 @@ public class Mould {
 	public void setMouldRuleCode(String mouldRuleCode) {
 		this.mouldRuleCode = mouldRuleCode;
 	}
+	
+
+	public String getPushRuleCode() {
+		return pushRuleCode;
+	}
+
+	public void setPushRuleCode(String pushRuleCode) {
+		this.pushRuleCode = pushRuleCode;
+	}
 
 	@Override
 	public String toString() {
@@ -230,7 +240,8 @@ public class Mould {
 				+ ", mouldWeekCapacity=" + mouldWeekCapacity + ", mouldPrimaryMode=" + mouldPrimaryMode
 				+ ", mouldSecondaryMode=" + mouldSecondaryMode + ", mouldThirdMode=" + mouldThirdMode
 				+ ", mouldAcceptDate=" + mouldAcceptDate + ", mouldModelUseStateNew=" + mouldModelUseStateNew
-				+ ", mouldRemainingTimes=" + mouldRemainingTimes + ", mouldRuleCode=" + mouldRuleCode + "]";
+				+ ", mouldRemainingTimes=" + mouldRemainingTimes + ", mouldRuleCode=" + mouldRuleCode
+				+ ", pushRuleCode=" + pushRuleCode + "]";
 	}
 
 }

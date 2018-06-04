@@ -9,7 +9,9 @@ public class MouldWithRule {
 	private int mouldExternalTimes;// 外协打模次数
 	private int mouldRemainingTimes;// 剩余使用次数
 	private String mouldRuleCode;
-	private int mould_rule_times;
+	private int mouldRuleTimes;
+	private String pushRuleCode;
+	private String ruleTimes;
 
 	public int getId() {
 		return id;
@@ -67,12 +69,28 @@ public class MouldWithRule {
 		this.mouldRuleCode = mouldRuleCode;
 	}
 
-	public int getMould_rule_times() {
-		return mould_rule_times;
+	public int getMouldRuleTimes() {
+		return mouldRuleTimes;
 	}
 
-	public void setMould_rule_times(int mould_rule_times) {
-		this.mould_rule_times = mould_rule_times;
+	public void setMouldRuleTimes(int mouldRuleTimes) {
+		this.mouldRuleTimes = mouldRuleTimes;
+	}
+
+	public String getPushRuleCode() {
+		return pushRuleCode;
+	}
+
+	public void setPushRuleCode(String pushRuleCode) {
+		this.pushRuleCode = pushRuleCode;
+	}
+
+	public String getRuleTimes() {
+		return ruleTimes;
+	}
+
+	public void setRuleTimes(String ruleTimes) {
+		this.ruleTimes = ruleTimes;
 	}
 
 	@Override
@@ -80,7 +98,8 @@ public class MouldWithRule {
 		return "MouldWithRule [id=" + id + ", mouldCode=" + mouldCode + ", mouldName=" + mouldName
 				+ ", mouldInternalTimes=" + mouldInternalTimes + ", mouldExternalTimes=" + mouldExternalTimes
 				+ ", mouldRemainingTimes=" + mouldRemainingTimes + ", mouldRuleCode=" + mouldRuleCode
-				+ ", mould_rule_times=" + mould_rule_times + "]";
+				+ ", mouldRuleTimes=" + mouldRuleTimes + ", pushRuleCode=" + pushRuleCode + ", ruleTimes=" + ruleTimes
+				+ "]";
 	}
 
 }
