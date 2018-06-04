@@ -10,7 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.xinhai.dao.ICoreDao;
+import com.xinhai.dao.IMouldDao;
 import com.xinhai.dao.impl.CoreDaoImpl;
+import com.xinhai.dao.impl.MouldDaoImpl;
+import com.xinhai.entity.MouldLog;
+import com.xinhai.entity.MouldWithRule;
 import com.xinhai.entity.WarningWithRule;
 import com.xinhai.service.ICoreService;
 import com.xinhai.util.DateUtil;
@@ -20,6 +24,7 @@ import com.xinhai.util.WeiXinUtil;
 public class CoreServiceImpl implements ICoreService {
 	private static final Logger log = LoggerFactory.getLogger(CoreServiceImpl.class);
 	private ICoreDao dao = new CoreDaoImpl();
+	private IMouldDao mouldDao = new MouldDaoImpl();
 
 	@Override
 	public void warningPush() throws Exception {
@@ -40,7 +45,7 @@ public class CoreServiceImpl implements ICoreService {
 				long time = wr.getCreateTime().getTime();
 				switch (index) {
 				case "0":
-					if ((wr.getRuleFirstTime() == 0 || isPush(time, wr.getRuleFirstTime()))
+					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
 							&& StrUtil.notBlank(firstToken)) {
 						index = "1";
 						WeiXinUtil.sendWarning(wr, firstToken);
@@ -49,7 +54,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "1":
-					if ((wr.getRuleFirstTime() == 0 || isPush(time, wr.getRuleFirstTime()))
+					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
 							&& StrUtil.notBlank(secondToken)) {
 						index = "2";
 						WeiXinUtil.sendWarning(wr, secondToken);
@@ -57,7 +62,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "2":
-					if ((wr.getRuleFirstTime() == 0 || isPush(time, wr.getRuleFirstTime()))
+					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
 							&& StrUtil.notBlank(thirdToken)) {
 						index = "3";
 						WeiXinUtil.sendWarning(wr, thirdToken);
@@ -65,7 +70,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "3":
-					if ((wr.getRuleFirstTime() == 0 || isPush(time, wr.getRuleFirstTime()))
+					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
 							&& StrUtil.notBlank(fouredToken)) {
 						index = "4";
 						WeiXinUtil.sendWarning(wr, fouredToken);
@@ -83,14 +88,78 @@ public class CoreServiceImpl implements ICoreService {
 
 	}
 
-	private boolean isPush(long creatTime, int pushMinute) {
+	private boolean isPushWarn(long creatTime, int pushMinute) {
 		return (System.currentTimeMillis() - creatTime) / (1000 * 60) >= pushMinute;
 	}
 
 	@Override
 	public void mouldPush() throws Exception {
-		// TODO Auto-generated method stub
+		// 1.查询模具信息及规则
+		List<MouldWithRule> mwrList = mouldDao.selectMouldWithRule();
+		for (MouldWithRule mouldWithRule : mwrList) {
+			// 包含了核心校验数据
 
+			// 查询日志的有无
+
+			MouldLog mouldLog = mouldDao.selectMouldLogByMouldId(mouldWithRule.getId());
+
+			int nowTimes = mouldWithRule.getMouldExternalTimes() + mouldWithRule.getMouldInternalTimes();
+			int intervalTimes = mouldWithRule.getMould_rule_times();
+			if (null == mouldLog) {
+				// 那么是第一次进入模具预报管理
+
+				// 判断是否需要模具预警
+				if (isPushMould(nowTimes, 0, intervalTimes)) {
+					// 创建日志
+
+					MouldLog data = new MouldLog();
+					data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
+					data.setMouldLogName(
+							"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
+					data.setMouldPlanTimes(nowTimes);
+					data.setMouldLogStatus("1");
+					data.setMouldId(mouldWithRule.getId());
+					mouldDao.insertMouldLog(data);
+					// 推送提醒
+					
+				}
+			} else {
+				// 有日志
+
+				if ("1".equals(mouldLog.getMouldLogStatus())) {
+					// 有最新的未完成的保养记录
+
+					if (isPushMould(nowTimes, mouldLog.getMouldPlanTimes(), intervalTimes)) {
+						// 微信预警
+
+					}
+				} else {
+
+					if (isPushMould(nowTimes, mouldLog.getMouldRealTimes(), intervalTimes)) {
+						// 创建日志
+
+						MouldLog data = new MouldLog();
+						data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
+						data.setMouldLogName(
+								"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
+						data.setMouldPlanTimes(nowTimes);
+						data.setMouldLogStatus("1");
+						data.setMouldId(mouldWithRule.getId());
+						mouldDao.insertMouldLog(data);
+						// 推送提醒
+
+					}
+				}
+			}
+		}
+	}
+
+	private boolean isPushMould(int nowTimes, int historyTimes, int intervalTimes) {
+		if (nowTimes - historyTimes > intervalTimes) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -181,9 +250,9 @@ public class CoreServiceImpl implements ICoreService {
 	}
 
 	@Override
-	public List<Map<String,String>> selEquProduceType() throws Exception {
+	public List<Map<String, String>> selEquProduceType() throws Exception {
 		try {
-			List<Map<String,String>> selectEquProduceType = dao.selectEquProduceType();
+			List<Map<String, String>> selectEquProduceType = dao.selectEquProduceType();
 			return null == selectEquProduceType || selectEquProduceType.isEmpty() ? null : selectEquProduceType;
 		} catch (SQLException e) {
 			log.error("查询近七天预警次数数据接口异常,异常原因:" + e.toString());
@@ -192,9 +261,9 @@ public class CoreServiceImpl implements ICoreService {
 	}
 
 	@Override
-	public List<Map<String,String>> selWarnWeekTop5() throws Exception {
+	public List<Map<String, String>> selWarnWeekTop5() throws Exception {
 		try {
-			List<Map<String,String>> selectWarnWeekTop5 = dao.selectWarnWeekTop5();
+			List<Map<String, String>> selectWarnWeekTop5 = dao.selectWarnWeekTop5();
 			return null == selectWarnWeekTop5 || selectWarnWeekTop5.isEmpty() ? null : selectWarnWeekTop5;
 		} catch (SQLException e) {
 			log.error("查询预警一周最高top5数据接口异常,异常原因:" + e.toString());
