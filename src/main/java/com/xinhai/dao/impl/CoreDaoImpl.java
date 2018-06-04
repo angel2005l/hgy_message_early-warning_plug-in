@@ -162,7 +162,7 @@ public class CoreDaoImpl implements ICoreDao {
 
 	@Override
 	public List<Map<String, String>> selectEquProduceType() throws SQLException {
-		String sql = "SELECT equ_use_statedsp,COUNT(1) as num FROM mep_equipment GROUP BY equ_use_statedsp";
+		String sql = "SELECT IF(equ_use_statedsp IS NULL OR equ_use_statedsp = '','状态不明',equ_use_statedsp) AS equ_use_statedsp,COUNT(1) AS num FROM mep_equipment GROUP BY equ_use_statedsp ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();

@@ -139,7 +139,7 @@ public class SpiderDaoImpl implements ISpiderDao {
 				+ "equ_use_state,equ_maintain_state,equ_maintain_statedsp,equ_product_name,equ_model,equ_state,equ_id,equ_running_state,equ_repair_statedsp,"
 				+ "equ_quantity,equ_data_mode,equ_stop_reason,equ_device_order_count,equ_alarm_count,equ_complete_quantity,equ_qualified_quantity,equ_repair_state,equ_progress)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-				+ " on duplicate key update equ_order_child_no=values(equ_order_child_no),equ_use_statedsp=values(equ_use_statedsp),"
+				+ " on duplicate key update equ_order_child_no=values(equ_order_child_no),equ_product_code=values(equ_product_code),equ_use_statedsp=values(equ_use_statedsp),"
 				+ "equ_statedsp=values(equ_statedsp),equ_start_time=values(equ_start_time),equ_use_state=values(equ_use_state),equ_maintain_state=values(equ_maintain_state),"
 				+ "equ_maintain_statedsp=values(equ_maintain_statedsp),equ_product_name=values(equ_product_name),equ_model=values(equ_model),equ_state=values(equ_state),"
 				+ "equ_running_state=values(equ_running_state),equ_repair_statedsp=values(equ_repair_statedsp),equ_quantity=values(equ_quantity),equ_data_mode=values(equ_data_mode),"
