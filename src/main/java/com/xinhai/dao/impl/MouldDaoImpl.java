@@ -24,10 +24,9 @@ public class MouldDaoImpl implements IMouldDao {
 
 	@Override
 	public List<MouldWithRule> selectMouldWithRule() throws SQLException {
-		String sql = "SELECT a.`id`,a.`mould_code`,a.`mould_name`,a.`mould_internal_times`,a.`mould_external_times`,a.`mould_remaining_times`,b.`mould_rule_code`,b.`mould_rule_times` FROM mep_mould a INNER JOIN mep_mould_rule b ON a.`mould_rule_code` = b.`mould_rule_code` ";
+		String sql = "SELECT a.`id`,a.`mould_code`,a.`mould_name`,a.`mould_internal_times`,a.`mould_external_times`,a.`mould_remaining_times`,b.`mould_rule_code`,b.`mould_rule_times` ,rule_code,rule_first_time,rule_second_time,rule_third_time,rule_fourth_time FROM mep_mould a INNER JOIN mep_mould_rule b ON a.`mould_rule_code` = b.`mould_rule_code` INNER JOIN mep_push_rule c ON a.push_rule_code = c.rule_code ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-
 		ResultSet rs = ps.executeQuery();
 		List<MouldWithRule> result = new ArrayList<MouldWithRule>();
 		while (rs.next()) {
@@ -39,7 +38,9 @@ public class MouldDaoImpl implements IMouldDao {
 			mr.setMouldExternalTimes(rs.getInt("mould_external_times"));
 			mr.setMouldRemainingTimes(rs.getInt("mould_remaining_times"));
 			mr.setMouldRuleCode(rs.getString("mould_rule_code"));
-			mr.setMould_rule_times(rs.getInt("mould_rule_times"));
+			mr.setMouldRuleTimes(rs.getInt("mould_rule_times"));
+			mr.setPushRuleCode(rs.getString("rule_code"));
+			mr.setRuleTimes(rs.getInt("rule_first_time")+","+rs.getInt("rule_second_time")+","+rs.getInt("rule_third_time")+","+rs.getInt("rule_fourth_time"));
 			result.add(mr);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
