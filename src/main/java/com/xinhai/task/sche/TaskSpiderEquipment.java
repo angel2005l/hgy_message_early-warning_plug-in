@@ -34,7 +34,7 @@ public class TaskSpiderEquipment {
 			for (JSONObject jsonObj : datas) {
 				Equipment obj = new Equipment();
 				obj.setEquOrderChildNo(jsonObj.getString("orderchildno"));
-				obj.setEquProductCode(jsonObj.getString("orderchildno"));
+				obj.setEquProductCode(jsonObj.getString("productcode"));
 				obj.setEquUseStatedsp(jsonObj.getString("usestatedsp"));
 				obj.setEquStatedsp(jsonObj.getString("statedsp"));
 				obj.setEquCode(jsonObj.getString("code"));
