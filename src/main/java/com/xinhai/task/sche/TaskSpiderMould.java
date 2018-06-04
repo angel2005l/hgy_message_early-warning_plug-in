@@ -60,6 +60,7 @@ public class TaskSpiderMould {
 				obj.setMouldRemainingTimes(StrUtil.isBlank(jsonObj.getString("remainingtimes")) ? 0
 						: jsonObj.getIntValue("remainingtimes"));
 				obj.setMouldRuleCode("default_rule");
+				obj.setPushRuleCode("default_mould_rule");
 				insLists.add(obj);
 			}
 			ISpiderService service = new SpiderServiceImpl();
