@@ -40,7 +40,8 @@ public class MouldDaoImpl implements IMouldDao {
 			mr.setMouldRuleCode(rs.getString("mould_rule_code"));
 			mr.setMouldRuleTimes(rs.getInt("mould_rule_times"));
 			mr.setPushRuleCode(rs.getString("rule_code"));
-			mr.setRuleTimes(rs.getInt("rule_first_time")+","+rs.getInt("rule_second_time")+","+rs.getInt("rule_third_time")+","+rs.getInt("rule_fourth_time"));
+			mr.setRuleTimes(rs.getInt("rule_first_time") + "," + rs.getInt("rule_second_time") + "," + rs.getInt(
+					"rule_third_time") + "," + rs.getInt("rule_fourth_time"));
 			result.add(mr);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -50,7 +51,7 @@ public class MouldDaoImpl implements IMouldDao {
 	@Override
 	public List<Mould> selectMould(int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"SELECT id,mould_code,mould_name,mould_life_times,mould_internal_times,mould_external_times,mould_remaining_times,mould_rule_code FROM mep_mould WHERE 1=1");
+				"SELECT id,mould_code,mould_name,mould_life_times,mould_internal_times,mould_external_times,mould_remaining_times,mould_rule_code,push_rule_code FROM mep_mould WHERE 1=1");
 		sql.append(" limit ").append((page - 1) * 10).append(",10");
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
@@ -66,6 +67,7 @@ public class MouldDaoImpl implements IMouldDao {
 			mould.setMouldExternalTimes(rs.getInt("mould_external_times"));
 			mould.setMouldRemainingTimes(rs.getInt("mould_remaining_times"));
 			mould.setMouldRuleCode(rs.getString("mould_rule_code"));
+			mould.setPushRuleCode(rs.getString("push_rule_code"));
 			result.add(mould);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -109,20 +111,22 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public int updateMouldRuleCode(int id, String mouldRuleCode) throws SQLException {
-		String sql = "UPDATE mep_mould SET mould_rule_code  = ? WHERE id = ?";
+	public int updateMouldPushRuleCodeWithId(int id, String mouldRuleCode, String pushRuleCode) throws SQLException {
+		String sql = "UPDATE mep_mould SET mould_rule_code  = ?,push_rule_code = ?  WHERE id = ?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, mouldRuleCode);
-		ps.setInt(2, id);
+		ps.setString(2, pushRuleCode);
+		ps.setInt(3, id);
 		int rtn = ps.executeUpdate();
 		SqlPoolUtil.closeConnection(conn, ps, null);
 		return rtn;
 	}
 
 	@Override
-	public int updateMouldRuleCodeWithIds(String[] ids, String mouldRuleCode) throws SQLException {
-		String sql = "UPDATE mep_mould SET mould_rule_code  = ? WHERE id = ?";
+	public int updateMouldPushRuleCodeWithIds(String[] ids, String mouldRuleCode, String pushRuleCode)
+			throws SQLException {
+		String sql = "UPDATE mep_mould SET mould_rule_code  = ? ,push_rule_code = ? WHERE id = ?";
 
 		DruidPooledConnection conn = instance.getConnection();
 		conn.setAutoCommit(false);
@@ -133,7 +137,8 @@ public class MouldDaoImpl implements IMouldDao {
 					continue;
 				}
 				ps.setString(1, mouldRuleCode);
-				ps.setInt(2, Integer.parseInt(id));
+				ps.setString(2, pushRuleCode);
+				ps.setInt(3, Integer.parseInt(id));
 				ps.executeUpdate();
 			}
 			conn.commit();
@@ -147,7 +152,7 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public List<Map<String, String>> selMoildKV() throws SQLException {
+	public List<Map<String, String>> selectMouldKV() throws SQLException {
 		String sql = "SELECT  id,mould_name FROM mep_mould ";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -156,7 +161,7 @@ public class MouldDaoImpl implements IMouldDao {
 		while (rs.next()) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("code", rs.getString("id"));
-			map.put("value", rs.getString("mould_name"));
+			map.put("text", rs.getString("mould_name"));
 			result.add(map);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -258,7 +263,7 @@ public class MouldDaoImpl implements IMouldDao {
 		while (rs.next()) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("code", rs.getString("mould_rule_code"));
-			map.put("value", rs.getString("mould_rule_name"));
+			map.put("text", rs.getString("mould_rule_name"));
 			result.add(map);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);

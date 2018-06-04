@@ -1,13 +1,6 @@
 package com.xinhai.entity;
 
 public class Mould {
-
-	// private int moldId; // 模具id
-	// private String moldCode; // 模具编号
-	// private String moldName; // 模具名称
-	// private String moldProduceCycle;// 模具循环时间
-	// private int moldHolesNum;// 模具型腔数
-
 	private int id;// 模具编号
 	private String mouldCode;// 模具编码
 	private String mouldName;// 模具名称
@@ -219,7 +212,6 @@ public class Mould {
 	public void setMouldRuleCode(String mouldRuleCode) {
 		this.mouldRuleCode = mouldRuleCode;
 	}
-	
 
 	public String getPushRuleCode() {
 		return pushRuleCode;

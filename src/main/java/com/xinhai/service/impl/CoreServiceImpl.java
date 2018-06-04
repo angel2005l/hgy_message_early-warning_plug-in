@@ -104,7 +104,7 @@ public class CoreServiceImpl implements ICoreService {
 			MouldLog mouldLog = mouldDao.selectMouldLogByMouldId(mouldWithRule.getId());
 
 			int nowTimes = mouldWithRule.getMouldExternalTimes() + mouldWithRule.getMouldInternalTimes();
-			int intervalTimes = mouldWithRule.getMould_rule_times();
+			int intervalTimes = mouldWithRule.getMouldRuleTimes();
 			if (null == mouldLog) {
 				// 那么是第一次进入模具预报管理
 

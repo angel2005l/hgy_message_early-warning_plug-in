@@ -6,7 +6,6 @@ import java.util.Map;
 import com.xinhai.entity.Mould;
 import com.xinhai.entity.MouldLog;
 import com.xinhai.entity.MouldRule;
-import com.xinhai.entity.MouldWithRule;
 import com.xinhai.util.Page;
 import com.xinhai.util.Result;
 
@@ -14,17 +13,17 @@ public interface IMouldService {
 
 	// 模具
 	// 查询所有的模具信息 及其保养规则
-	public List<MouldWithRule> selMouldWithRule() throws Exception;
+//	public List<MouldWithRule> selMouldWithRule() throws Exception;
 
 	public Page<Mould> selMouldPageWithCount(String page) throws Exception;
 
 	public Mould selMouldById(String id) throws Exception;
 
-	public Result<Object> uptMouldRuleCodeWithId(String id, String mouldRuleCode) throws Exception;
+	public Result<Object> uptMouldPushRuleCodeWithId(String id, String mouldRuleCode, String pushRuleCode) throws Exception;
 
-	public Result<Object> uptMouldRuleCodeWithIds(String[] ids, String mouldRuleCode) throws Exception;
+	public Result<Object> uptMouldPushRuleCodeWithIds(String[] ids, String mouldRuleCode, String pushRuleCode) throws Exception;
 
-	public Result<Map<String, String>> selMouldKV() throws Exception;
+	public List<Map<String, String>> selMouldKV() throws Exception;
 
 	// 模具规则部分
 	// 增加规则
@@ -37,10 +36,10 @@ public interface IMouldService {
 	public MouldRule selMouldRuleById(String id) throws Exception;
 
 	// 更新规则
-	public Result<Object> uptMould(MouldRule data) throws Exception;
+	public Result<Object> uptMouldRule(MouldRule data) throws Exception;
 
 	// 删除规则
-	public Result<Object> delMould(String id) throws Exception;
+	public Result<Object> delMouldRule(String id) throws Exception;
 
 	public List<Map<String, String>> selMouldRuleKV() throws Exception;
 
@@ -58,6 +57,6 @@ public interface IMouldService {
 	public MouldLog selMouldLogById(String id) throws Exception;
 
 	// 更新记录
-	public Result<Object> uptMouldLog() throws Exception;
+	public Result<Object> uptMouldLog(MouldLog data) throws Exception;
 
 }

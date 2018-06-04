@@ -48,6 +48,14 @@
 		<url-pattern>/warn/warningManage</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>mouldController</servlet-name>
+		<servlet-class>com.xinhai.controller.MouldController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mouldController</servlet-name>
+		<url-pattern>/warn/mouldManage</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>panelController</servlet-name>
 		<servlet-class>com.xinhai.controller.PanelController</servlet-class>
 	</servlet>

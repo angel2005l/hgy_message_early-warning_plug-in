@@ -20,11 +20,12 @@ public interface IMouldDao {
 
 	public Mould selectMouldById(int id) throws SQLException;
 
-	public int updateMouldRuleCode(int id, String mouldRuleCode) throws SQLException;
+	public int updateMouldPushRuleCodeWithId(int id, String mouldRuleCode, String pushRuleCode) throws SQLException;
 
-	public int updateMouldRuleCodeWithIds(String[] ids, String mouldRuleCode) throws SQLException;
+	public int updateMouldPushRuleCodeWithIds(String[] ids, String mouldRuleCode, String pushRuleCode)
+			throws SQLException;
 
-	public List<Map<String, String>> selMoildKV() throws SQLException;
+	public List<Map<String, String>> selectMouldKV() throws SQLException;
 
 	// 模具规则部分
 	public List<MouldRule> selectMouldRule(int page) throws SQLException;
