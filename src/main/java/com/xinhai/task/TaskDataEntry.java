@@ -38,7 +38,7 @@ public class TaskDataEntry extends TimerTask {
 			}
 
 		} catch (Exception e) {
-			log.info("【数据调度任务异常】,异常原因:" + e.getMessage());
+			log.info("【数据调度任务异常】,异常原因:" + e.toString());
 		} finally {
 			log.info("【数据调度任务结束】");
 		}
@@ -110,9 +110,9 @@ public class TaskDataEntry extends TimerTask {
 			}
 			log.info("数据调度任务【" + task.getTaskName() + "】---执行结束");
 		} catch (ConnectException e) {
-			log.error("数据调度任务网络异常,异常原因:" + e.getMessage());
+			log.error("数据调度任务网络异常,异常原因:" + e.toString());
 		} catch (Exception e) {
-			log.error("数据调度任务【 "+ task.getTaskName() + "】异常,异常原因:" + e.getMessage());
+			log.error("数据调度任务【 "+ task.getTaskName() + "】异常,异常原因:" + e.toString());
 		}
 	}
 

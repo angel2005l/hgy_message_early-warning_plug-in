@@ -7,10 +7,10 @@
 	<welcome-file-list>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	 <error-page>  
+<!-- 	 <error-page>  
         <error-code>404</error-code>  
         <location>/warn/view/fixError.jsp</location>  
-    </error-page>  
+    </error-page>   -->
 	<listener>
 		<display-name>SchedulingJobsListener</display-name>
 		<listener-class>com.xinhai.listener.SchedulingJobsListener</listener-class>

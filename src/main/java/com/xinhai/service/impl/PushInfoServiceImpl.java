@@ -80,29 +80,30 @@ public class PushInfoServiceImpl implements IPushInfoService {
 	private String getHtml(String title, List<Warning> data1, List<Warning> data2, List<Map<String, String>> data3) {
 		StringBuffer html = new StringBuffer();
 
-		html.append("<p style='text-align:left;'><b><b><b><b><span style='font-size:32px;'>").append(title).append(
-				"</span></b></b></b></b></p>");
-		html.append("<p style='text-align:left;'><span style='font-size:16px;'>预警记录数:").append(data1.size() + data2
-				.size()).append("</span></p>");
+		html.append("<p style='text-align:left;'><b><b><b><b><span style='font-size:32px;'>").append(title)
+				.append("</span></b></b></b></b></p>");
+		html.append("<p style='text-align:left;'><span style='font-size:16px;'>预警记录数:")
+				.append(data1.size() + data2.size()).append("</span></p>");
 		html.append(
 				"<p style='text-align:left;'><span style='font-size:16px;'>次数最多预警类型top5：</span></p><p style='text-align:left;'><span style='font-size:16px;'>");
 		for (Map<String, String> map : data3) {
 			html.append(map.get("name")).append(" : ").append(map.get("value")).append("; ");
 		}
 		html.append("</span><span style='font-size:16px;'></span></p>");
-		html.append("<p style='text-align:left;'><span style='font-size:16px;'>已解决预警书数量：").append(data1.size()).append(
-				";</span></p>");
-		html.append("<p style='text-align:left;'><span style='font-size:16px;'>未解决预警数量：").append(data2.size()).append(
-				";</span></p>");
+		html.append("<p style='text-align:left;'><span style='font-size:16px;'>已解决预警数量：").append(data1.size())
+				.append(";</span></p>");
+		html.append("<p style='text-align:left;'><span style='font-size:16px;'>未解决预警数量：").append(data2.size())
+				.append(";</span></p>");
 		html.append("<p style='text-align:left;'><span style='font-size:16px;'>未解决预警详细内容：</span></p>");
 		for (Warning warning : data2) {
 			html.append(
 					"<p style='text-align:left;'><span style='font-size:16px;'><span style='white-space:normal;font-size:16px;'>【预警标题】：")
-					.append(warning.getTitle()).append(
-							"</span><span style='white-space:normal;font-size:16px;'>【预警内容】：").append(warning
-									.getMessage()).append(
-											"</span><span style='white-space:normal;font-size:16px;'>【预警日期】：").append(
-													warning.getCreateTime()).append("</span></span> </p>");
+					.append(warning.getTitle())
+					.append("</span><span style='white-space:normal;font-size:16px;'>【预警内容】：")
+					.append(warning.getMessage())
+					.append("</span><span style='white-space:normal;font-size:16px;'>【预警日期】：")
+					.append(DateUtil.curDateByStr(warning.getCreateTime().toString(), ""))
+					.append("</span></span> </p>");
 		}
 		return html.toString();
 	}

@@ -4,7 +4,7 @@
 <%
 	Object obj = session.getAttribute("isLogin");
 	if (null == obj || !Boolean.parseBoolean(obj.toString())) {
-		response.sendRedirect("../login.jsp");
+		response.sendRedirect("login.jsp");
 	}
 %>
 <!DOCTYPE html>

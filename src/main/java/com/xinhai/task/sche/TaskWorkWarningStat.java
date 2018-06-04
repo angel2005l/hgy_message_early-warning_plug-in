@@ -36,7 +36,8 @@ public class TaskWorkWarningStat {
 			}
 			String[] emailUrls = email.getEmail().split(",");
 			for (String url : emailUrls) {
-				String rtnResult = EmailUtil.sendEmail(email, url);
+				email.setEmail(url);
+				String rtnResult = EmailUtil.sendEmail(email, "");
 				log.info("预警统计报告PHP邮件接口调用反馈报文" + rtnResult);
 			}
 

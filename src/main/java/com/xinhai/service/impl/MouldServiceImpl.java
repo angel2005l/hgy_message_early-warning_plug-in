@@ -32,13 +32,13 @@ public class MouldServiceImpl implements IMouldService {
 	}
 
 	@Override
-	public Result<Object> uptMouldMouldRuleCode(String id, String mouldRuleCode) throws Exception {
+	public Result<Object> uptMouldRuleCodeWithId(String id, String mouldRuleCode) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Result<Object> uptMouldsMouldRuleCode(String[] ids, String mouldRuleCode) throws Exception {
+	public Result<Object> uptMouldRuleCodeWithIds(String[] ids, String mouldRuleCode) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

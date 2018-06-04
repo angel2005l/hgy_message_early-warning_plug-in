@@ -34,7 +34,7 @@ public class TaskWorkEntry extends TimerTask {
 				runningTask(task);
 			}
 		} catch (Exception e) {
-			log.info("【业务调度任务异常】,异常原因:" + e.getMessage());
+			log.info("【业务调度任务异常】,异常原因:" + e.toString());
 		} finally {
 			log.info("【业务调度任务结束】");
 		}
@@ -51,9 +51,9 @@ public class TaskWorkEntry extends TimerTask {
 	 * @date 2018.04.24
 	 */
 	private void runningTask(Task task) {
-		long nextExecuteTime = 0;
-		long nowTime = System.currentTimeMillis();
 		try {
+			long nowTime = System.currentTimeMillis();
+			long nextExecuteTime = 0;
 			Calendar calendar = Calendar.getInstance();
 			// 分为 每日一次 和每日循环
 			switch (task.getTaskRunType()) {
@@ -99,9 +99,10 @@ public class TaskWorkEntry extends TimerTask {
 			}
 			log.info("业务调度任务【" + task.getTaskName() + "】---执行结束");
 		} catch (ConnectException e) {
-			log.error("业务调度任务网络异常,异常原因:" + e.getMessage());
+			log.error("业务调度任务网络异常,异常原因:" + e.toString());
 		} catch (Exception e) {
-			log.error("业务调度任务异常,异常原因:" + e.getMessage());
+			e.printStackTrace();  
+			log.error("业务调度任务异常,异常原因:" + e.toString());
 		}
 	}
 }

@@ -59,6 +59,7 @@ public class TaskSpiderMould {
 				obj.setMouldModelUseStateNew(jsonObj.getString("modelusestatenew"));
 				obj.setMouldRemainingTimes(StrUtil.isBlank(jsonObj.getString("remainingtimes")) ? 0
 						: jsonObj.getIntValue("remainingtimes"));
+				obj.setMouldRuleCode("default_rule");
 				insLists.add(obj);
 			}
 			ISpiderService service = new SpiderServiceImpl();
@@ -68,7 +69,6 @@ public class TaskSpiderMould {
 		} catch (NumberFormatException e) {
 			log.error("调度任务【获取模具信息】解析数据报文失败,失败原因:" + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("调度任务【获取模具信息】异常,异常原因:" + e.getMessage());
 		}
 	}
