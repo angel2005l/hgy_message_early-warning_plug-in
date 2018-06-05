@@ -23,20 +23,45 @@ public class WeiXinUtil {
 		}
 		
 		ResourceBundle rb = ResourceBundle.getBundle("dataDic");
-		String url = rb.getString("weixin_push_path");
+		String url = rb.getString("weixin_push_path_warning");
 		String rootPath = rb.getString("root_path");
 		if (StrUtil.isBlank(url) || StrUtil.isBlank(rootPath)) {
 			log.info("【微信推送接口】缺少基础地址配置");
 			return;
 		}
-		StringBuffer goUrl = new StringBuffer(rootPath).append("/myData?warnId=").append(obj.getGuid()).append("&method=mod4");
+//		StringBuffer goUrl = new StringBuffer(rootPath).append("/myData?warnId=").append(obj.getGuid()).append("&method=mod4");
 		List<NameValuePair> data = new ArrayList<NameValuePair>();
 		data.add(new BasicNameValuePair("title", new String(obj.getTitle().getBytes(), "utf-8")));
 		data.add(new BasicNameValuePair("message", obj.getMessage()));
 		data.add(new BasicNameValuePair("create_time",
 				DateUtil.curDateByStr(obj.getCreateTime().toString(), DateUtil.YMDHMS).toString()));
 		data.add(new BasicNameValuePair("openid", openId));
-		data.add(new BasicNameValuePair("go_url", goUrl.toString()));
+//		data.add(new BasicNameValuePair("go_url", goUrl.toString()));
+		data.add(new BasicNameValuePair("go_url", "#"));
 		HttpClientUtil.getPostDefault(url, data);
 	}
+	
+	
+	public static void sendMould( String openId,String message){
+		if(StrUtil.isBlank(openId)) {
+			log.info("【微信推送接口】推送人token为空");
+			return ;
+		}
+		ResourceBundle rb = ResourceBundle.getBundle("dataDic");
+		String url = rb.getString("weixin_push_path_mould");
+		if (StrUtil.isBlank(url) ) {
+			log.info("【微信推送接口】缺少基础地址配置");
+			return;
+		}
+		List<NameValuePair> data = new ArrayList<NameValuePair>();
+		data.add(new BasicNameValuePair("title", "模具保养提醒"));
+		data.add(new BasicNameValuePair("message", message));
+		data.add(new BasicNameValuePair("create_time", DateUtil.curDateYMDHMS()));
+		data.add(new BasicNameValuePair("openid", openId));
+		data.add(new BasicNameValuePair("go_url", "#"));
+		HttpClientUtil.getPostDefault(url, data);
+		
+	}
+	
+	
 }

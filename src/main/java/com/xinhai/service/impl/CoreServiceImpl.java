@@ -38,48 +38,52 @@ public class CoreServiceImpl implements ICoreService {
 			String secondToken = dao.selectUserTokenByLevel(2);
 			String thirdToken = dao.selectUserTokenByLevel(3);
 			String fouredToken = dao.selectUserTokenByLevel(4);
-
 			// 经行预警通知
 			for (WarningWithRule wr : selWarningPush) {
+				StringBuffer pushTokens = new StringBuffer();
 				String index = wr.getReadStatus();
 				long time = wr.getCreateTime().getTime();
 				switch (index) {
 				case "0":
-					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
-							&& StrUtil.notBlank(firstToken)) {
+					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))) {
 						index = "1";
-						WeiXinUtil.sendWarning(wr, firstToken);
-
+						if (StrUtil.notBlank(firstToken)) {
+							pushTokens.append(firstToken).append(",");
+						}
 					} else {
 						break;
 					}
 				case "1":
-					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
-							&& StrUtil.notBlank(secondToken)) {
+					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleSecondTime())) {
 						index = "2";
-						WeiXinUtil.sendWarning(wr, secondToken);
+						if (StrUtil.notBlank(secondToken)) {
+							pushTokens.append(secondToken).append(",");
+						}
 					} else {
 						break;
 					}
 				case "2":
-					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
-							&& StrUtil.notBlank(thirdToken)) {
+					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleThirdTime())) {
 						index = "3";
-						WeiXinUtil.sendWarning(wr, thirdToken);
+						if (StrUtil.notBlank(thirdToken)) {
+							pushTokens.append(thirdToken).append(",");
+						}
 					} else {
 						break;
 					}
 				case "3":
-					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))
-							&& StrUtil.notBlank(fouredToken)) {
+					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFourthTime())) {
 						index = "4";
-						WeiXinUtil.sendWarning(wr, fouredToken);
+						if (StrUtil.notBlank(fouredToken)) {
+							pushTokens.append(fouredToken).append(",");
+						}
 					}
 					break;
 				default:
-
-					break;
+					continue;
 				}
+				// 推送微信并且更新状态
+				WeiXinUtil.sendWarning(wr, StrUtil.cutStringForLeft(pushTokens.toString(), 1));
 				dao.updateWarningPush(wr.getGuid(), index);
 			}
 		} catch (SQLException e) {
@@ -96,61 +100,82 @@ public class CoreServiceImpl implements ICoreService {
 	public void mouldPush() throws Exception {
 		// 1.查询模具信息及规则
 		List<MouldWithRule> mwrList = mouldDao.selectMouldWithRule();
+		// 获得4级的人员信息
+		String firstToken = dao.selectUserTokenByLevel(1);
+		String secondToken = dao.selectUserTokenByLevel(2);
+		String thirdToken = dao.selectUserTokenByLevel(3);
+		String fouredToken = dao.selectUserTokenByLevel(4);
+		String[] tokens = { firstToken, secondToken, thirdToken, fouredToken };
+
 		for (MouldWithRule mouldWithRule : mwrList) {
 			// 包含了核心校验数据
-
 			// 查询日志的有无
-
 			MouldLog mouldLog = mouldDao.selectMouldLogByMouldId(mouldWithRule.getId());
 
 			int nowTimes = mouldWithRule.getMouldExternalTimes() + mouldWithRule.getMouldInternalTimes();
 			int intervalTimes = mouldWithRule.getMouldRuleTimes();
+			String pushMode = "silence";// normal：默认||alert：提醒||silence：静默
+			MouldLog data = null;
 			if (null == mouldLog) {
 				// 那么是第一次进入模具预报管理
-
 				// 判断是否需要模具预警
 				if (isPushMould(nowTimes, 0, intervalTimes)) {
 					// 创建日志
-
-					MouldLog data = new MouldLog();
+					data = new MouldLog();
 					data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
 					data.setMouldLogName(
 							"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
 					data.setMouldPlanTimes(nowTimes);
 					data.setMouldLogStatus("1");
 					data.setMouldId(mouldWithRule.getId());
-					mouldDao.insertMouldLog(data);
 					// 推送提醒
-					
+					pushMode = "normal";
 				}
 			} else {
 				// 有日志
-
 				if ("1".equals(mouldLog.getMouldLogStatus())) {
 					// 有最新的未完成的保养记录
 
 					if (isPushMould(nowTimes, mouldLog.getMouldPlanTimes(), intervalTimes)) {
 						// 微信预警
-
+						pushMode = "alert";
 					}
 				} else {
-
 					if (isPushMould(nowTimes, mouldLog.getMouldRealTimes(), intervalTimes)) {
 						// 创建日志
-
-						MouldLog data = new MouldLog();
+						data = new MouldLog();
 						data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
 						data.setMouldLogName(
 								"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
 						data.setMouldPlanTimes(nowTimes);
 						data.setMouldLogStatus("1");
 						data.setMouldId(mouldWithRule.getId());
-						mouldDao.insertMouldLog(data);
 						// 推送提醒
+						pushMode = "normal";
 
 					}
 				}
 			}
+
+			// 进行推送
+			if (!"silence".equals(pushMode)) {
+				String[] pushTimes = mouldWithRule.getRuleTimes().split(",");
+				StringBuffer userTokens = new StringBuffer();
+				for (int index = 0; index < 4; index++) {
+					if (StrUtil.notBlank(pushTimes[index])) {
+						continue;
+					} else if (Integer.parseInt(pushTimes[index]) >= 0) {
+						userTokens.append(tokens[index]).append(",");
+					}
+				}
+				WeiXinUtil.sendMould(StrUtil.cutStringForLeft(userTokens.toString(), 1), "alert".equals(pushMode)
+						? mouldLog.getMouldLogName() + "未完成计划保养" : data.getMouldLogName());
+			}
+			// 创建文件
+			if (null != data) {
+				mouldDao.insertMouldLog(data);
+			}
+
 		}
 	}
 
@@ -202,7 +227,8 @@ public class CoreServiceImpl implements ICoreService {
 				BigDecimal output = new BigDecimal(map.get("equ_complete_quantity").toString()); // AG
 
 				BigDecimal quaQty = new BigDecimal(map.get("equ_qualified_quantity").toString());
-				BigDecimal outputPart = output.compareTo(BigDecimal.ZERO) ==0&&quaQty.compareTo(BigDecimal.ZERO)==0 ? BigDecimal.ZERO:  quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
+				BigDecimal outputPart = output.compareTo(BigDecimal.ZERO) == 0 && quaQty.compareTo(BigDecimal.ZERO) == 0
+						? BigDecimal.ZERO : quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
 				// (AG5*G5/3600/F5/AF5))
 				// AG5=产量
 				// G5=循环时间(DESIGNCYCLE TIME)
