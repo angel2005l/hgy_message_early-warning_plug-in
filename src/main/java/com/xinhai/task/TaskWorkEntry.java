@@ -57,10 +57,8 @@ public class TaskWorkEntry extends TimerTask {
 			long nextExecuteTime = 0;
 			Calendar calendar = Calendar.getInstance();
 			// 分为 每日一次 和每日循环
-			System.err.println(task.toString());
 			switch (task.getTaskRunType()) {
 			case "once":
-				System.err.println(DateUtil.curDateYMD() + " " + task.getTaskTiming());
 				nextExecuteTime = DateUtil.curTimestampByStr(DateUtil.curDateYMD() + " " + task.getTaskTiming())
 						.getTime();
 				if (nowTime - nextExecuteTime < 0) {
