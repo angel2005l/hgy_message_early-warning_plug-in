@@ -31,7 +31,7 @@
 			<a class="brand" href="javascript:void(0)"><i class="icon-fire"></i>&nbsp;&nbsp;&nbsp;<img
 				src="img/logo_simple.png" /></a>
 			<ul class="nav pull-right">
-				<li class="dropdown"><a href="#"
+				<!-- <li class="dropdown"><a href="#"
 					class="dropdown-toggle hidden-phone" data-toggle="dropdown">
 						账户信息 <b class="caret"></b>
 				</a>
@@ -41,7 +41,7 @@
 						<li><a href="#">Billing</a></li>
 						<li><a href="#">Export your data</a></li>
 						<li><a href="#">Send feedback</a></li>
-					</ul></li>
+					</ul></li> -->
 				<li class="settings hidden-phone"><a
 					href="userManage?method=logout" role="button"> <i
 						class="icon-share-alt"></i>
@@ -82,10 +82,10 @@
 				<ul class="submenu">
 				<li><a class="func" href="mouldManage?method=mould_sel"
 						target="mainFrame">模具信息</a></li>
-						<li><a class="func" href="mouldManage?method=mould_sel"
-						target="mainFrame">模具保养日志</a></li>
-					<li><a class="func" href="userManage?method=user_sel"
+					<li><a class="func" href="mouldManage?method=mould_rule_sel"
 						target="mainFrame">模具保养规则</a></li>
+						<li><a class="func" href="mouldManage?method=mould_log_sel"
+						target="mainFrame">模具保养日志</a></li>
 				</ul></li>
 			<li class="left-nav-li"><a class="dropdown-toggle" href="#">
 					<i class="icon-cog"></i> <span>系统管理</span>
