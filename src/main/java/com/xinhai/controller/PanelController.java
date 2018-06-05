@@ -56,6 +56,9 @@ public class PanelController extends HttpServlet {
 		case "warn_week_top5_sel":
 			warnWeekTop5Sel(req, resp);
 			break;
+		case "duty_first_level":
+			dutyFirstLevel(req, resp);
+			break;
 		default:
 			returnData(JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "无相关接口信息")), resp);
 			break;
@@ -130,6 +133,10 @@ public class PanelController extends HttpServlet {
 		returnData(json, response);
 	}
 
+	
+	private void dutyFirstLevel(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.sendRedirect("view/duty/duty.jsp");
+	}
 	/**
 	 * 
 	 * @Title: returnData

@@ -79,6 +79,9 @@ public class UserController extends HttpServlet {
 		case "sign_in_work":
 			singInWork(req, resp);
 			break;
+		case "user_first_level_KV":
+			userFirstLevelKV(req, resp);
+			break;
 		case "logout":
 			logout(req, resp);
 			break;
@@ -338,6 +341,22 @@ public class UserController extends HttpServlet {
 		} catch (Exception e) {
 			log.error("员工签到异常,异常原因:" + e.toString());
 			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "员工签到异常"));
+		}
+		returnData(json, response);
+	}
+
+	private void userFirstLevelKV(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String json = "";
+		try {
+
+			List<Map<String, String>> selUserKV = service.selUserKV();
+			Result<List<Map<String, String>>> result = null == selUserKV || selUserKV.isEmpty()
+					? new Result<List<Map<String, String>>>(Result.ERROR_4000, "无相关查询一级员工信息键值对")
+					: new Result<List<Map<String, String>>>(Result.SUCCESS_0, "", selUserKV);
+			json = JSON.toJSONString(result);
+		} catch (Exception e) {
+			log.error("查询一级员工信息键值对异常,异常原因:" + e.toString());
+			json = JSON.toJSONString(new Result<>(Result.ERROR_6000, "查询一级员工信息键值对异常"));
 		}
 		returnData(json, response);
 	}

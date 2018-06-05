@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.druid.pool.DruidPooledConnection;
 import com.xinhai.dao.IUserDao;
@@ -172,6 +174,23 @@ public class UserDaoImpl implements IUserDao {
 		int rtn = ps.executeUpdate();
 		SqlPoolUtil.closeConnection(conn, ps, null);
 		return rtn;
+	}
+
+	@Override
+	public List<Map<String, String>> selectUserKV() throws SQLException {
+		String sql = "select id,user_name,is_work from mep_user where user_level ='1' and user_status='1'";
+		DruidPooledConnection conn = instance.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+		while (rs.next()) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("code", rs.getString("id"));
+			map.put("text", rs.getString("user_name"));
+			map.put("isWork", rs.getString("is_work"));
+			result.add(map);
+		}
+		return result;
 	}
 
 }

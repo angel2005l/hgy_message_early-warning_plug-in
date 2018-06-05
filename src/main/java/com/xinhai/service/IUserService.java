@@ -1,6 +1,7 @@
 package com.xinhai.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.xinhai.entity.User;
 import com.xinhai.util.Page;
@@ -21,5 +22,7 @@ public interface IUserService {
 	public Result<Object> uptUserIsWork(String isWork, String id) throws Exception;
 
 	public Result<Object> insBatch(List<User> data) throws Exception;
+
+	public List<Map<String, String>> selUserKV() throws Exception;
 
 }

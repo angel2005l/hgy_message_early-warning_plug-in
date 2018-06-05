@@ -2,6 +2,7 @@ package com.xinhai.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.xinhai.entity.User;
 
@@ -107,4 +108,15 @@ public interface IUserDao {
 	 * @throws SQLException
 	 */
 	public int updateUserIsWord(String isWork, int id) throws SQLException;
+
+	/**
+	 * 
+	 * @Title: selectUserKV   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @author: MR.H
+	 * @return: void
+	 * @throws SQLException 
+	 *
+	 */
+	public List<Map<String, String>> selectUserKV() throws SQLException;
 }

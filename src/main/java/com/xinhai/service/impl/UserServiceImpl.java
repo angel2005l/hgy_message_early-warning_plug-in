@@ -2,6 +2,7 @@ package com.xinhai.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +97,16 @@ public class UserServiceImpl extends BaseResult implements IUserService {
 		} catch (SQLException e) {
 			log.error("批量添加用户信息数据接口异常,异常原因:" + e.toString());
 			return rtnErrorResult(Result.ERROR_6000, "批量添加用户信息数据接口异常");
+		}
+	}
+
+	@Override
+	public List<Map<String, String>> selUserKV() throws Exception {
+		try {
+			return dao.selectUserKV();
+		} catch (SQLException e) {
+			log.error("查询一级员工信息键值对数据接口异常,异常原因:" + e.toString());
+			return null;
 		}
 	}
 
