@@ -40,8 +40,8 @@ public class MouldDaoImpl implements IMouldDao {
 			mr.setMouldRuleCode(rs.getString("mould_rule_code"));
 			mr.setMouldRuleTimes(rs.getInt("mould_rule_times"));
 			mr.setPushRuleCode(rs.getString("rule_code"));
-			mr.setRuleTimes(rs.getInt("rule_first_time") + "," + rs.getInt("rule_second_time") + "," + rs.getInt(
-					"rule_third_time") + "," + rs.getInt("rule_fourth_time"));
+			mr.setRuleTimes(rs.getInt("rule_first_time") + "," + rs.getInt("rule_second_time") + ","
+					+ rs.getInt("rule_third_time") + "," + rs.getInt("rule_fourth_time"));
 			result.add(mr);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -184,6 +184,7 @@ public class MouldDaoImpl implements IMouldDao {
 			mr.setId(rs.getInt("id"));
 			mr.setMouldRuleCode(rs.getString("mould_rule_code"));
 			mr.setMouldRuleName(rs.getString("mould_rule_name"));
+			mr.setMouldRuleTimes(rs.getInt("mould_rule_times"));
 			result.add(mr);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
@@ -195,9 +196,13 @@ public class MouldDaoImpl implements IMouldDao {
 		String sql = "SELECT count(1) from mep_mould_rule";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-		int rtn = ps.executeUpdate();
+		ResultSet rs = ps.executeQuery();
+		int index = 1;
+		if (rs.next()) {
+			index = rs.getInt(1);
+		}
 		SqlPoolUtil.closeConnection(conn, ps, null);
-		return rtn;
+		return index;
 	}
 
 	@Override
@@ -250,6 +255,7 @@ public class MouldDaoImpl implements IMouldDao {
 		String sql = "delete from mep_mould_rule  where id=?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
 		int rtn = ps.executeUpdate();
 		SqlPoolUtil.closeConnection(conn, ps, null);
 		return rtn;
@@ -293,7 +299,7 @@ public class MouldDaoImpl implements IMouldDao {
 
 	@Override
 	public int insertMouldLog(MouldLog data) throws SQLException {
-		String sql = "INSERT INTO mep_molud_log(mould_log_code,mould_log_name,mould_plan_times,mould_log_status,mould_id) VALUE(?,?,?,?,?)";
+		String sql = "INSERT INTO mep_mould_log(mould_log_code,mould_log_name,mould_plan_times,mould_log_status,mould_id) VALUE(?,?,?,?,?)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, data.getMouldLogCode());
@@ -309,7 +315,7 @@ public class MouldDaoImpl implements IMouldDao {
 	@Override
 	public List<MouldLog> selectMouldLog(int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"SELECT id,mould_log_code,mould_log_name,mould_log_context,mould_plan_times,mould_real_times,mould_log_create_time,mould_log_status,mould_id FROM mep_molud_log where 1=1 ");
+				"SELECT id,mould_log_code,mould_log_name,mould_log_context,mould_plan_times,mould_real_times,mould_log_create_time,mould_log_status,mould_id FROM mep_mould_log where 1=1 ");
 		sql.append(" limit ").append((page - 1) * 10).append(",10");
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
@@ -349,7 +355,7 @@ public class MouldDaoImpl implements IMouldDao {
 
 	@Override
 	public MouldLog selectMoulodLogById(int id) throws SQLException {
-		String sql = "select id,mould_log_code,mould_log_name,mould_log_context,mould_plan_times,mould_real_times,mould_log_create_time,mould_log_status,mould_id FROM mep_molud_log where id = ?";
+		String sql = "select id,mould_log_code,mould_log_name,mould_log_context,mould_plan_times,mould_real_times,mould_log_create_time,mould_log_status,mould_id FROM mep_mould_log where id = ?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);

@@ -141,7 +141,6 @@ public class MouldController extends HttpServlet {
 		String id = request.getParameter("id");
 		String mouldRuleCode = request.getParameter("mouldRuleCode");
 		String pushRuleCode = request.getParameter("pushRuleCode");
-		System.err.println(id+"mouldRuleCode"+"pushRuleCode");
 		String json = "";
 		try {
 			Result<Object> uptMouldPushRuleCodeWithId = service.uptMouldPushRuleCodeWithId(id, mouldRuleCode,
@@ -249,18 +248,15 @@ public class MouldController extends HttpServlet {
 
 	private void uptMouldRule(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
-		String mouldRuleCode = request.getParameter("mouldRuleCode");
-
+//		String mouldRuleCode = request.getParameter("mouldRuleCode");
 		String mouldRuleName = request.getParameter("mouldRuleName");
-
 		String mouldRuleTimes = request.getParameter("mouldRuleTimes");
 		String json = "";
 		MouldRule data = new MouldRule();
 		data.setId(Integer.parseInt(id));
-		data.setMouldRuleCode(mouldRuleCode);
+//		data.setMouldRuleCode(mouldRuleCode);
 		data.setMouldRuleName(mouldRuleName);
 		data.setMouldRuleTimes(Integer.parseInt(mouldRuleTimes));
-
 		try {
 			Result<Object> uptMouldRule = service.uptMouldRule(data);
 			json = JSON.toJSONString(uptMouldRule);
@@ -374,7 +370,7 @@ public class MouldController extends HttpServlet {
 		MouldLog data = new MouldLog();
 		data.setId(Integer.parseInt(id));
 		data.setMouldLogContext(mouldLogContext);
-
+		data.setMouldLogStatus("2");
 		try {
 			Result<Object> uptMouldLog = service.uptMouldLog(data);
 			json = JSON.toJSONString(uptMouldLog);

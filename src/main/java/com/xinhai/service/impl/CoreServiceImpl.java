@@ -202,9 +202,7 @@ public class CoreServiceImpl implements ICoreService {
 				BigDecimal output = new BigDecimal(map.get("equ_complete_quantity").toString()); // AG
 
 				BigDecimal quaQty = new BigDecimal(map.get("equ_qualified_quantity").toString());
-				// BigDecimal reject = new
-				// BigDecimal(map.get("qua_qty").toString()); // AH
-				BigDecimal outputPart = quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
+				BigDecimal outputPart = output.compareTo(BigDecimal.ZERO) ==0&&quaQty.compareTo(BigDecimal.ZERO)==0 ? BigDecimal.ZERO:  quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
 				// (AG5*G5/3600/F5/AF5))
 				// AG5=产量
 				// G5=循环时间(DESIGNCYCLE TIME)

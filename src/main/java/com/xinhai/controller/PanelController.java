@@ -72,6 +72,7 @@ public class PanelController extends HttpServlet {
 			List<Object[]> selOEEInfoALL = coreService.selOEEInfoALL();
 			json = JSON.toJSONString(selOEEInfoALL);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("OEE面板数据异常,异常原因:" + e.toString());
 		}
 		returnData(json, response);
