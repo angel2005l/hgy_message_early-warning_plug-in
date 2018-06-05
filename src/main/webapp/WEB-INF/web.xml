@@ -63,5 +63,25 @@
 		<servlet-name>panelController</servlet-name>
 		<url-pattern>/panel/panelManage</url-pattern>
 	</servlet-mapping>
+	<!-- <filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.xinhai.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	<filter>
+		<filter-name>chacterEncodingFilter</filter-name>
+		<filter-class>com.xinhai.filter.ChacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>chacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 </web-app>

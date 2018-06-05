@@ -4,9 +4,7 @@
 <%
 	Object obj = session.getAttribute("isLogin");
 	if (null == obj || !Boolean.parseBoolean(obj.toString())) {
-		/* System.out.print(basePath);
-		response.sendRedirect(basePath+"warn/userManage?method=logout"); */
-		 response.getWriter().write("<script>window.location='"+basePath+"/warn/view/login.jsp'</script>");
+		 response.getWriter().write("<script>window.parent.location='"+basePath+"/warn/view/login.jsp'</script>");
 	}
 %>
 <!DOCTYPE html>
