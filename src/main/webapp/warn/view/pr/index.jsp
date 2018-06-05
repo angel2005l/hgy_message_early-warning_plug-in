@@ -49,7 +49,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="span2">序号</th>
+								<th class="span1">序号</th>
 								<th class="span2"><span class="line"></span>规则编码</th>
 								<th class="span2"><span class="line"></span>规则名称</th>
 								<th class="span1"><span class="line"></span>第一级推送时间</th>

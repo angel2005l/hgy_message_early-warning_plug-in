@@ -128,8 +128,8 @@ public class EventController extends HttpServlet {
 			Result<Object> insWarnType = service.uptBatchWarnTypeWithRuleCode(ruleCode, eventCodes);
 			json = JSON.toJSONString(insWarnType);
 		} catch (Exception e) {
-			log.error("更新预警类别异常,异常原因:" + e.toString());
-			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "更新预警类别异常"));
+			log.error("更新批量预警类别异常,异常原因:" + e.toString());
+			json = JSON.toJSONString(new Result<Object>(Result.ERROR_6000, "更新批量预警类别异常"));
 		}
 		returnData(json, response);
 	}

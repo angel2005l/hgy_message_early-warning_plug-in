@@ -41,7 +41,8 @@
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
-							<a class="btn-flat success new-product" onclick="addTask()">添加调度任务</a>
+							<a class="btn-flat success new-product" onclick="batchBoundRule()">批量绑定模具相关规则</a>
+							<a class="btn-flat success new-product" onclick="synchro()">同步模具信息</a>
 						</div>
 					</form>
 				</div>
@@ -50,7 +51,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="span2">序号</th>
+								<th class="span1">序号</th>
 								<th class="span2"><span class="line"></span>模具编码</th>
 								<th class="span2"><span class="line"></span>模具名称</th>
 								<th class="span1"><span class="line"></span>模具寿命</th>
@@ -102,26 +103,40 @@
 			pagingBth.append(htmlStr);
 		})
 	
-			function addTask() {
-				var index = layer.open({
-					type: 2,
-					title:'添加调度任务',
-					area: ['600px', '555px'],
-					shadeClose: false, //点击遮罩关闭
-					content: 'view/task/addLayer.jsp'
-//					content:'grids.html'
-				});
+			function synchro() {
+				$.ajax({
+					url:'mouldManage?method=mould_synchrodata',
+					type:'get',
+					dataType:'json',
+					success:function(result){
+						alert(result.msg)
+						location.reload();
+					},
+					error:function(){
+						alert("服务未响应");
+					}
+				})
 			}
 			
 			function boundRule(id){
 				var index = layer.open({
 					type:2,
-					title:'修改调度任务',
+					title:'绑定模具相关规则',
 					area : [ '600px', '348px' ],
 					shadeClose : false, //点击遮罩关闭
 					//content: 'taskManage?method=task_sel_id&id='+id
 					content: 'mouldManage?method=mould_sel_id&id='+id
 				});
+			}
+			
+			function batchBoundRule(){
+				var index = layer.open({
+					type:2,
+					title:'批量绑定相关规则',
+					area : [ '600px', '500px' ],
+					shadeClose : false, //点击遮罩关闭
+					content: 'view/mould/batchBoundRuleLayer.jsp'
+				});	
 			}
 			
 			function searchBtn(msg){

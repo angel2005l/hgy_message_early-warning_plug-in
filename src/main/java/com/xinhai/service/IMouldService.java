@@ -30,7 +30,7 @@ public interface IMouldService {
 	public Result<Object> insMouldRule(MouldRule data) throws Exception;
 
 	// 查询规则
-	public Page<MouldRule> selMouldRule(String page) throws Exception;
+	public Page<MouldRule> selMouldRulePageWithCount(String page) throws Exception;
 
 	// 查询特定规则
 	public MouldRule selMouldRuleById(String id) throws Exception;
@@ -51,7 +51,7 @@ public interface IMouldService {
 	public Result<Object> insMouldLog(MouldLog data) throws Exception;
 
 	// 查询记录 分页
-	public Page<MouldLog> selMouldLog(String page) throws Exception;
+	public Page<MouldLog> selMouldLogPageWithCount(String page) throws Exception;
 
 	// 查询特定记录 byid
 	public MouldLog selMouldLogById(String id) throws Exception;

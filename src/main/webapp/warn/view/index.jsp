@@ -68,8 +68,6 @@
 				<ul class="submenu">
 					<li><a class="func" href="warningManage?method=warning_sel"
 						target="mainFrame">预警类别</a></li>
-					<li><a class="func" href="prManage?method=pr_sel"
-						target="mainFrame">预警推送规则</a></li>
 				</ul></li>
 			<li class="left-nav-li"><a class="dropdown-toggle" href="#">
 					<i class="icon-cog"></i> <span>员工管理</span>
@@ -82,9 +80,9 @@
 					<i class="icon-cog"></i> <span>模具管理</span>
 			</a>
 				<ul class="submenu">
-				<li><a class="func" href="userManage?method=user_sel"
+				<li><a class="func" href="mouldManage?method=mould_sel"
 						target="mainFrame">模具信息</a></li>
-						<li><a class="func" href="userManage?method=user_sel"
+						<li><a class="func" href="mouldManage?method=mould_sel"
 						target="mainFrame">模具保养日志</a></li>
 					<li><a class="func" href="userManage?method=user_sel"
 						target="mainFrame">模具保养规则</a></li>
@@ -95,6 +93,8 @@
 				<ul class="submenu">
 					<li><a class="func" href="taskManage?method=task_sel"
 						target="mainFrame">调度任务</a></li>
+						<li><a class="func" href="prManage?method=pr_sel"
+						target="mainFrame">推送规则</a></li>
 				</ul></li>
 		</ul>
 	</div>

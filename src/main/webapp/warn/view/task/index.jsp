@@ -50,7 +50,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="span2">序号</th>
+								<th class="span1">序号</th>
 								<th class="span2"><span class="line"></span>任务编码</th>
 								<th class="span2"><span class="line"></span>任务名称</th>
 								<th class="span1"><span class="line"></span>任务类型</th>

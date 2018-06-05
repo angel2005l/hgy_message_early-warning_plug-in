@@ -90,9 +90,10 @@ public class MouldDaoImpl implements IMouldDao {
 
 	@Override
 	public Mould selectMouldById(int id) throws SQLException {
-		String sql = "SELECT id,mould_code,mould_name,mould_life_times,mould_internal_times,mould_external_times,mould_remaining_times,mould_rule_code FROM mep_mould WHERE 1=1 ";
+		String sql = "SELECT id,mould_code,mould_name,mould_life_times,mould_internal_times,mould_external_times,mould_remaining_times,mould_rule_code,push_rule_code FROM mep_mould WHERE 1=1 and id = ?";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
 		ResultSet rs = ps.executeQuery();
 		Mould mould = null;
 		if (rs.next()) {
@@ -105,6 +106,7 @@ public class MouldDaoImpl implements IMouldDao {
 			mould.setMouldExternalTimes(rs.getInt("mould_external_times"));
 			mould.setMouldRemainingTimes(rs.getInt("mould_remaining_times"));
 			mould.setMouldRuleCode(rs.getString("mould_rule_code"));
+			mould.setPushRuleCode(rs.getString("push_rule_code"));
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return mould;

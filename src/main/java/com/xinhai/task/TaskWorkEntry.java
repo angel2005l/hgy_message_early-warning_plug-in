@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.xinhai.entity.Task;
 import com.xinhai.service.ITaskService;
 import com.xinhai.service.impl.TaskServiceImpl;
+import com.xinhai.task.sche.TaskWorkMould;
 import com.xinhai.task.sche.TaskWorkWarning;
 import com.xinhai.task.sche.TaskWorkWarningStat;
 import com.xinhai.util.DateUtil;
@@ -56,8 +57,10 @@ public class TaskWorkEntry extends TimerTask {
 			long nextExecuteTime = 0;
 			Calendar calendar = Calendar.getInstance();
 			// 分为 每日一次 和每日循环
+			System.err.println(task.toString());
 			switch (task.getTaskRunType()) {
 			case "once":
+				System.err.println(DateUtil.curDateYMD() + " " + task.getTaskTiming());
 				nextExecuteTime = DateUtil.curTimestampByStr(DateUtil.curDateYMD() + " " + task.getTaskTiming())
 						.getTime();
 				if (nowTime - nextExecuteTime < 0) {
@@ -93,6 +96,9 @@ public class TaskWorkEntry extends TimerTask {
 				break;
 			case "task_w_warning_stat_month":
 				new TaskWorkWarningStat("month");
+				break;
+			case "task_w_mould":
+				new TaskWorkMould();
 				break;
 			default:
 				break;

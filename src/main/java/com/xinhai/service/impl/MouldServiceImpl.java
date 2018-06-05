@@ -99,7 +99,7 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	}
 
 	@Override
-	public Page<MouldRule> selMouldRule(String page) throws Exception {
+	public Page<MouldRule> selMouldRulePageWithCount(String page) throws Exception {
 		try {
 			List<MouldRule> selectMouldRule = dao.selectMouldRule(Integer.parseInt(page));
 			int countNum = dao.selectMouldRuleCount();
@@ -175,7 +175,7 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	}
 
 	@Override
-	public Page<MouldLog> selMouldLog(String page) throws Exception {
+	public Page<MouldLog> selMouldLogPageWithCount(String page) throws Exception {
 		try {
 			List<MouldLog> selectMouldLog = dao.selectMouldLog(Integer.parseInt(page));
 			int countNum = dao.selectMouldLogCount();
@@ -199,11 +199,11 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	@Override
 	public Result<Object> uptMouldLog(MouldLog data) throws Exception {
 		try {
-			return dao.updateMouldLog(data) >= 0 ? rtnSuccessResult("修改保养日志成功")
-					: rtnFailResult(Result.ERROR_4000, "修改保养日志失败");
+			return dao.updateMouldLog(data) >= 0 ? rtnSuccessResult("确认保养日志成功")
+					: rtnFailResult(Result.ERROR_4000, "确认保养日志失败");
 		} catch (SQLException e) {
-			log.error("修改特定保养日志数据接口异常,异常原因:" + e.toString());
-			return rtnErrorResult(Result.ERROR_6000, "修改保养日志数据接口异常");
+			log.error("确认特定保养日志数据接口异常,异常原因:" + e.toString());
+			return rtnErrorResult(Result.ERROR_6000, "确认保养日志数据接口异常");
 		}
 	}
 
