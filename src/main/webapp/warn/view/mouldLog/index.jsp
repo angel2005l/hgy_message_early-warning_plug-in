@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html style="margin-top: 30px">
 <head>
-<title>模具保养规则管理</title>
+<title>模具保养日志管理</title>
 <base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -28,14 +28,14 @@
 			<div class="table-wrapper products-table section">
 				<div class="row-fluid head">
 					<div class="span12">
-						<h4>模具保养规则管理</h4>
+						<h4>模具保养日志管理</h4>
 					</div>
 				</div>
 				<div class="row-fluid filter-block">
 					<form id="searchForm" action="mouldManage?method=mould_log_sel" method="post">
 						<div class="pull-right">
 							<input type="text" class="search" name="title"
-								placeholder="请输入推送规则关键字" /> <input type="hidden" id="pageNum"
+								placeholder="请输入模具保养日志关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a

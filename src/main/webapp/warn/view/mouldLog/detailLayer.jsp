@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>模具日志弹窗</title>
+<title>模具保养日志弹窗</title>
 <base href="<%=basePath%>warn/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- this page specific styles -->
@@ -45,7 +45,7 @@ html {
 						</div>
 						<div class="field-box">
 							<label>保养内容</label>
-							<textarea class="span5" name="mouldLogContext" rows="4" placeholder="请输入保养内容..."></textarea>
+							<textarea class="span5" name="mouldLogContext" rows="4" placeholder="请填写保养内容..."></textarea>
 						</div>
 						<div id="alert" class="alert alert-info">
 							<i class="icon-exclamation-sign"></i>请认真填写保养记录,*为必填字段。
@@ -91,7 +91,7 @@ html {
 			parent.layer.close(index);
 		});
 		
-		function check(){
+		/* function check(){
 			var ruleCode = $("input[name='moludRuleCode']").val();
 			var ruleName = $("input[name='moludRuleName']").val();
 			var ruleFirstTime = $("input[name='mouldRuleTimes']").val();
@@ -123,7 +123,7 @@ html {
 			alertDiv.addClass("alert-error");
 			alertDiv.empty();
 			alertDiv.prepend("<i class='icon-remove-sign'></i>"+msg);
-		}		
+		}		 */
 	</script>
 </body>
 

@@ -52,7 +52,7 @@ html {
 							</div>
 						</div>
 						<div id="alert" class="alert alert-info">
-							<i class="icon-exclamation-sign"></i>请认真填写预警类别,*为必填字段
+							<i class="icon-exclamation-sign"></i>请认真填写模具相关规则,*为必填字段
 						</div>
 						<div class="field-box actions">
 							<input id="sumbit_form" type="button" class="btn-flat primary"

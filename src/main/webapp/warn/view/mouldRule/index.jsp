@@ -35,7 +35,7 @@
 					<form id="searchForm" action="mouldManage?method=mould_rule_sel" method="post">
 						<div class="pull-right">
 							<input type="text" class="search" name="title"
-								placeholder="请输入推送规则关键字" /> <input type="hidden" id="pageNum"
+								placeholder="请输入模具保养规则关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a

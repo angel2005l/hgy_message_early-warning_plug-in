@@ -43,7 +43,7 @@ html {
 								type="text" name="mouldRuleTimes" placeholder="请输入模具保养间隔..." />
 						</div>
 						<div id="alert" class="alert alert-info">
-							<i class="icon-exclamation-sign"></i>请认真填写推送规则,*为必填字段。间隔单位：次
+							<i class="icon-exclamation-sign"></i>请认真填写模具保养规则,*为必填字段。间隔单位：次
 						</div>
 						<div class="field-box actions">
 							<input id="sumbit_form" type="button" class="btn-flat primary"
@@ -89,7 +89,7 @@ html {
 		function check(){
 			var ruleCode = $("input[name='moludRuleCode']").val();
 			var ruleName = $("input[name='moludRuleName']").val();
-			var ruleFirstTime = $("input[name='mouldRuleTimes']").val();
+			var mouldRuleTimes = $("input[name='mouldRuleTimes']").val();
 			var msg = ""
 			var isSuccess = true;
 			if(ruleCode==''){
@@ -98,7 +98,7 @@ html {
 			}else if(ruleName==''){
 				msg="请填写规则名称。";
 				isSuccess =false;
-			}else if(ruleFirstTime==''){
+			}else if(mouldRuleTimes==''){
 				msg="请填写模具保养间隔。";
 				isSuccess =false;
 			}
