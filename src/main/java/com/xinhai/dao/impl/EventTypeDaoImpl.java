@@ -125,12 +125,9 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 				}
 				ps.setString(1, ruleCode);
 				ps.setString(2, eventCode);
-				int rtn = ps.executeUpdate();
-				if (rtn < 1) {
-					conn.rollback();
-					return 0;
-				}
+				 ps.executeUpdate();
 			}
+			SqlPoolUtil.closeConnection(conn, ps, null);
 			return 1;
 		} catch (Exception e) {
 			conn.rollback();
@@ -156,6 +153,7 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 			obj.setRuleCode(rs.getString("rule_code"));
 			obj.setEventStatus(rs.getString("event_status"));
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return obj;
 	}
 }

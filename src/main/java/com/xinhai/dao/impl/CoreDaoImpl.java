@@ -69,12 +69,6 @@ public class CoreDaoImpl implements ICoreDao {
 		StringBuffer result = new StringBuffer();
 		while (rs.next()) {
 			result.append(rs.getString("user_token")).append(",");
-			// User obj = new User();
-			// obj.setUserName(rs.getString("user_name"));
-			// obj.setUserToken(rs.getString("user_token"));
-			// obj.setUserEmail(rs.getString("user_email"));
-			// obj.setUserPhone(rs.getString("user_phone"));
-			// result.add(obj);
 		}
 		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return StrUtil.cutStringForLeft(result.toString(), 1);
