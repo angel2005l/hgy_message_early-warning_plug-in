@@ -116,7 +116,8 @@ public class MouldController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");// 当前页数
-			Page<Mould> selMouldPageWithCount = service.selMouldPageWithCount(StrUtil.isBlank(page) ? "1" : page);
+			String mouldName = request.getParameter("mould_name");
+			Page<Mould> selMouldPageWithCount = service.selMouldPageWithCount(mouldName,StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selMouldPageWithCount);
 		} catch (Exception e) {
 			log.error("查询模具信息异常,异常原因:" + e.toString());
@@ -225,8 +226,9 @@ public class MouldController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");// 当前页数
+			String mouldRuleName = request.getParameter("mould_rule_name");
 			Page<MouldRule> selMouldRulePageWithCount = service
-					.selMouldRulePageWithCount(StrUtil.isBlank(page) ? "1" : page);
+					.selMouldRulePageWithCount(mouldRuleName,StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selMouldRulePageWithCount);
 		} catch (Exception e) {
 			log.error("查询模具信息异常,异常原因:" + e.toString());
@@ -342,8 +344,9 @@ public class MouldController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");// 当前页数
+			String mouldLogCode = request.getParameter("mould_log_code");
 			Page<MouldLog> selMouldLogPageWithCount = service
-					.selMouldLogPageWithCount(StrUtil.isBlank(page) ? "1" : page);
+					.selMouldLogPageWithCount(mouldLogCode,StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selMouldLogPageWithCount);
 		} catch (Exception e) {
 			log.error("查询模具保养日志信息异常,异常原因:" + e.toString());

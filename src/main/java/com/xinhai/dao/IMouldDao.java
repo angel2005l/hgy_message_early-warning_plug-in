@@ -14,9 +14,9 @@ public interface IMouldDao {
 	// 模具部分
 	public List<MouldWithRule> selectMouldWithRule() throws SQLException;
 
-	public List<Mould> selectMould(int page) throws SQLException;
+	public List<Mould> selectMould(String mouldName,int page) throws SQLException;
 
-	public int selectMouldCount() throws SQLException;
+	public int selectMouldCount(String mouldName) throws SQLException;
 
 	public Mould selectMouldById(int id) throws SQLException;
 
@@ -28,9 +28,9 @@ public interface IMouldDao {
 	public List<Map<String, String>> selectMouldKV() throws SQLException;
 
 	// 模具规则部分
-	public List<MouldRule> selectMouldRule(int page) throws SQLException;
+	public List<MouldRule> selectMouldRule(String mouldRuleName,int page) throws SQLException;
 
-	public int selectMouldRuleCount() throws SQLException;
+	public int selectMouldRuleCount(String mouldRuleName) throws SQLException;
 
 	public int insertMouldRule(MouldRule data) throws SQLException;
 
@@ -47,9 +47,9 @@ public interface IMouldDao {
 
 	public int insertMouldLog(MouldLog data) throws SQLException;
 
-	public List<MouldLog> selectMouldLog(int page) throws SQLException;
+	public List<MouldLog> selectMouldLog(String mouldLogCode,int page) throws SQLException;
 
-	public int selectMouldLogCount() throws SQLException;
+	public int selectMouldLogCount(String mouldLogCode) throws SQLException;
 
 	public MouldLog selectMoulodLogById(int id) throws SQLException;
 

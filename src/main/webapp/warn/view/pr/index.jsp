@@ -34,8 +34,8 @@
 				<div class="row-fluid filter-block">
 					<form id="searchForm" action="prManage?method=pr_sel" method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title"
-								placeholder="请输入推送规则关键字" /> <input type="hidden" id="pageNum"
+							<input type="text" class="search" name="rule_name"
+								placeholder="请输入推送规则名称关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a

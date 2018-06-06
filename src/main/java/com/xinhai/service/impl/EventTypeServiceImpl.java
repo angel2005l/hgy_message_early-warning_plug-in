@@ -20,10 +20,10 @@ public class EventTypeServiceImpl extends BaseResult implements IEventTypeServic
 	private static final Logger log = LoggerFactory.getLogger(EventTypeServiceImpl.class);
 
 	@Override
-	public Page<Event> selWarnTypePageWithCount(String page) throws Exception {
+	public Page<Event> selWarnTypePageWithCount(String eventName,String page) throws Exception {
 		try {
-			List<Event> selectEvent = dao.selectEvent(Integer.parseInt(page));
-			int countNum = dao.selectEventCount();
+			List<Event> selectEvent = dao.selectEvent(eventName,Integer.parseInt(page));
+			int countNum = dao.selectEventCount(eventName);
 			return new Page<Event>(10, countNum, Integer.parseInt(page), selectEvent);
 		} catch (SQLException e) {
 			log.error("查询预警类别数据接口异常,异常原因:" + e.toString());

@@ -18,12 +18,18 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<Event> selectEvent(int page) throws SQLException {
+	public List<Event> selectEvent(String eventName,int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"select id,event_id,event_code,event_name,event_pid,rule_code,event_status from mep_event where 1=1 ");
+		if (StrUtil.notBlank(eventName)) {
+			sql.append(" and instr(event_name, ?) ");
+		}
 		sql.append("limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(eventName)) {
+			ps.setString(1, eventName);
+		}
 		ResultSet rs = ps.executeQuery();
 		List<Event> result = new ArrayList<Event>();
 		while (rs.next()) {
@@ -42,10 +48,16 @@ public class EventTypeDaoImpl implements IEventTypeDao {
 	}
 
 	@Override
-	public int selectEventCount() throws SQLException {
-		String sql = "select count(1) from mep_event where 1=1";
+	public int selectEventCount(String eventName) throws SQLException {
+		StringBuffer sql = new StringBuffer("select count(1) from mep_event where 1=1 ");
+		if (StrUtil.notBlank(eventName)) {
+			sql.append(" and instr(event_name, ?)");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(eventName)) {
+			ps.setString(1, eventName);
+		}
 		ResultSet rs = ps.executeQuery();
 		int count = 0;
 		if (rs.next()) {

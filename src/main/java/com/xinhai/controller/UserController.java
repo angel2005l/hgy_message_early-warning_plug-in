@@ -130,8 +130,8 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");
-
-			Page<User> selUserpageWithCount = service.selUserpageWithCount(StrUtil.isBlank(page) ? "1" : page);
+			String userName = request.getParameter("user_name");
+			Page<User> selUserpageWithCount = service.selUserpageWithCount(userName,StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selUserpageWithCount);
 		} catch (Exception e) {
 			log.error("查询用户信息异常,异常原因" + e.toString());

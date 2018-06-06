@@ -20,10 +20,10 @@ public class PushRuleServiceImpl extends BaseResult implements IPushRuleService 
 	private static final Logger log = LoggerFactory.getLogger(PushRuleServiceImpl.class);
 
 	@Override
-	public Page<PushRule> selPushRulePageWithCount(String page) throws Exception {
+	public Page<PushRule> selPushRulePageWithCount(String ruleName,String page) throws Exception {
 		try {
-			List<PushRule> selectPushRule = dao.selectPushRule(Integer.parseInt(page));
-			int countNum = dao.selectPushRuleCount();
+			List<PushRule> selectPushRule = dao.selectPushRule(ruleName,Integer.parseInt(page));
+			int countNum = dao.selectPushRuleCount(ruleName);
 			return new Page<PushRule>(10, countNum, Integer.parseInt(page), selectPushRule);
 		} catch (SQLException e) {
 			log.error("查询推送规则数据接口异常,异常原因:" + e.toString());

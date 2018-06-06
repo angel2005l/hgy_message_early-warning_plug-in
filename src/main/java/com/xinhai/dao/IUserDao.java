@@ -17,7 +17,7 @@ public interface IUserDao {
 	 * @return: List<User>
 	 *
 	 */
-	public List<User> selectUser(int page) throws SQLException;
+	public List<User> selectUser(String userName,int page) throws SQLException;
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public interface IUserDao {
 	 * @return: int
 	 *
 	 */
-	public int selectUserCount() throws SQLException;
+	public int selectUserCount(String userName) throws SQLException;
 
 	/**
 	 * 

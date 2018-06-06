@@ -20,10 +20,10 @@ public class UserServiceImpl extends BaseResult implements IUserService {
 	private IUserDao dao = new UserDaoImpl();
 
 	@Override
-	public Page<User> selUserpageWithCount(String page) throws Exception {
+	public Page<User> selUserpageWithCount(String userName,String page) throws Exception {
 		try {
-			List<User> userObj = dao.selectUser(Integer.parseInt(page));
-			int countNum = dao.selectUserCount();
+			List<User> userObj = dao.selectUser(userName,Integer.parseInt(page));
+			int countNum = dao.selectUserCount(userName);
 			return new Page<User>(10, countNum, Integer.parseInt(page), userObj);
 		} catch (SQLException e) {
 			log.error("查询用户信息数据接口异常,异常原因:" + e.toString());

@@ -12,17 +12,24 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 import com.xinhai.dao.IPushRuleDao;
 import com.xinhai.entity.PushRule;
 import com.xinhai.util.SqlPoolUtil;
+import com.xinhai.util.StrUtil;
 
 public class PushRuleDaoImpl implements IPushRuleDao {
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<PushRule> selectPushRule(int page) throws SQLException {
+	public List<PushRule> selectPushRule(String ruleName, int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"select id,rule_code,rule_name,rule_first_time,rule_second_time,rule_third_time,rule_fourth_time from mep_push_rule where 1=1 ");
+		if (StrUtil.notBlank(ruleName)) {
+			sql.append(" and instr(rule_name, ?) ");
+		}
 		sql.append("limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(ruleName)) {
+			ps.setString(1, ruleName);
+		}
 		ResultSet rs = ps.executeQuery();
 		List<PushRule> result = new ArrayList<PushRule>();
 		while (rs.next()) {
@@ -41,10 +48,16 @@ public class PushRuleDaoImpl implements IPushRuleDao {
 	}
 
 	@Override
-	public int selectPushRuleCount() throws SQLException {
-		String sql = "select count(1) from mep_push_rule where 1=1";
+	public int selectPushRuleCount(String ruleName) throws SQLException {
+		StringBuffer sql = new StringBuffer("select count(1) from mep_push_rule where 1=1 ");
+		if (StrUtil.notBlank(ruleName)) {
+			sql.append(" and instr(rule_name, ?) ");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(ruleName)) {
+			ps.setString(1, ruleName);
+		}
 		ResultSet rs = ps.executeQuery();
 		int count = 0;
 		if (rs.next()) {

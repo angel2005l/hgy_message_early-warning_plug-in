@@ -34,8 +34,8 @@
 					<form id="searchForm" action="userManage?method=user_sel"
 						method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title"
-								placeholder="请输入员工姓名关键字" /> <input type="hidden" id="pageNum"
+							<input type="text" class="search" name="user_name"
+								placeholder="请输入员工姓名名称关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a

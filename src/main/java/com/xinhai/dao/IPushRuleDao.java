@@ -17,7 +17,7 @@ public interface IPushRuleDao {
 	 * @return: List<PushRule>
 	 *
 	 */
-	public List<PushRule> selectPushRule(int page) throws SQLException;
+	public List<PushRule> selectPushRule(String ruleName,int page) throws SQLException;
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public interface IPushRuleDao {
 	 * @return: int
 	 *
 	 */
-	public int selectPushRuleCount() throws SQLException;
+	public int selectPushRuleCount(String ruleName) throws SQLException;
 
 	/**
 	 * 

@@ -66,8 +66,8 @@ public class PushRuleController extends HttpServlet {
 	private void selPr(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");
-
-			Page<PushRule> selPushRulePageWithCount = service.selPushRulePageWithCount(StrUtil.isBlank(page) ? "1"
+			String ruleName = request.getParameter("rule_name");
+			Page<PushRule> selPushRulePageWithCount = service.selPushRulePageWithCount(ruleName,StrUtil.isBlank(page) ? "1"
 					: page);
 			request.setAttribute("data", selPushRulePageWithCount);
 		} catch (Exception e) {

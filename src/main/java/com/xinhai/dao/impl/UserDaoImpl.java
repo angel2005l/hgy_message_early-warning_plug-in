@@ -12,18 +12,25 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 import com.xinhai.dao.IUserDao;
 import com.xinhai.entity.User;
 import com.xinhai.util.SqlPoolUtil;
+import com.xinhai.util.StrUtil;
 
 public class UserDaoImpl implements IUserDao {
 
 	private SqlPoolUtil instance = SqlPoolUtil.getInstance();
 
 	@Override
-	public List<User> selectUser(int page) throws SQLException {
+	public List<User> selectUser(String userName,int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				"select id,user_code,user_name,user_token,user_email,user_phone,user_level,is_work,user_status from mep_user where 1=1");
+				"select id,user_code,user_name,user_token,user_email,user_phone,user_level,is_work,user_status from mep_user where 1=1 ");
+		if (StrUtil.notBlank(userName)) {
+			sql.append(" and instr(user_name, ?)");
+		}
 		sql.append(" limit ").append((page - 1) * 10).append(",").append(10);
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(userName)) {
+			ps.setString(1, userName);
+		}
 		ResultSet rs = ps.executeQuery();
 		List<User> result = new ArrayList<User>();
 		while (rs.next()) {
@@ -44,10 +51,16 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public int selectUserCount() throws SQLException {
-		String sql = "select count(1) from mep_user where 1=1 ";
+	public int selectUserCount(String userName) throws SQLException {
+		StringBuffer sql = new StringBuffer("select count(1) from mep_user where 1=1 ");
+		if (StrUtil.notBlank(userName)) {
+			sql.append(" and instr(user_name, ?)");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(userName)) {
+			ps.setString(1, userName);
+		}
 		ResultSet rs = ps.executeQuery();
 		int count = 0;
 		while (rs.next()) {

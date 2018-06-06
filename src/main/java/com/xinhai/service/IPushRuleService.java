@@ -9,7 +9,7 @@ import com.xinhai.util.Result;
 
 public interface IPushRuleService {
 
-	public Page<PushRule> selPushRulePageWithCount(String page) throws Exception;
+	public Page<PushRule> selPushRulePageWithCount(String ruleName,String page) throws Exception;
 
 	public PushRule selPushRuleById(String id) throws Exception;
 

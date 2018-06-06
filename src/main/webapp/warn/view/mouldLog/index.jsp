@@ -34,8 +34,8 @@
 				<div class="row-fluid filter-block">
 					<form id="searchForm" action="mouldManage?method=mould_log_sel" method="post">
 						<div class="pull-right">
-							<input type="text" class="search" name="title"
-								placeholder="请输入模具保养日志关键字" /> <input type="hidden" id="pageNum"
+							<input type="text" class="search" name="mould_log_code"
+								placeholder="请输入模具日志编号关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
@@ -49,14 +49,14 @@
 						<thead>
 							<tr>
 								<th class="span1">序号</th>
-								<th class="span1"><span class="line"></span>记录编码</th>
-								<th class="span2"><span class="line"></span>记录名称</th>
+								<th class="span1"><span class="line"></span>模具日志编号</th>
+								<th class="span2"><span class="line"></span>模具日志名称</th>
 								<th class="span1"><span class="line"></span>模具编号</th>
 								<th class="span3"><span class="line"></span>保养内容</th>
 								<th class="span1"><span class="line"></span>计划保养模次数</th>
 								<th class="span1"><span class="line"></span>实际保养模次数</th>
 								<th class="span1"><span class="line"></span>记录状态</th>
-								<th class="span2"><span class="line"></span>创建时间</th>
+								<th class="span1"><span class="line"></span>创建时间</th>
 								<th class="span1"><span class="line"></span>操作</th>
 							</tr>
 						</thead>

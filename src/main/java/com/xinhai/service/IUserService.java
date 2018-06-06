@@ -9,7 +9,7 @@ import com.xinhai.util.Result;
 
 public interface IUserService {
 
-	public Page<User> selUserpageWithCount(String page) throws Exception;
+	public Page<User> selUserpageWithCount(String userName,String page) throws Exception;
 
 	public Result<User> selUserById(String id) throws Exception;
 

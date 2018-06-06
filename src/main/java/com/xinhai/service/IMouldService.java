@@ -15,7 +15,7 @@ public interface IMouldService {
 	// 查询所有的模具信息 及其保养规则
 //	public List<MouldWithRule> selMouldWithRule() throws Exception;
 
-	public Page<Mould> selMouldPageWithCount(String page) throws Exception;
+	public Page<Mould> selMouldPageWithCount(String mouldName,String page) throws Exception;
 
 	public Mould selMouldById(String id) throws Exception;
 
@@ -30,7 +30,7 @@ public interface IMouldService {
 	public Result<Object> insMouldRule(MouldRule data) throws Exception;
 
 	// 查询规则
-	public Page<MouldRule> selMouldRulePageWithCount(String page) throws Exception;
+	public Page<MouldRule> selMouldRulePageWithCount(String mouldRuleName,String page) throws Exception;
 
 	// 查询特定规则
 	public MouldRule selMouldRuleById(String id) throws Exception;
@@ -51,7 +51,7 @@ public interface IMouldService {
 	public Result<Object> insMouldLog(MouldLog data) throws Exception;
 
 	// 查询记录 分页
-	public Page<MouldLog> selMouldLogPageWithCount(String page) throws Exception;
+	public Page<MouldLog> selMouldLogPageWithCount(String mouldLogCode,String page) throws Exception;
 
 	// 查询特定记录 byid
 	public MouldLog selMouldLogById(String id) throws Exception;

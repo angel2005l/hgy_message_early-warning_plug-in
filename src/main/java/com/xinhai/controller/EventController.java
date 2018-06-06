@@ -74,7 +74,8 @@ public class EventController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String page = request.getParameter("page");//当前页数
-			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(StrUtil.isBlank(page) ? "1" : page);
+			String  eventName = request.getParameter("event_name");
+			Page<Event> selWarnTypePageWithCount = service.selWarnTypePageWithCount(eventName,StrUtil.isBlank(page) ? "1" : page);
 			request.setAttribute("data", selWarnTypePageWithCount);
 		} catch (Exception e) {
 			log.error("查询预警类别异常,异常原因" + e.toString());

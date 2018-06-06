@@ -49,12 +49,18 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public List<Mould> selectMould(int page) throws SQLException {
+	public List<Mould> selectMould(String mouldName, int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"SELECT id,mould_code,mould_name,mould_life_times,mould_internal_times,mould_external_times,mould_remaining_times,mould_rule_code,push_rule_code FROM mep_mould WHERE 1=1");
+		if (StrUtil.notBlank(mouldName)) {
+			sql.append(" and instr(mould_name, ?)");
+		}
 		sql.append(" limit ").append((page - 1) * 10).append(",10");
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldName)) {
+			ps.setString(1, mouldName);
+		}
 		ResultSet rs = ps.executeQuery();
 		List<Mould> result = new ArrayList<Mould>();
 		while (rs.next()) {
@@ -75,10 +81,16 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public int selectMouldCount() throws SQLException {
-		String sql = "SELECT count(1) as num FROM mep_mould WHERE 1=1 ";
+	public int selectMouldCount(String mouldName) throws SQLException {
+		StringBuffer sql = new StringBuffer("SELECT count(1) as num FROM mep_mould WHERE 1=1 ");
+		if (StrUtil.notBlank(mouldName)) {
+			sql.append(" and instr(mould_name, ?)");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldName)) {
+			ps.setString(1, mouldName);
+		}
 		ResultSet rs = ps.executeQuery();
 		int index = 1;
 		if (rs.next()) {
@@ -171,12 +183,18 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public List<MouldRule> selectMouldRule(int page) throws SQLException {
+	public List<MouldRule> selectMouldRule(String mouldRuleName, int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"SELECT id,mould_rule_code,mould_rule_name,mould_rule_times FROM mep_mould_rule where 1=1");
+		if (StrUtil.notBlank(mouldRuleName)) {
+			sql.append(" and instr(mould_rule_name, ?) ");
+		}
 		sql.append(" limit ").append((page - 1) * 10).append(",10");
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldRuleName)) {
+			ps.setString(1, mouldRuleName);
+		}
 		ResultSet rs = ps.executeQuery();
 		List<MouldRule> result = new ArrayList<MouldRule>();
 		while (rs.next()) {
@@ -192,10 +210,16 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public int selectMouldRuleCount() throws SQLException {
-		String sql = "SELECT count(1) from mep_mould_rule";
+	public int selectMouldRuleCount(String mouldRuleName) throws SQLException {
+		StringBuffer sql = new StringBuffer("SELECT count(1) from mep_mould_rule where 1=1 ");
+		if (StrUtil.notBlank(mouldRuleName)) {
+			sql.append(" and instr(mould_rule_name, ?) ");
+		}
 		DruidPooledConnection conn = instance.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldRuleName)) {
+			ps.setString(1, mouldRuleName);
+		}
 		ResultSet rs = ps.executeQuery();
 		int index = 1;
 		if (rs.next()) {
@@ -315,12 +339,18 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public List<MouldLog> selectMouldLog(int page) throws SQLException {
+	public List<MouldLog> selectMouldLog(String mouldLogCode, int page) throws SQLException {
 		StringBuffer sql = new StringBuffer(
 				"SELECT id,mould_log_code,mould_log_name,mould_log_context,mould_plan_times,mould_real_times,mould_log_create_time,mould_log_status,mould_id FROM mep_mould_log where 1=1 ");
+		if (StrUtil.notBlank(mouldLogCode)) {
+			sql.append(" and instr(mould_log_code, ?) ");
+		}
 		sql.append(" limit ").append((page - 1) * 10).append(",10");
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldLogCode)) {
+			ps.setString(1, mouldLogCode);
+		}
 		ResultSet rs = ps.executeQuery();
 
 		List<MouldLog> result = new ArrayList<MouldLog>();
@@ -342,10 +372,16 @@ public class MouldDaoImpl implements IMouldDao {
 	}
 
 	@Override
-	public int selectMouldLogCount() throws SQLException {
+	public int selectMouldLogCount(String mouldLogCode) throws SQLException {
 		StringBuffer sql = new StringBuffer("SELECT count(1) from mep_mould_log where 1=1");
+		if (StrUtil.notBlank(mouldLogCode)) {
+			sql.append(" and instr(mould_log_code, ?) ");
+		}
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql.toString());
+		if (StrUtil.notBlank(mouldLogCode)) {
+			ps.setString(1, mouldLogCode);
+		}
 		ResultSet rs = ps.executeQuery();
 		int index = 1;
 		if (rs.next()) {

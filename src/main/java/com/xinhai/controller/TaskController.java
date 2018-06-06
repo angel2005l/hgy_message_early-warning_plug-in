@@ -91,10 +91,8 @@ public class TaskController extends HttpServlet {
 
 	private void selTask(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
-		String taskName = request.getParameter("taskName");
-
+		String taskName = request.getParameter("task_name");
 		String page = request.getParameter("page");
-
 		Page<Task> selTaskPageWithCount;
 		try {
 			selTaskPageWithCount = service.selTaskPageWithCount(taskName, StrUtil.isBlank(page) ? "1" : page);

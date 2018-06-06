@@ -5,7 +5,7 @@
 	version="3.1">
 	<display-name>xh_f7_mep</display-name>
 	<welcome-file-list>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>warn/view/login.jsp</welcome-file>
 	</welcome-file-list>
 <!-- 	 <error-page>  
         <error-code>404</error-code>  

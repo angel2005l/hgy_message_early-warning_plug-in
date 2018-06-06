@@ -9,7 +9,7 @@ import com.xinhai.util.Result;
 
 public interface IEventTypeService {
 
-	public Page<Event> selWarnTypePageWithCount(String page) throws Exception;
+	public Page<Event> selWarnTypePageWithCount(String eventName,String page) throws Exception;
 
 	public Result<Object> insWarnType(Event data) throws Exception;
 

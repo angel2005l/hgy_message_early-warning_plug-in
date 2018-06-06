@@ -28,10 +28,10 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	// }
 
 	@Override
-	public Page<Mould> selMouldPageWithCount(String page) throws Exception {
+	public Page<Mould> selMouldPageWithCount(String mouldName,String page) throws Exception {
 		try {
-			List<Mould> selectMould = dao.selectMould(Integer.parseInt(page));
-			int countNum = dao.selectMouldCount();
+			List<Mould> selectMould = dao.selectMould(mouldName,Integer.parseInt(page));
+			int countNum = dao.selectMouldCount(mouldName);
 			return new Page<Mould>(10, countNum, Integer.parseInt(page), selectMould);
 		} catch (SQLException e) {
 			log.error("查询模具信息数据接口异常,异常原因:" + e.toString());
@@ -99,10 +99,10 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	}
 
 	@Override
-	public Page<MouldRule> selMouldRulePageWithCount(String page) throws Exception {
+	public Page<MouldRule> selMouldRulePageWithCount(String mouldRuleName,String page) throws Exception {
 		try {
-			List<MouldRule> selectMouldRule = dao.selectMouldRule(Integer.parseInt(page));
-			int countNum = dao.selectMouldRuleCount();
+			List<MouldRule> selectMouldRule = dao.selectMouldRule(mouldRuleName ,Integer.parseInt(page));
+			int countNum = dao.selectMouldRuleCount(mouldRuleName);
 			return new Page<MouldRule>(10, countNum, Integer.parseInt(page), selectMouldRule);
 		} catch (SQLException e) {
 			log.error("查询模具保养规则信息数据接口异常,异常原因:" + e.toString());
@@ -175,10 +175,10 @@ public class MouldServiceImpl extends BaseResult implements IMouldService {
 	}
 
 	@Override
-	public Page<MouldLog> selMouldLogPageWithCount(String page) throws Exception {
+	public Page<MouldLog> selMouldLogPageWithCount(String mouldLogCode,String page) throws Exception {
 		try {
-			List<MouldLog> selectMouldLog = dao.selectMouldLog(Integer.parseInt(page));
-			int countNum = dao.selectMouldLogCount();
+			List<MouldLog> selectMouldLog = dao.selectMouldLog(mouldLogCode,Integer.parseInt(page));
+			int countNum = dao.selectMouldLogCount(mouldLogCode);
 			return new Page<MouldLog>(10, countNum, Integer.parseInt(page), selectMouldLog);
 		} catch (SQLException e) {
 			log.error("查询保养日志信息数据接口异常,异常原因:" + e.toString());
