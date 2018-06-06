@@ -306,7 +306,8 @@ function getWarnNum() {
 			console.log(result);
 			tab2chart.setOption({
 				dataset : {
-					source : result
+					source : result,
+					sourceHeader:false
 				}
 			});
 		},
