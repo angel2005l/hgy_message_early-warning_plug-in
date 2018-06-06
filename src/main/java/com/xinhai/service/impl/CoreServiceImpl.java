@@ -106,7 +106,6 @@ public class CoreServiceImpl implements ICoreService {
 		String thirdToken = dao.selectUserTokenByLevel(3);
 		String fouredToken = dao.selectUserTokenByLevel(4);
 		String[] tokens = { firstToken, secondToken, thirdToken, fouredToken };
-
 		for (MouldWithRule mouldWithRule : mwrList) {
 			// 包含了核心校验数据
 			// 查询日志的有无
@@ -146,7 +145,7 @@ public class CoreServiceImpl implements ICoreService {
 						data = new MouldLog();
 						data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
 						data.setMouldLogName(
-								"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
+								"模具：【" + mouldWithRule.getMouldName() + "】于" + DateUtil.curDateYMD() + "的计划保养");
 						data.setMouldPlanTimes(nowTimes);
 						data.setMouldLogStatus("1");
 						data.setMouldId(mouldWithRule.getId());
@@ -162,14 +161,14 @@ public class CoreServiceImpl implements ICoreService {
 				String[] pushTimes = mouldWithRule.getRuleTimes().split(",");
 				StringBuffer userTokens = new StringBuffer();
 				for (int index = 0; index < 4; index++) {
-					if (StrUtil.notBlank(pushTimes[index])) {
+					if (StrUtil.isBlank(pushTimes[index])) {
 						continue;
-					} else if (Integer.parseInt(pushTimes[index]) >= 0) {
+					} else if (Integer.parseInt(pushTimes[index] ) >= 0 && StrUtil.notBlank(tokens[index])) {
 						userTokens.append(tokens[index]).append(",");
 					}
 				}
-				WeiXinUtil.sendMould(StrUtil.cutStringForLeft(userTokens.toString(), 1), "alert".equals(pushMode)
-						? mouldLog.getMouldLogName() + "未完成计划保养" : data.getMouldLogName());
+				WeiXinUtil.sendMould(StrUtil.cutStringForLeft(userTokens.toString(), 1),
+						"alert".equals(pushMode) ? "记录编码:【"+mouldLog.getMouldLogCode()+"】,记录名称【"+mouldLog.getMouldLogName() + "】未完成计划保养" : data.getMouldLogName());
 			}
 			// 创建文件
 			if (null != data) {
@@ -228,7 +227,8 @@ public class CoreServiceImpl implements ICoreService {
 
 				BigDecimal quaQty = new BigDecimal(map.get("equ_qualified_quantity").toString());
 				BigDecimal outputPart = output.compareTo(BigDecimal.ZERO) == 0 && quaQty.compareTo(BigDecimal.ZERO) == 0
-						? BigDecimal.ZERO : quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
+						? BigDecimal.ZERO
+						: quaQty.divide(output, 4, BigDecimal.ROUND_HALF_UP);
 				// (AG5*G5/3600/F5/AF5))
 				// AG5=产量
 				// G5=循环时间(DESIGNCYCLE TIME)

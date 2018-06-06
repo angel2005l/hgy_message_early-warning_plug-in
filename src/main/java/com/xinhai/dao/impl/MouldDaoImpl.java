@@ -280,7 +280,7 @@ public class MouldDaoImpl implements IMouldDao {
 
 	@Override
 	public MouldLog selectMouldLogByMouldId(int mouldId) throws SQLException {
-		String sql = "SELECT mould_plan_times,mould_real_times,mould_log_status FROM mep_mould_log a INNER JOIN mep_mould b ON a.`mould_id` =b.`id` WHERE  a.id = (SELECT MAX(id) FROM mep_mould_log WHERE mould_id = ?)";
+		String sql = "SELECT mould_log_code,mould_log_name,mould_plan_times,mould_real_times,mould_log_status FROM mep_mould_log a INNER JOIN mep_mould b ON a.`mould_id` =b.`id` WHERE  a.id = (SELECT MAX(id) FROM mep_mould_log WHERE mould_id = ?)";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, mouldId);
@@ -289,6 +289,8 @@ public class MouldDaoImpl implements IMouldDao {
 		if (rs.next()) {
 			ml = new MouldLog();
 			ml.setMouldId(mouldId);
+			ml.setMouldLogCode(rs.getString("mould_log_code"));
+			ml.setMouldLogName(rs.getString("mould_log_name"));
 			ml.setMouldPlanTimes(rs.getInt("mould_plan_times"));
 			ml.setMouldRealTimes(rs.getInt("mould_real_times"));
 			ml.setMouldLogStatus(rs.getString("mould_log_status"));
@@ -386,6 +388,7 @@ public class MouldDaoImpl implements IMouldDao {
 		ps.setString(2, data.getMouldLogStatus());
 		ps.setInt(3, data.getId());
 		int rtn = ps.executeUpdate();
+		SqlPoolUtil.closeConnection(conn, ps, null);
 		return rtn;
 	}
 

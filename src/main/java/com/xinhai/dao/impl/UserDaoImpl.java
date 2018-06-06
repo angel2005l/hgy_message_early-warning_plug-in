@@ -190,6 +190,7 @@ public class UserDaoImpl implements IUserDao {
 			map.put("isWork", rs.getString("is_work"));
 			result.add(map);
 		}
+		SqlPoolUtil.closeConnection(conn, ps, rs);
 		return result;
 	}
 
