@@ -28,7 +28,7 @@
 	<!-- navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-inner">
-			<a class="brand" href="javascript:void(0)"><i class="icon-fire"></i>&nbsp;&nbsp;&nbsp;<img
+			<a class="brand" href="view/index.jsp"><i class="icon-fire"></i>&nbsp;&nbsp;&nbsp;<img
 				src="img/logo_simple.png" /></a>
 			<ul class="nav pull-right">
 				<!-- <li class="dropdown"><a href="#"
@@ -63,21 +63,21 @@
 			</a>
 			</li>
 			<li class="left-nav-li"><a class="dropdown-toggle"> <i
-					class="icon-comment"></i> <span>预警管理</span>
+					class="icon-warning-sign"></i> <span>预警管理</span>
 			</a>
 				<ul class="submenu">
 					<li><a class="func" href="warningManage?method=warning_sel"
 						target="mainFrame">预警类别</a></li>
 				</ul></li>
 			<li class="left-nav-li"><a class="dropdown-toggle" href="#">
-					<i class="icon-cog"></i> <span>员工管理</span>
+					<i class="icon-user"></i> <span>员工管理</span>
 			</a>
 				<ul class="submenu">
 					<li><a class="func" href="userManage?method=user_sel"
 						target="mainFrame">员工信息</a></li>
 				</ul></li>
 				<li class="left-nav-li"><a class="dropdown-toggle" href="#">
-					<i class="icon-cog"></i> <span>模具管理</span>
+					<i class="icon-hdd"></i> <span>模具管理</span>
 			</a>
 				<ul class="submenu">
 				<li><a class="func" href="mouldManage?method=mould_sel"

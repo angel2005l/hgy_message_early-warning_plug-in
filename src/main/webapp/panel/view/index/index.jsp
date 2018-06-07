@@ -176,7 +176,8 @@ var tab1chart = echarts.init(document.getElementById('tab1'));
 // 指定图表的配置项和数据
 var option = {
 	title : {
-		text : '机台信息OEE汇总'
+		text : '机台信息OEE汇总',
+			x : 'center'
 	},
 	tooltip : {
 		trigger : 'axis',
@@ -227,7 +228,6 @@ var option = {
 tab1chart.setOption(option);
 getOEEInfos();
 setInterval(function() {
-	console.log("zhixngOEE");
 	getOEEInfos();
 },  5*60* 1000);
 
@@ -259,7 +259,8 @@ var tab2chart = echarts.init(document.getElementById('tab2'));
 // 指定图表的配置项和数据
 var tab2option = {
 	title : {
-		text : '近七天内每日预警次数'
+		text : '近七天内每日预警次数',
+		x : 'center'
 	},
 	tooltip : {
 		trigger : 'axis',			
@@ -303,7 +304,6 @@ function getWarnNum() {
 		},
 		dataType : 'json',
 		success : function(result) {
-			console.log(result);
 			tab2chart.setOption({
 				dataset : {
 					source : result,

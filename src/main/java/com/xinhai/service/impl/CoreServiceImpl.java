@@ -45,7 +45,7 @@ public class CoreServiceImpl implements ICoreService {
 				long time = wr.getCreateTime().getTime();
 				switch (index) {
 				case "0":
-					if ((wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime()))) {
+					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFirstTime())) {
 						index = "1";
 						if (StrUtil.notBlank(firstToken)) {
 							pushTokens.append(firstToken).append(",");
