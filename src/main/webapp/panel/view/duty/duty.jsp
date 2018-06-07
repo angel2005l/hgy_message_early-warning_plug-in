@@ -97,7 +97,7 @@
 					dataType:'json',
 					success:function(result){
 						alert(result.msg);
-						window.location.reload();
+						window.location.href="view/duty/duty.jsp?id="+10000*Math.random();
 					},
 					error:function(){
 						alert("服务未响应")
