@@ -54,7 +54,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "1":
-					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleSecondTime())) {
+					if (wr.getRuleSecondTime() == 0 || isPushWarn(time, wr.getRuleSecondTime())) {
 						index = "2";
 						if (StrUtil.notBlank(secondToken)) {
 							pushTokens.append(secondToken).append(",");
@@ -63,7 +63,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "2":
-					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleThirdTime())) {
+					if (wr.getRuleThirdTime() == 0 || isPushWarn(time, wr.getRuleThirdTime())) {
 						index = "3";
 						if (StrUtil.notBlank(thirdToken)) {
 							pushTokens.append(thirdToken).append(",");
@@ -72,7 +72,7 @@ public class CoreServiceImpl implements ICoreService {
 						break;
 					}
 				case "3":
-					if (wr.getRuleFirstTime() == 0 || isPushWarn(time, wr.getRuleFourthTime())) {
+					if (wr.getRuleFourthTime() == 0 || isPushWarn(time, wr.getRuleFourthTime())) {
 						index = "4";
 						if (StrUtil.notBlank(fouredToken)) {
 							pushTokens.append(fouredToken).append(",");
