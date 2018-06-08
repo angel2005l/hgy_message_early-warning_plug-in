@@ -24,8 +24,8 @@ public class WeiXinUtil {
 		
 		ResourceBundle rb = ResourceBundle.getBundle("dataDic");
 		String url = rb.getString("weixin_push_path_warning");
-		String rootPath = rb.getString("root_path");
-		if (StrUtil.isBlank(url) || StrUtil.isBlank(rootPath)) {
+//		String rootPath = rb.getString("root_path");
+		if (StrUtil.isBlank(url) ) {
 			log.info("【微信推送接口】缺少基础地址配置");
 			return;
 		}
