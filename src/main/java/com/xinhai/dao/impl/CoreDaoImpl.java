@@ -173,7 +173,7 @@ public class CoreDaoImpl implements ICoreDao {
 
 	@Override
 	public List<Map<String, String>> selectWarnWeekTop5() throws SQLException {
-		String sql = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d')) = YEARWEEK(NOW()) GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
+		String sql = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1) GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
