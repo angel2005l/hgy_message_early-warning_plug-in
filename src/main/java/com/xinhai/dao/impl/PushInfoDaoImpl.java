@@ -35,9 +35,9 @@ public class PushInfoDaoImpl implements IPushInfoDao {
 
 	@Override
 	public Map<String, Object> selectWarnWeek() throws SQLException {
-		String sqlSolveWarn = "SELECT title,message,device_id,create_time FROM mep_warning WHERE status=1 and YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d')) = YEARWEEK(NOW())-1";
-		String sqlUnsolveWarn = "SELECT title,message,device_id,create_time FROM mep_warning WHERE status=0 and YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d')) = YEARWEEK(NOW())-1";
-		String sqlWarnTop5 = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d')) = YEARWEEK(NOW())-1 GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
+		String sqlSolveWarn = "SELECT title,message,device_id,create_time FROM mep_warning WHERE status=1 and YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)-1";
+		String sqlUnsolveWarn = "SELECT title,message,device_id,create_time FROM mep_warning WHERE status=0 and YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)-1";
+		String sqlWarnTop5 = "SELECT a.event_name,b.num FROM mep_event a INNER JOIN  (SELECT event_code,COUNT(1) AS num FROM mep_warning WHERE YEARWEEK(DATE_FORMAT(create_time,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)-1 GROUP BY event_code ORDER BY num LIMIT 0,5) b ON a.event_code = b.event_code";
 		DruidPooledConnection conn = instance.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
