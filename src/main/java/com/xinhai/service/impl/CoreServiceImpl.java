@@ -123,7 +123,7 @@ public class CoreServiceImpl implements ICoreService {
 					data = new MouldLog();
 					data.setMouldLogCode("log" + DateUtil.curDateYMDHMSSForService());
 					data.setMouldLogName(
-							"模具：【" + mouldWithRule.getMouldName() + "】与" + DateUtil.curDateYMD() + "的计划保养日志");
+							"模具：【" + mouldWithRule.getMouldName() + "】于" + DateUtil.curDateYMD() + "的计划保养日志");
 					data.setMouldPlanTimes(nowTimes);
 					data.setMouldLogStatus("1");
 					data.setMouldId(mouldWithRule.getId());

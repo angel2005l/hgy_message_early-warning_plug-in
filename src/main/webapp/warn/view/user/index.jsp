@@ -35,7 +35,7 @@
 						method="post">
 						<div class="pull-right">
 							<input type="text" class="search" name="user_name"
-								placeholder="请输入员工姓名名称关键字" /> <input type="hidden" id="pageNum"
+								placeholder="请输入员工姓名关键字" /> <input type="hidden" id="pageNum"
 								name="pageNum" value="${data.totalPage }"> <input
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
@@ -136,7 +136,7 @@
 			function edit(id){
 				layer.open({
 					type:2,
-					title:'修改新闻信息',
+					title:'修改员工信息',
 					area : [ '600px', '550px' ],
 					shadeClose : true, //点击遮罩关闭
 					content: 'userManage?method=user_sel_id&id='+id

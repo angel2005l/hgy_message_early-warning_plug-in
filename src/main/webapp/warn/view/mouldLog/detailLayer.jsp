@@ -32,7 +32,7 @@ html {
 					<form id="tableForm">
 						<input type="hidden" name="id" value="${data.id }" />
 						<div class="field-box">
-							<label>*保养设备编码:</label> <input class="span5 inline-input"
+							<label>*保养模具编码:</label> <input class="span5 inline-input"
 								type="text" name="mouldId" value="${data.mouldId }" readonly />
 						</div>
 						<div class="field-box">

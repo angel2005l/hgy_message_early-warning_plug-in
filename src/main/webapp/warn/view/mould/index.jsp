@@ -41,7 +41,7 @@
 								type="hidden" id="page" name="page"
 								value="${data.page==0 ? 1: data.page}" /> <a
 								class="btn-flat success new-product" onclick="searchBtn('q')">查询</a>
-							<a class="btn-flat success new-product" onclick="batchBoundRule()">批量绑定模具相关规则</a>
+							<a class="btn-flat success new-product" onclick="batchBoundRule()">快速绑定模具相关规则</a>
 							<a class="btn-flat success new-product" onclick="synchro()">同步模具信息</a>
 						</div>
 					</form>
@@ -133,7 +133,7 @@
 				var index = layer.open({
 					type:2,
 					title:'批量绑定相关规则',
-					area : [ '600px', '500px' ],
+					area : [ '600px', '422px' ],
 					shadeClose : false, //点击遮罩关闭
 					content: 'view/mould/batchBoundRuleLayer.jsp'
 				});	
