@@ -89,7 +89,6 @@ public class CoreServiceImpl implements ICoreService {
 		} catch (SQLException e) {
 			log.error("推送预警信息数据库交互异常,异常原因" + e.getMessage());
 		}
-
 	}
 
 	private boolean isPushWarn(long creatTime, int pushMinute) {
@@ -163,12 +162,15 @@ public class CoreServiceImpl implements ICoreService {
 				for (int index = 0; index < 4; index++) {
 					if (StrUtil.isBlank(pushTimes[index])) {
 						continue;
-					} else if (Integer.parseInt(pushTimes[index] ) >= 0 && StrUtil.notBlank(tokens[index])) {
+					} else if (Integer.parseInt(pushTimes[index]) >= 0 && StrUtil.notBlank(tokens[index])) {
 						userTokens.append(tokens[index]).append(",");
 					}
 				}
 				WeiXinUtil.sendMould(StrUtil.cutStringForLeft(userTokens.toString(), 1),
-						"alert".equals(pushMode) ? "记录编码:【"+mouldLog.getMouldLogCode()+"】,记录名称【"+mouldLog.getMouldLogName() + "】未完成计划保养" : data.getMouldLogName());
+						"alert".equals(pushMode)
+								? "记录编码:【" + mouldLog.getMouldLogCode() + "】,记录名称【" + mouldLog.getMouldLogName()
+										+ "】未完成计划保养"
+								: data.getMouldLogName());
 			}
 			// 创建文件
 			if (null != data) {
