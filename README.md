@@ -1,1 +1,2 @@
-七分厂预警插件 
+#hgy_message_early-warning_plug-in
+基于JavaWeb+Druid和爬取系统API报文解析实现的简单预警推送
